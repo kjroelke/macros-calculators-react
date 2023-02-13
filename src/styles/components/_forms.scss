@@ -1,0 +1,62 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
+.form {
+	background-color: white;
+	@include mixins.displayFlex(column, flex-start, stretch);
+	& * {
+		flex: 1 1 auto;
+	}
+	&__header {
+		@include mixins.linearGradientDarken;
+		background-color: variables.$color-primary;
+		padding: 2rem;
+		align-self: stretch;
+		h2 {
+			color: white;
+			text-align: center;
+		}
+	}
+	&__content {
+		@include mixins.displayFlex(column, flex-start, stretch);
+		padding: 3rem;
+		&--fields {
+			@include mixins.displayFlex(row, space-around);
+		}
+	}
+	&__submission {
+		@include mixins.displayFlex(column);
+		padding: 2rem;
+		button {
+			margin-bottom: 1em;
+		}
+	}
+}
+
+#bmr-calculator {
+	@include mixins.displayFlex(column, flex-start, stretch);
+	.form__content {
+		@include mixins.displayFlex(row, space-between);
+		& *:first-child {
+			margin-right: 2rem;
+		}
+	}
+	#height {
+		margin-top: 2rem;
+	}
+}
+#modifiers {
+	.form__content {
+		& > * {
+			@include mixins.displayFlex(column);
+			&:not(:last-child) {
+				margin-bottom: 1em;
+			}
+		}
+	}
+}
+#protein-calculator {
+	label {
+		margin-bottom: 2rem;
+	}
+}

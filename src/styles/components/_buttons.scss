@@ -1,0 +1,24 @@
+@use '../abstracts/variables';
+@use '../abstracts/mixins';
+
+button {
+	@include mixins.transitionStandard;
+	@include mixins.mainBorder(variables.$color-brick);
+	font-size: 1.6rem;
+	padding: 1rem 2rem;
+	background-color: variables.$color-brick;
+	color: white;
+	margin-top: 3rem;
+	cursor: pointer;
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: transparent;
+		@include mixins.cssHover;
+		color: variables.$color-brick;
+	}
+}
+#reset {
+	margin: 0;
+	@extend button;
+}

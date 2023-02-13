@@ -1,0 +1,23 @@
+@use '../vendors/fonts';
+
+/* Primary Colors */
+$color-primary: #3c1c12; // chocolate brown
+$color-primary--light: lighten($color-primary, 20%);
+$color-secondary: #d1bcb5; // taupe
+$color-secondary--light: rgb(210, 189, 182);
+$color-grey--dark: #545454;
+$color-grey--light: #cecece;
+
+/* Secondary Colors */
+$color-orange: #c18062; // Muted Orange
+$color-brick: #875242; // Brick
+$color-sage: #214f4c; // sage
+
+/* Fonts */
+$font-primary: 'Montserrat', Helvetica, sans-serif;
+
+// Breakpoints
+
+$bp-laptop: 75em; // 1200px
+$bp-tablet: 53.75em; // 860px
+$bp-mobile: 25.875em; // 414px
