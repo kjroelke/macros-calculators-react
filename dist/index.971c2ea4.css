@@ -160,7 +160,7 @@ input[type="submit"], button[type="submit"], input[type="reset"] {
   flex-flow: wrap;
   justify-content: center;
   align-items: center;
-  padding: 6.5rem 2rem;
+  padding: 3rem 0;
   display: flex;
 }
 
@@ -176,7 +176,6 @@ input[type="submit"], button[type="submit"], input[type="reset"] {
 
 .header__title {
   color: #3c1c12;
-  margin-left: 5rem;
 }
 
 @media screen and (max-width: 48rem) {

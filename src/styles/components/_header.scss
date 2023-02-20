@@ -3,7 +3,7 @@
 
 .header {
 	@include mixins.displayFlex(row, center, center);
-	padding: 6.5rem 2rem;
+	padding: 3rem 0;
 	background-color: white;
 	border-bottom: 2rem solid variables.$color-primary;
 	& > * {
@@ -14,7 +14,6 @@
 	}
 	&__title {
 		color: variables.$color-primary;
-		margin-left: 5rem;
 		@include mixins.responsive(48rem) {
 			h1 {
 				font-size: 3.2rem;
