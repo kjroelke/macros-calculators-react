@@ -27,17 +27,7 @@ export function Output({ gender, personInfo, bmr }) {
 						Current Age: <strong>{personInfo.age}</strong>
 					</p>
 				</div>
-				<div className="totals">
-					<p>
-						BMR: <strong>{bmr} calories</strong>
-					</p>
-					<p>
-						TDEE: <strong></strong>
-					</p>
-					<p>
-						Calorie Goal: <strong></strong>
-					</p>
-				</div>
+
 				<div className="percents">
 					<div className="percent__proteins">
 						<h2>Protein:</h2>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BMRCalc } from './Presentational/bmrCalculator';
 import { MyHeader } from './Presentational/Header';
-// import { Modifiers } from './Presentational/modifierCalculator';
+import { Modifiers, tdee, deficit } from './Presentational/modifierCalculator';
+import { FormSelect } from './Presentational/formOptions';
 // import { Proteins } from './Presentational/proteinCalculator';
 import { Output } from './Presentational/output';
 import MacroMath from './Math/bmr';
@@ -59,19 +60,19 @@ function App() {
 			calories: 0,
 		},
 	});
+
 	return (
 		<div>
 			<MyHeader title="A REACTive Macro Calculator" subtitle="Eventually!" />
 			<main>
 				<Output gender={bio.gender} personInfo={bio} bmr={bmr} />
-				<div className="step-1">
-					<BMRCalc
-						title="Step 1: Person Info!"
-						personInfo={bio}
-						toggleGender={toggleGender}
-						setPersonInfo={setPersonInfo}
-					/>
-				</div>
+				<BMRCalc
+					title="Hello, there."
+					personInfo={bio}
+					setPersonInfo={setPersonInfo}
+					toggleGender={toggleGender}
+				/>
+				<Modifiers />
 			</main>
 			<footer id="copyright"></footer>
 		</div>
