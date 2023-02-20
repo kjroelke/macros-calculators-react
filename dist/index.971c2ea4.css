@@ -372,30 +372,30 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
   margin: 1em;
 }
 
-.answer__container .percents, .answer__container .totals {
+.answer__container .percents {
   flex-flow: wrap;
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
 }
 
-.answer__container .percents > *, .answer__container .totals > * {
+.answer__container .percents > * {
   margin: 0 .5em;
 }
 
-.answer__container .percents h2, .answer__container .totals h2 {
+.answer__container .percents h2 {
   font-size: 2.4rem;
 }
 
 @media screen and (max-width: 25.875em) {
-  .answer__container .percents, .answer__container .totals {
+  .answer__container .percents {
     flex-flow: column wrap;
     justify-content: flex-start;
     align-items: flex-start;
     display: flex;
   }
 
-  .answer__container .percents > *, .answer__container .totals > * {
+  .answer__container .percents > * {
     flex-flow: column wrap;
     justify-content: flex-start;
     align-items: flex-start;

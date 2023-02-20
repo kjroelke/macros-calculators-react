@@ -2932,8 +2932,10 @@ var _client = require("react-dom/client");
 var _bmrCalculator = require("./Presentational/bmrCalculator");
 var _header = require("./Presentational/Header");
 // import { Modifiers } from './Presentational/modifierCalculator';
-var _proteinCalculator = require("./Presentational/proteinCalculator");
+// import { Proteins } from './Presentational/proteinCalculator';
 var _output = require("./Presentational/output");
+var _bmr = require("./Math/bmr");
+var _bmrDefault = parcelHelpers.interopDefault(_bmr);
 var _s = $RefreshSig$();
 const root = (0, _client.createRoot)(document.getElementById("app"));
 function App() {
@@ -2963,6 +2965,26 @@ function App() {
             };
         });
     };
+    (0, _react.useEffect)(()=>{
+        setBio((prev)=>{
+            const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
+            return {
+                ...prev,
+                totalInches: newTotal
+            };
+        });
+    }, [
+        bio.heightFt,
+        bio.heightIn
+    ]);
+    const [bmr, setBMR] = (0, _react.useState)({});
+    (0, _react.useEffect)(()=>{
+        const calculator = new (0, _bmrDefault.default)(bio);
+        const bmr = calculator.calcBMR();
+        setBMR(bmr);
+    }, [
+        bio
+    ]);
     const [macros, setMacros] = (0, _react.useState)({
         fats: {
             percentage: 30,
@@ -2983,24 +3005,25 @@ function App() {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _header.MyHeader), {
-                title: "A Fool-Proof Macro Calculator",
+                title: "A REACTive Macro Calculator",
                 subtitle: "Eventually!"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 50,
+                lineNumber: 64,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _output.Output), {
                         gender: bio.gender,
-                        personInfo: bio
+                        personInfo: bio,
+                        bmr: bmr
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 52,
+                        lineNumber: 66,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "step-1",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
                             title: "Step 1: Person Info!",
@@ -3009,41 +3032,41 @@ function App() {
                             setPersonInfo: setPersonInfo
                         }, void 0, false, {
                             fileName: "src/app.js",
-                            lineNumber: 54,
+                            lineNumber: 68,
                             columnNumber: 6
                         }, this)
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 53,
+                        lineNumber: 67,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 51,
+                lineNumber: 65,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 62,
+                lineNumber: 76,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.js",
-        lineNumber: 49,
+        lineNumber: 63,
         columnNumber: 3
     }, this);
 }
-_s(App, "JbpG+NZ7GdGWAVwinUebateF/aw=");
+_s(App, "7Q9jGXQKO3ao+erwbYzEzW/2AzU=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 67,
+    lineNumber: 81,
     columnNumber: 13
-}, undefined)); // <Modifiers />;
+}, undefined));
 var _c;
 $RefreshReg$(_c, "App");
 
@@ -3052,7 +3075,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/proteinCalculator":"aDMl9","./Presentational/output":"6bjXZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("5e854a9e9ebec4e2");
 
@@ -27249,53 +27272,37 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "BMRCalc", ()=>BMRCalc);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 function BMRCalc({ title , personInfo , toggleGender , setPersonInfo  }) {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
         id: "bmr-calculator",
         "data-step": "0",
         className: "form",
         onSubmit: (ev)=>ev.preventDefault(),
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "form__header",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                    children: title
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "form__content",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Gender, {
+                    initalGender: personInfo.gender,
+                    toggleGender: toggleGender
                 }, void 0, false, {
                     fileName: "src/Presentational/bmrCalculator.js",
                     lineNumber: 9,
                     columnNumber: 5
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(ClientInfo, {
+                    personInfo: personInfo,
+                    setPersonInfo: setPersonInfo
+                }, void 0, false, {
+                    fileName: "src/Presentational/bmrCalculator.js",
+                    lineNumber: 10,
+                    columnNumber: 5
                 }, this)
-            }, void 0, false, {
-                fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 8,
-                columnNumber: 4
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "form__content",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Gender, {
-                        initalGender: personInfo.gender,
-                        toggleGender: toggleGender
-                    }, void 0, false, {
-                        fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 12,
-                        columnNumber: 5
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(ClientInfo, {
-                        personInfo: personInfo,
-                        setPersonInfo: setPersonInfo
-                    }, void 0, false, {
-                        fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 13,
-                        columnNumber: 5
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 11,
-                columnNumber: 4
-            }, this)
-        ]
-    }, void 0, true, {
+            ]
+        }, void 0, true, {
+            fileName: "src/Presentational/bmrCalculator.js",
+            lineNumber: 8,
+            columnNumber: 4
+        }, this)
+    }, void 0, false, {
         fileName: "src/Presentational/bmrCalculator.js",
         lineNumber: 3,
         columnNumber: 3
@@ -27314,13 +27321,13 @@ function Gender({ initalGender , toggleGender  }) {
                         children: initalGender
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 22,
+                        lineNumber: 19,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 21,
+                lineNumber: 18,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27328,13 +27335,13 @@ function Gender({ initalGender , toggleGender  }) {
                 children: "Toggle Gender "
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 24,
+                lineNumber: 21,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/bmrCalculator.js",
-        lineNumber: 20,
+        lineNumber: 17,
         columnNumber: 3
     }, this);
 }
@@ -27347,7 +27354,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 children: "Client Info"
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 32,
+                lineNumber: 29,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27355,7 +27362,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 children: "Weight (in pounds)"
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 33,
+                lineNumber: 30,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27368,7 +27375,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 value: personInfo.weight
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 34,
+                lineNumber: 31,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27378,7 +27385,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         children: "Height"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 44,
+                        lineNumber: 41,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27386,7 +27393,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         children: "Ft"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 45,
+                        lineNumber: 42,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27398,7 +27405,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         value: personInfo.heightFt
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 46,
+                        lineNumber: 43,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27406,7 +27413,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         children: "In"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 54,
+                        lineNumber: 51,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27415,16 +27422,18 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         type: "number",
                         inputMode: "decimal",
                         name: "heightIn",
-                        value: personInfo.heightIn
+                        value: personInfo.heightIn,
+                        max: "11",
+                        min: "0"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 55,
+                        lineNumber: 52,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 43,
+                lineNumber: 40,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27432,7 +27441,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 children: "Age"
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 64,
+                lineNumber: 63,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27444,13 +27453,13 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 value: personInfo.age
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 65,
+                lineNumber: 64,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/bmrCalculator.js",
-        lineNumber: 31,
+        lineNumber: 28,
         columnNumber: 3
     }, this);
 }
@@ -27690,75 +27699,6 @@ $RefreshReg$(_c, "MyHeader");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aDMl9":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$59ff = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$59ff.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Proteins", ()=>Proteins);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-function Proteins() {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-        id: "protein-calculator",
-        "data-step": "2",
-        className: "form inactive",
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "form__header",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                    children: "Step 3: Macro Calculator!"
-                }, void 0, false, {
-                    fileName: "src/Presentational/proteinCalculator.js",
-                    lineNumber: 5,
-                    columnNumber: 5
-                }, this)
-            }, void 0, false, {
-                fileName: "src/Presentational/proteinCalculator.js",
-                lineNumber: 4,
-                columnNumber: 4
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "form__content"
-            }, void 0, false, {
-                fileName: "src/Presentational/proteinCalculator.js",
-                lineNumber: 7,
-                columnNumber: 4
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "form__submission",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                    type: "submit",
-                    children: "Calculate those macros!"
-                }, void 0, false, {
-                    fileName: "src/Presentational/proteinCalculator.js",
-                    lineNumber: 9,
-                    columnNumber: 5
-                }, this)
-            }, void 0, false, {
-                fileName: "src/Presentational/proteinCalculator.js",
-                lineNumber: 8,
-                columnNumber: 4
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "src/Presentational/proteinCalculator.js",
-        lineNumber: 3,
-        columnNumber: 3
-    }, this);
-}
-_c = Proteins;
-var _c;
-$RefreshReg$(_c, "Proteins");
-
-  $parcel$ReactRefreshHelpers$59ff.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
 },{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6bjXZ":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2078 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
@@ -27772,10 +27712,10 @@ parcelHelpers.export(exports, "Output", ()=>Output);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function Output({ gender , personInfo  }) {
-    const returnPrettyHeight = ()=>{
-        if (personInfo.heightFt % 12 === 0) return `${personInfo.heightFt} ft`;
-        else return `${personInfo.heightFt} ft, ${personInfo.heightIn} in`;
+function Output({ gender , personInfo , bmr  }) {
+    const returnHeightDetails = ()=>{
+        if (personInfo.heightFt % 12 === 0) return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
+        else return `${personInfo.heightFt} ft, ${personInfo.heightIn} in (${personInfo.totalInches} inches)`;
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
         className: "answer",
@@ -27820,7 +27760,7 @@ function Output({ gender , personInfo  }) {
                                 children: [
                                     "Current Height: ",
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: returnPrettyHeight()
+                                        children: returnHeightDetails()
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
                                         lineNumber: 21,
@@ -27873,44 +27813,49 @@ function Output({ gender , personInfo  }) {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "totals",
                         children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "totals__bmr-calculator",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                    children: "BMR:"
-                                }, void 0, false, {
-                                    fileName: "src/Presentational/output.js",
-                                    lineNumber: 32,
-                                    columnNumber: 7
-                                }, this)
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "BMR: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: [
+                                            bmr,
+                                            " calories"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 32,
+                                        columnNumber: 12
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
                                 lineNumber: 31,
                                 columnNumber: 6
                             }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "totals__modifiers",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                    children: "TDEE:"
-                                }, void 0, false, {
-                                    fileName: "src/Presentational/output.js",
-                                    lineNumber: 35,
-                                    columnNumber: 7
-                                }, this)
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "TDEE: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {}, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 35,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
                                 lineNumber: 34,
                                 columnNumber: 6
                             }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "totals__calorie-goal",
-                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                    children: "Calorie Goal:"
-                                }, void 0, false, {
-                                    fileName: "src/Presentational/output.js",
-                                    lineNumber: 38,
-                                    columnNumber: 7
-                                }, this)
-                            }, void 0, false, {
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "Calorie Goal: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {}, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 38,
+                                        columnNumber: 21
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
                                 lineNumber: 37,
                                 columnNumber: 6
@@ -28021,24 +27966,32 @@ function Output({ gender , personInfo  }) {
     }, this);
 }
 _c = Output;
+var _c;
+$RefreshReg$(_c, "Output");
+
+  $parcel$ReactRefreshHelpers$2078.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6kuAL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
 class MacroMath {
     constructor(state){
         this.state = state;
     }
     calcBMR() {
-        let bmr;
-        const height = this.#calcHeight();
+        const height = this.state.totalInches;
         // Calc BMR
-        this.state.bmr = this.state.person.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
-    }
-    #calcHeight() {
-        return parseInt(this.state.person.heightFt) * 12 + parseInt(this.state.person.heightIn);
+        const bmr = this.state.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
+        return bmr;
     }
     #calcFemaleBMR(height) {
-        return Math.round(655 + 4.35 * this.state.person.weight + 4.7 * height - 4.7 * this.state.person.age);
+        return Math.round(655 + 4.35 * this.state.weight + 4.7 * height - 4.7 * this.state.age);
     }
     #calcMaleBMR(height1) {
-        return Math.round(66 + 6.23 * this.state.person.weight + 12.7 * height1 - 6.8 * this.state.person.age);
+        return Math.round(66 + 6.23 * this.state.weight + 12.7 * height1 - 6.8 * this.state.age);
     }
     calcTDEE() {
         // calc TDEE
@@ -28058,14 +28011,8 @@ class MacroMath {
         return calories;
     }
 }
-var _c;
-$RefreshReg$(_c, "Output");
+exports.default = MacroMath;
 
-  $parcel$ReactRefreshHelpers$2078.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")
 
 //# sourceMappingURL=index.0641b553.js.map

@@ -1,18 +1,15 @@
 export function BMRCalc({ title, personInfo, toggleGender, setPersonInfo }) {
 	return (
-		<form
+		<section
 			id="bmr-calculator"
 			data-step="0"
 			className="form"
 			onSubmit={(ev) => ev.preventDefault()}>
-			<div className="form__header">
-				<h2>{title}</h2>
-			</div>
 			<div className="form__content">
 				<Gender initalGender={personInfo.gender} toggleGender={toggleGender} />
 				<ClientInfo personInfo={personInfo} setPersonInfo={setPersonInfo} />
 			</div>
-		</form>
+		</section>
 	);
 }
 function Gender({ initalGender, toggleGender }) {
@@ -59,6 +56,8 @@ function ClientInfo({ personInfo, setPersonInfo }) {
 					inputMode="decimal"
 					name="heightIn"
 					value={personInfo.heightIn}
+					max="11"
+					min="0"
 				/>
 			</div>
 			<label htmlFor="age">Age</label>

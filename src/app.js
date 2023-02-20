@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BMRCalc } from './Presentational/bmrCalculator';
 import { MyHeader } from './Presentational/Header';
 // import { Modifiers } from './Presentational/modifierCalculator';
-import { Proteins } from './Presentational/proteinCalculator';
+// import { Proteins } from './Presentational/proteinCalculator';
 import { Output } from './Presentational/output';
+import MacroMath from './Math/bmr';
 
 const root = createRoot(document.getElementById('app'));
 
@@ -28,6 +29,19 @@ function App() {
 			return { ...prev, [name]: value };
 		});
 	};
+	useEffect(() => {
+		setBio((prev) => {
+			const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
+			return { ...prev, totalInches: newTotal };
+		});
+	}, [bio.heightFt, bio.heightIn]);
+
+	const [bmr, setBMR] = useState({});
+	useEffect(() => {
+		const calculator = new MacroMath(bio);
+		const bmr = calculator.calcBMR();
+		setBMR(bmr);
+	}, [bio]);
 	const [macros, setMacros] = useState({
 		fats: {
 			percentage: 30,
@@ -47,17 +61,17 @@ function App() {
 	});
 	return (
 		<div>
-			<MyHeader title="A Fool-Proof Macro Calculator" subtitle="Eventually!" />
+			<MyHeader title="A REACTive Macro Calculator" subtitle="Eventually!" />
 			<main>
-				<Output gender={bio.gender} personInfo={bio} />
-				<section className="step-1">
+				<Output gender={bio.gender} personInfo={bio} bmr={bmr} />
+				<div className="step-1">
 					<BMRCalc
 						title="Step 1: Person Info!"
 						personInfo={bio}
 						toggleGender={toggleGender}
 						setPersonInfo={setPersonInfo}
 					/>
-				</section>
+				</div>
 			</main>
 			<footer id="copyright"></footer>
 		</div>
@@ -65,4 +79,3 @@ function App() {
 }
 
 root.render(<App />);
-// <Modifiers />;
