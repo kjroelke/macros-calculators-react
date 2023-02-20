@@ -1,69 +1,75 @@
-import React, { useState } from 'react';
-
-export class BMRCalc extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	handleSubmit(ev) {
-		ev.preventDefault();
-		console.log(this.props);
-	}
-	render() {
-		return (
-			<form
-				id="bmr-calculator"
-				data-step="0"
-				className="form"
-				onSubmit={(ev) => this.handleSubmit(ev)}>
-				<div className="form__header">
-					<h2>{this.props.title}</h2>
-				</div>
-				<div className="form__content">
-					<Gender initalGender={this.props.personInfo.gender} />
-				</div>
-				<div className="form__submission">
-					<button type="submit">Calculate that BMR!</button>
-				</div>
-			</form>
-		);
-	}
-}
-function Gender({ initalGender }) {
-	const [gender, setGender] = useState(initalGender);
-	const handleChange = ({ target }) => {
-		setGender(target.value);
-		console.log(initialGender);
-	};
+export function BMRCalc({ title, personInfo, toggleGender, setPersonInfo }) {
 	return (
-		<div className="radio__options" onChange={handleChange}>
-			<div>
-				<input type="radio" value="MALE" name="gender" />
-				<label htmlFor="gender">Male</label>
+		<form
+			id="bmr-calculator"
+			data-step="0"
+			className="form"
+			onSubmit={(ev) => ev.preventDefault()}>
+			<div className="form__header">
+				<h2>{title}</h2>
 			</div>
-			<div>
-				<input type="radio" defaultChecked value="FEMALE" name="gender" />
-				<label htmlFor="gender">Female</label>
+			<div className="form__content">
+				<Gender initalGender={personInfo.gender} toggleGender={toggleGender} />
+				<ClientInfo personInfo={personInfo} setPersonInfo={setPersonInfo} />
 			</div>
+		</form>
+	);
+}
+function Gender({ initalGender, toggleGender }) {
+	return (
+		<div className="form__content--gender">
+			<p>
+				Current Gender: <span className="current-gender">{initalGender}</span>
+			</p>
+			<button onClick={(ev) => toggleGender(ev)}>Toggle Gender </button>
 		</div>
 	);
 }
-// <fieldset id="body">
-// 	<legend>Client Info</legend>
-// 	<label htmlFor="weight">Weight (in pounds)</label>
-// 	<input
-// 		name="weight"
-// 		type="number"
-// 		inputmode="decimal"
-// 		step="0.1"
-// 		id="weight"
-// 	/>
-// 	<fieldset id="height">
-// 		<legend>Height</legend>
-// 		<label htmlFor="height">Ft</label>
-// 		<input id="height--ft" type="number" inputmode="decimal" name="height" />
-// 		<label htmlFor="height">In</label>
-// 		<input id="height--in" type="number" inputmode="decimal" name="height" />
-// 	</fieldset>
-// 	<label htmlFor="age">Age</label>
-// 	<input type="number" inputmode="decimal" id="age" name="age" />
-// </fieldset>;
+
+function ClientInfo({ personInfo, setPersonInfo }) {
+	return (
+		<div id="body">
+			<h3>Client Info</h3>
+			<label htmlFor="weight">Weight (in pounds)</label>
+			<input
+				onChange={(ev) => setPersonInfo(ev)}
+				name="weight"
+				type="number"
+				inputMode="decimal"
+				step="0.1"
+				id="weight"
+				value={personInfo.weight}
+			/>
+			<div id="height">
+				<h4>Height</h4>
+				<label htmlFor="height">Ft</label>
+				<input
+					onChange={(ev) => setPersonInfo(ev)}
+					id="height--ft"
+					type="number"
+					inputMode="decimal"
+					name="heightFt"
+					value={personInfo.heightFt}
+				/>
+				<label htmlFor="height">In</label>
+				<input
+					onChange={(ev) => setPersonInfo(ev)}
+					id="height--in"
+					type="number"
+					inputMode="decimal"
+					name="heightIn"
+					value={personInfo.heightIn}
+				/>
+			</div>
+			<label htmlFor="age">Age</label>
+			<input
+				onChange={(ev) => setPersonInfo(ev)}
+				type="number"
+				inputMode="decimal"
+				id="age"
+				name="age"
+				value={personInfo.age}
+			/>
+		</div>
+	);
+}

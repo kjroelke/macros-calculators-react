@@ -143,8 +143,8 @@
     }
   }
 })({"1xC6H":[function(require,module,exports) {
-var Refresh = require("6dc90c213402ca7b");
-var ErrorOverlay = require("e95afe87b0b09fd5");
+var Refresh = require("d6637247a12b06c1");
+var ErrorOverlay = require("bc9e22d05a14d698");
 Refresh.injectIntoGlobalHook(window);
 window.$RefreshReg$ = function() {};
 window.$RefreshSig$ = function() {
@@ -163,11 +163,11 @@ window.addEventListener("parcelhmraccept", ()=>{
     ErrorOverlay.dismissRuntimeErrors();
 });
 
-},{"6dc90c213402ca7b":"786KC","e95afe87b0b09fd5":"1dldy"}],"786KC":[function(require,module,exports) {
+},{"d6637247a12b06c1":"786KC","bc9e22d05a14d698":"1dldy"}],"786KC":[function(require,module,exports) {
 "use strict";
-module.exports = require("58fb81196fbc4860");
+module.exports = require("f1594abc7d68b03e");
 
-},{"58fb81196fbc4860":"hdge7"}],"hdge7":[function(require,module,exports) {
+},{"f1594abc7d68b03e":"hdge7"}],"hdge7":[function(require,module,exports) {
 /** @license React v0.9.0
  * react-refresh-runtime.development.js
  *
@@ -628,7 +628,7 @@ module.exports = require("58fb81196fbc4860");
 })();
 
 },{}],"1dldy":[function(require,module,exports) {
-var process = require("39f7bcce2e93321a");
+var process = require("bdde0279e0ac2ba");
 !function(e, t) {
     module.exports = t();
 }(window, function() {
@@ -2358,7 +2358,7 @@ var process = require("39f7bcce2e93321a");
     ]);
 });
 
-},{"39f7bcce2e93321a":"d5jf4"}],"d5jf4":[function(require,module,exports) {
+},{"bdde0279e0ac2ba":"d5jf4"}],"d5jf4":[function(require,module,exports) {
 // shim for using process in browser
 var process = module.exports = {};
 // cached from whatever global is present so that test runners that stub it
@@ -2934,78 +2934,118 @@ var _header = require("./Presentational/Header");
 // import { Modifiers } from './Presentational/modifierCalculator';
 var _proteinCalculator = require("./Presentational/proteinCalculator");
 var _output = require("./Presentational/output");
+var _s = $RefreshSig$();
 const root = (0, _client.createRoot)(document.getElementById("app"));
-class App extends (0, _reactDefault.default).Component {
-    state = {
-        bio: {
-            gender: "Female",
-            weight: 160,
-            height: 60,
-            age: 29
-        },
-        macros: {
-            fats: {
-                percentage: 30,
-                grams: 0,
-                calories: 0
-            },
-            proteins: {
-                percentage: 30,
-                grams: 0,
-                calories: 0
-            },
-            carbs: {
-                percentage: 0,
-                grams: 0,
-                calories: 0
-            }
-        }
+function App() {
+    _s();
+    const [bio, setBio] = (0, _react.useState)({
+        gender: "Female",
+        weight: 160,
+        heightFt: 5,
+        heightIn: 4,
+        totalInches: 64,
+        age: 29
+    });
+    const toggleGender = (ev)=>{
+        ev.preventDefault();
+        setBio((prev)=>{
+            return {
+                ...prev,
+                gender: prev.gender === "Female" ? "Male" : "Female"
+            };
+        });
     };
-    render() {
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _header.MyHeader), {
-                    title: "A Fool-Proof Macro Calculator",
-                    subtitle: "Eventually!"
-                }, void 0, false, {
-                    fileName: "src/app.js",
-                    lineNumber: 40,
-                    columnNumber: 5
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
-                        title: "Step 1: Person Info!",
-                        personInfo: this.state.bio
+    const setPersonInfo = ({ target: { name , value  }  })=>{
+        setBio((prev)=>{
+            return {
+                ...prev,
+                [name]: value
+            };
+        });
+    };
+    const [macros, setMacros] = (0, _react.useState)({
+        fats: {
+            percentage: 30,
+            grams: 0,
+            calories: 0
+        },
+        proteins: {
+            percentage: 30,
+            grams: 0,
+            calories: 0
+        },
+        carbs: {
+            percentage: 0,
+            grams: 0,
+            calories: 0
+        }
+    });
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _header.MyHeader), {
+                title: "A Fool-Proof Macro Calculator",
+                subtitle: "Eventually!"
+            }, void 0, false, {
+                fileName: "src/app.js",
+                lineNumber: 50,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _output.Output), {
+                        gender: bio.gender,
+                        personInfo: bio
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 45,
-                        columnNumber: 6
+                        lineNumber: 52,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+                        className: "step-1",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
+                            title: "Step 1: Person Info!",
+                            personInfo: bio,
+                            toggleGender: toggleGender,
+                            setPersonInfo: setPersonInfo
+                        }, void 0, false, {
+                            fileName: "src/app.js",
+                            lineNumber: 54,
+                            columnNumber: 6
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "src/app.js",
+                        lineNumber: 53,
+                        columnNumber: 5
                     }, this)
-                }, void 0, false, {
-                    fileName: "src/app.js",
-                    lineNumber: 44,
-                    columnNumber: 5
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
-                    id: "copyright"
-                }, void 0, false, {
-                    fileName: "src/app.js",
-                    lineNumber: 47,
-                    columnNumber: 5
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/app.js",
-            lineNumber: 39,
-            columnNumber: 4
-        }, this);
-    }
+                ]
+            }, void 0, true, {
+                fileName: "src/app.js",
+                lineNumber: 51,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
+                id: "copyright"
+            }, void 0, false, {
+                fileName: "src/app.js",
+                lineNumber: 62,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/app.js",
+        lineNumber: 49,
+        columnNumber: 3
+    }, this);
 }
+_s(App, "JbpG+NZ7GdGWAVwinUebateF/aw=");
+_c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 52,
+    lineNumber: 67,
     columnNumber: 13
 }, undefined)); // <Modifiers />;
+var _c;
+$RefreshReg$(_c, "App");
 
   $parcel$ReactRefreshHelpers$f79a.postlude(module);
 } finally {
@@ -3014,9 +3054,9 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
 }
 },{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/proteinCalculator":"aDMl9","./Presentational/output":"6bjXZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
-module.exports = require("bf989c6a83d8157d");
+module.exports = require("5e854a9e9ebec4e2");
 
-},{"bf989c6a83d8157d":"48uCM"}],"48uCM":[function(require,module,exports) {
+},{"5e854a9e9ebec4e2":"48uCM"}],"48uCM":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-dev-runtime.development.js
@@ -3028,7 +3068,7 @@ module.exports = require("bf989c6a83d8157d");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("2e32fee2028ce93d");
+    var React = require("6325018faad50ee6");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -3847,11 +3887,11 @@ module.exports = require("bf989c6a83d8157d");
     exports.jsxDEV = jsxDEV$1;
 })();
 
-},{"2e32fee2028ce93d":"21dqq"}],"21dqq":[function(require,module,exports) {
+},{"6325018faad50ee6":"21dqq"}],"21dqq":[function(require,module,exports) {
 "use strict";
-module.exports = require("2c4cae55a1897567");
+module.exports = require("26361c64474dc9bf");
 
-},{"2c4cae55a1897567":"6YvXz"}],"6YvXz":[function(require,module,exports) {
+},{"26361c64474dc9bf":"6YvXz"}],"6YvXz":[function(require,module,exports) {
 /**
  * @license React
  * react.development.js
@@ -5719,7 +5759,7 @@ module.exports = require("2c4cae55a1897567");
 
 },{}],"lOjBx":[function(require,module,exports) {
 "use strict";
-var m = require("aa93db3d2da4e8ee");
+var m = require("f1c59205d75d929a");
 var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -5738,7 +5778,7 @@ exports.hydrateRoot = function(c, h, o) {
     }
 };
 
-},{"aa93db3d2da4e8ee":"j6uA9"}],"j6uA9":[function(require,module,exports) {
+},{"f1c59205d75d929a":"j6uA9"}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -5752,9 +5792,9 @@ function checkDCE() {
     // a false positive.
     throw new Error("^_^");
 }
-module.exports = require("3c38c77c112e092");
+module.exports = require("bbeb64d52f2c7e6b");
 
-},{"3c38c77c112e092":"3iA9v"}],"3iA9v":[function(require,module,exports) {
+},{"bbeb64d52f2c7e6b":"3iA9v"}],"3iA9v":[function(require,module,exports) {
 /**
  * @license React
  * react-dom.development.js
@@ -5767,8 +5807,8 @@ module.exports = require("3c38c77c112e092");
 (function() {
     "use strict";
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-    var React = require("5e477db81c8efc8d");
-    var Scheduler = require("ca333b80e5d2d166");
+    var React = require("4a796e9efab6e55b");
+    var Scheduler = require("8e65e513082bfc60");
     var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     var suppressWarning = false;
     function setSuppressWarning(newSuppressWarning) {
@@ -26739,11 +26779,11 @@ module.exports = require("3c38c77c112e092");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{"5e477db81c8efc8d":"21dqq","ca333b80e5d2d166":"juvHo"}],"juvHo":[function(require,module,exports) {
+},{"4a796e9efab6e55b":"21dqq","8e65e513082bfc60":"juvHo"}],"juvHo":[function(require,module,exports) {
 "use strict";
-module.exports = require("ca030631c9bd171f");
+module.exports = require("a2f9ae6e3144d1ba");
 
-},{"ca030631c9bd171f":"RqdIf"}],"RqdIf":[function(require,module,exports) {
+},{"a2f9ae6e3144d1ba":"RqdIf"}],"RqdIf":[function(require,module,exports) {
 /**
  * @license React
  * scheduler.development.js
@@ -27208,129 +27248,177 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "BMRCalc", ()=>BMRCalc);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-var _s = $RefreshSig$();
-class BMRCalc extends (0, _reactDefault.default).Component {
-    constructor(props){
-        super(props);
-    }
-    handleSubmit(ev) {
-        ev.preventDefault();
-        console.log(this.props);
-    }
-    render() {
-        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
-            id: "bmr-calculator",
-            "data-step": "0",
-            className: "form",
-            onSubmit: (ev)=>this.handleSubmit(ev),
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "form__header",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                        children: this.props.title
-                    }, void 0, false, {
-                        fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 19,
-                        columnNumber: 6
-                    }, this)
-                }, void 0, false, {
-                    fileName: "src/Presentational/bmrCalculator.js",
-                    lineNumber: 18,
-                    columnNumber: 5
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "form__content",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Gender, {
-                        initalGender: this.props.personInfo.gender
-                    }, void 0, false, {
-                        fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 22,
-                        columnNumber: 6
-                    }, this)
-                }, void 0, false, {
-                    fileName: "src/Presentational/bmrCalculator.js",
-                    lineNumber: 21,
-                    columnNumber: 5
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    className: "form__submission",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        type: "submit",
-                        children: "Calculate that BMR!"
-                    }, void 0, false, {
-                        fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 25,
-                        columnNumber: 6
-                    }, this)
-                }, void 0, false, {
-                    fileName: "src/Presentational/bmrCalculator.js",
-                    lineNumber: 24,
-                    columnNumber: 5
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/Presentational/bmrCalculator.js",
-            lineNumber: 13,
-            columnNumber: 4
-        }, this);
-    }
-}
-function Gender({ initalGender  }) {
-    _s();
-    const [gender, setGender] = (0, _react.useState)(initalGender);
-    const handleChange = ({ target  })=>{
-        setGender(target.value);
-        console.log(initialGender);
-    };
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "radio__options",
-        onChange: handleChange,
+function BMRCalc({ title , personInfo , toggleGender , setPersonInfo  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+        id: "bmr-calculator",
+        "data-step": "0",
+        className: "form",
+        onSubmit: (ev)=>ev.preventDefault(),
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "form__header",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                    children: title
+                }, void 0, false, {
+                    fileName: "src/Presentational/bmrCalculator.js",
+                    lineNumber: 9,
+                    columnNumber: 5
+                }, this)
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 8,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "form__content",
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                        type: "radio",
-                        value: "MALE",
-                        name: "gender"
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Gender, {
+                        initalGender: personInfo.gender,
+                        toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 40,
+                        lineNumber: 12,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        htmlFor: "gender",
-                        children: "Male"
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(ClientInfo, {
+                        personInfo: personInfo,
+                        setPersonInfo: setPersonInfo
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 41,
+                        lineNumber: 13,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 39,
+                lineNumber: 11,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/Presentational/bmrCalculator.js",
+        lineNumber: 3,
+        columnNumber: 3
+    }, this);
+}
+_c = BMRCalc;
+function Gender({ initalGender , toggleGender  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "form__content--gender",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Current Gender: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        className: "current-gender",
+                        children: initalGender
+                    }, void 0, false, {
+                        fileName: "src/Presentational/bmrCalculator.js",
+                        lineNumber: 22,
+                        columnNumber: 21
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 21,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: (ev)=>toggleGender(ev),
+                children: "Toggle Gender "
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 24,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/Presentational/bmrCalculator.js",
+        lineNumber: 20,
+        columnNumber: 3
+    }, this);
+}
+_c1 = Gender;
+function ClientInfo({ personInfo , setPersonInfo  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        id: "body",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                children: "Client Info"
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 32,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: "weight",
+                children: "Weight (in pounds)"
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 33,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                onChange: (ev)=>setPersonInfo(ev),
+                name: "weight",
+                type: "number",
+                inputMode: "decimal",
+                step: "0.1",
+                id: "weight",
+                value: personInfo.weight
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 34,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                id: "height",
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                        type: "radio",
-                        defaultChecked: true,
-                        value: "FEMALE",
-                        name: "gender"
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
+                        children: "Height"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
                         lineNumber: 44,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        htmlFor: "gender",
-                        children: "Female"
+                        htmlFor: "height",
+                        children: "Ft"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
                         lineNumber: 45,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        onChange: (ev)=>setPersonInfo(ev),
+                        id: "height--ft",
+                        type: "number",
+                        inputMode: "decimal",
+                        name: "heightFt",
+                        value: personInfo.heightFt
+                    }, void 0, false, {
+                        fileName: "src/Presentational/bmrCalculator.js",
+                        lineNumber: 46,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        htmlFor: "height",
+                        children: "In"
+                    }, void 0, false, {
+                        fileName: "src/Presentational/bmrCalculator.js",
+                        lineNumber: 54,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        onChange: (ev)=>setPersonInfo(ev),
+                        id: "height--in",
+                        type: "number",
+                        inputMode: "decimal",
+                        name: "heightIn",
+                        value: personInfo.heightIn
+                    }, void 0, false, {
+                        fileName: "src/Presentational/bmrCalculator.js",
+                        lineNumber: 55,
                         columnNumber: 5
                     }, this)
                 ]
@@ -27338,44 +27426,46 @@ function Gender({ initalGender  }) {
                 fileName: "src/Presentational/bmrCalculator.js",
                 lineNumber: 43,
                 columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: "age",
+                children: "Age"
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 64,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                onChange: (ev)=>setPersonInfo(ev),
+                type: "number",
+                inputMode: "decimal",
+                id: "age",
+                name: "age",
+                value: personInfo.age
+            }, void 0, false, {
+                fileName: "src/Presentational/bmrCalculator.js",
+                lineNumber: 65,
+                columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/bmrCalculator.js",
-        lineNumber: 38,
+        lineNumber: 31,
         columnNumber: 3
     }, this);
-} // <fieldset id="body">
- // 	<legend>Client Info</legend>
- // 	<label htmlFor="weight">Weight (in pounds)</label>
- // 	<input
- // 		name="weight"
- // 		type="number"
- // 		inputmode="decimal"
- // 		step="0.1"
- // 		id="weight"
- // 	/>
- // 	<fieldset id="height">
- // 		<legend>Height</legend>
- // 		<label htmlFor="height">Ft</label>
- // 		<input id="height--ft" type="number" inputmode="decimal" name="height" />
- // 		<label htmlFor="height">In</label>
- // 		<input id="height--in" type="number" inputmode="decimal" name="height" />
- // 	</fieldset>
- // 	<label htmlFor="age">Age</label>
- // 	<input type="number" inputmode="decimal" id="age" name="age" />
- // </fieldset>;
-_s(Gender, "Or47b55rI46gJkFvXTBE3+pyd7E=");
-_c = Gender;
-var _c;
-$RefreshReg$(_c, "Gender");
+}
+_c2 = ClientInfo;
+var _c, _c1, _c2;
+$RefreshReg$(_c, "BMRCalc");
+$RefreshReg$(_c1, "Gender");
+$RefreshReg$(_c2, "ClientInfo");
 
   $parcel$ReactRefreshHelpers$2249.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","react/jsx-dev-runtime":"iTorj"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27407,7 +27497,7 @@ exports.export = function(dest, destName, get) {
 
 },{}],"km3Ru":[function(require,module,exports) {
 "use strict";
-var Refresh = require("b6ee9e5b9d2d55a9");
+var Refresh = require("c8b08b3a4b6ef07d");
 function debounce(func, delay) {
     {
         let timeout = undefined;
@@ -27538,7 +27628,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"b6ee9e5b9d2d55a9":"786KC"}],"ihLBL":[function(require,module,exports) {
+},{"c8b08b3a4b6ef07d":"786KC"}],"ihLBL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$da4c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27680,7 +27770,13 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Output", ()=>Output);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-function Output() {
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+function Output({ gender , personInfo  }) {
+    const returnPrettyHeight = ()=>{
+        if (personInfo.heightFt % 12 === 0) return `${personInfo.heightFt} ft`;
+        else return `${personInfo.heightFt} ft, ${personInfo.heightIn} in`;
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
         className: "answer",
         children: [
@@ -27690,17 +27786,90 @@ function Output() {
                     children: "Macros Breakdown"
                 }, void 0, false, {
                     fileName: "src/Presentational/output.js",
-                    lineNumber: 5,
+                    lineNumber: 13,
                     columnNumber: 5
                 }, this)
             }, void 0, false, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 4,
+                lineNumber: 12,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "answer__container",
                 children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "personInfo",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "Gender: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: gender
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 18,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 17,
+                                columnNumber: 6
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "Current Height: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: returnPrettyHeight()
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 21,
+                                        columnNumber: 23
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 20,
+                                columnNumber: 6
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "Current Weight: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: personInfo.weight
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 24,
+                                        columnNumber: 23
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 23,
+                                columnNumber: 6
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                children: [
+                                    "Current Age: ",
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: personInfo.age
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 27,
+                                        columnNumber: 20
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 26,
+                                columnNumber: 6
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 16,
+                        columnNumber: 5
+                    }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "totals",
                         children: [
@@ -27710,12 +27879,12 @@ function Output() {
                                     children: "BMR:"
                                 }, void 0, false, {
                                     fileName: "src/Presentational/output.js",
-                                    lineNumber: 10,
+                                    lineNumber: 32,
                                     columnNumber: 7
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 9,
+                                lineNumber: 31,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27724,12 +27893,12 @@ function Output() {
                                     children: "TDEE:"
                                 }, void 0, false, {
                                     fileName: "src/Presentational/output.js",
-                                    lineNumber: 13,
+                                    lineNumber: 35,
                                     columnNumber: 7
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 12,
+                                lineNumber: 34,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27738,18 +27907,18 @@ function Output() {
                                     children: "Calorie Goal:"
                                 }, void 0, false, {
                                     fileName: "src/Presentational/output.js",
-                                    lineNumber: 16,
+                                    lineNumber: 38,
                                     columnNumber: 7
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 15,
+                                lineNumber: 37,
                                 columnNumber: 6
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 8,
+                        lineNumber: 30,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27762,20 +27931,20 @@ function Output() {
                                         children: "Protein:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 21,
+                                        lineNumber: 43,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                         children: "40%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 22,
+                                        lineNumber: 44,
                                         columnNumber: 7
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 20,
+                                lineNumber: 42,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27785,20 +27954,20 @@ function Output() {
                                         children: "Fats:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 25,
+                                        lineNumber: 47,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                         children: "30%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 26,
+                                        lineNumber: 48,
                                         columnNumber: 7
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 24,
+                                lineNumber: 46,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27808,26 +27977,26 @@ function Output() {
                                         children: "Carbs:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 29,
+                                        lineNumber: 51,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                         children: "30%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 30,
+                                        lineNumber: 52,
                                         columnNumber: 7
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 28,
+                                lineNumber: 50,
                                 columnNumber: 6
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 19,
+                        lineNumber: 41,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27835,23 +28004,60 @@ function Output() {
                         id: "reset"
                     }, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 33,
+                        lineNumber: 55,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 7,
+                lineNumber: 15,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/output.js",
-        lineNumber: 3,
+        lineNumber: 11,
         columnNumber: 3
     }, this);
 }
 _c = Output;
+class MacroMath {
+    constructor(state){
+        this.state = state;
+    }
+    calcBMR() {
+        let bmr;
+        const height = this.#calcHeight();
+        // Calc BMR
+        this.state.bmr = this.state.person.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
+    }
+    #calcHeight() {
+        return parseInt(this.state.person.heightFt) * 12 + parseInt(this.state.person.heightIn);
+    }
+    #calcFemaleBMR(height) {
+        return Math.round(655 + 4.35 * this.state.person.weight + 4.7 * height - 4.7 * this.state.person.age);
+    }
+    #calcMaleBMR(height1) {
+        return Math.round(66 + 6.23 * this.state.person.weight + 12.7 * height1 - 6.8 * this.state.person.age);
+    }
+    calcTDEE() {
+        // calc TDEE
+        this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
+        this.state.calorieGoal = this.#calcCalorieGoal(this.state.tdee, this.state.modifiers.deficit);
+    }
+    #calcCalorieGoal(tdee, deficit) {
+        let calories;
+        if (deficit < 1) {
+            if (Math.round(tdee - tdee * deficit) < this.state.bmr) {
+                calories = "Too low!";
+                return calories;
+            }
+            calories = Math.round(tdee - tdee * deficit);
+        } else if (deficit === 1) calories = tdee;
+        else if (deficit > 1) calories = Math.round(tdee * deficit);
+        return calories;
+    }
+}
 var _c;
 $RefreshReg$(_c, "Output");
 
@@ -27860,6 +28066,6 @@ $RefreshReg$(_c, "Output");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")
 
 //# sourceMappingURL=index.0641b553.js.map

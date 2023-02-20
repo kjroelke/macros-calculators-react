@@ -37,8 +37,8 @@
 	@include mixins.displayFlex(column, flex-start, stretch);
 	.form__content {
 		@include mixins.displayFlex(row, space-between);
-		& *:first-child {
-			margin-right: 2rem;
+		.current-gender {
+			font-weight: 700;
 		}
 	}
 	#height {
