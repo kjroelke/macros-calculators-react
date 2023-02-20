@@ -2931,7 +2931,8 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
 var _bmrCalculator = require("./Presentational/bmrCalculator");
 var _header = require("./Presentational/Header");
-// import { Modifiers } from './Presentational/modifierCalculator';
+var _modifierCalculator = require("./Presentational/modifierCalculator");
+var _formOptions = require("./Presentational/formOptions");
 // import { Proteins } from './Presentational/proteinCalculator';
 var _output = require("./Presentational/output");
 var _bmr = require("./Math/bmr");
@@ -3009,7 +3010,7 @@ function App() {
                 subtitle: "Eventually!"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 64,
+                lineNumber: 66,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
@@ -3020,43 +3021,41 @@ function App() {
                         bmr: bmr
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 66,
+                        lineNumber: 68,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "step-1",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
-                            title: "Step 1: Person Info!",
-                            personInfo: bio,
-                            toggleGender: toggleGender,
-                            setPersonInfo: setPersonInfo
-                        }, void 0, false, {
-                            fileName: "src/app.js",
-                            lineNumber: 68,
-                            columnNumber: 6
-                        }, this)
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
+                        title: "Hello, there.",
+                        personInfo: bio,
+                        setPersonInfo: setPersonInfo,
+                        toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 67,
+                        lineNumber: 69,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {}, void 0, false, {
+                        fileName: "src/app.js",
+                        lineNumber: 75,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 65,
+                lineNumber: 67,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 76,
+                lineNumber: 77,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.js",
-        lineNumber: 63,
+        lineNumber: 65,
         columnNumber: 3
     }, this);
 }
@@ -3064,7 +3063,7 @@ _s(App, "7Q9jGXQKO3ao+erwbYzEzW/2AzU=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 81,
+    lineNumber: 82,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -3075,7 +3074,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Presentational/modifierCalculator":"9GldO","./Presentational/formOptions":"3GHwi"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("5e854a9e9ebec4e2");
 
@@ -27811,62 +27810,6 @@ function Output({ gender , personInfo , bmr  }) {
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "totals",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "BMR: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: [
-                                            bmr,
-                                            " calories"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 32,
-                                        columnNumber: 12
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 31,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "TDEE: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {}, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 35,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 34,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "Calorie Goal: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {}, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 38,
-                                        columnNumber: 21
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 37,
-                                columnNumber: 6
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/Presentational/output.js",
-                        lineNumber: 30,
-                        columnNumber: 5
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "percents",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27876,20 +27819,20 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: "Protein:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 43,
+                                        lineNumber: 33,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                         children: "40%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 44,
+                                        lineNumber: 34,
                                         columnNumber: 7
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 42,
+                                lineNumber: 32,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27899,20 +27842,20 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: "Fats:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 47,
+                                        lineNumber: 37,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                         children: "30%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 48,
+                                        lineNumber: 38,
                                         columnNumber: 7
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 46,
+                                lineNumber: 36,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27922,26 +27865,26 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: "Carbs:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 51,
+                                        lineNumber: 41,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                         children: "30%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 52,
+                                        lineNumber: 42,
                                         columnNumber: 7
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 50,
+                                lineNumber: 40,
                                 columnNumber: 6
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 41,
+                        lineNumber: 31,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27949,7 +27892,7 @@ function Output({ gender , personInfo , bmr  }) {
                         id: "reset"
                     }, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 55,
+                        lineNumber: 45,
                         columnNumber: 5
                     }, this)
                 ]
@@ -27974,7 +27917,7 @@ $RefreshReg$(_c, "Output");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6kuAL":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}],"6kuAL":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class MacroMath {
@@ -28013,6 +27956,178 @@ class MacroMath {
 }
 exports.default = MacroMath;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9GldO":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$75b3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$75b3.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modifiers", ()=>Modifiers);
+parcelHelpers.export(exports, "tdee", ()=>tdee);
+parcelHelpers.export(exports, "deficit", ()=>deficit);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _formOptions = require("./formOptions");
+function Modifiers() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        id: "modifiers",
+        "data-step": "1",
+        className: "form",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "form__content",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
+                    label: "Total Daily Energy Expenditure",
+                    options: tdee,
+                    id: "tdee"
+                }, void 0, false, {
+                    fileName: "src/Presentational/modifierCalculator.js",
+                    lineNumber: 6,
+                    columnNumber: 5
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
+                    label: "Deficit Selector",
+                    options: deficit,
+                    id: "deficit"
+                }, void 0, false, {
+                    fileName: "src/Presentational/modifierCalculator.js",
+                    lineNumber: 11,
+                    columnNumber: 5
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/Presentational/modifierCalculator.js",
+            lineNumber: 5,
+            columnNumber: 4
+        }, this)
+    }, void 0, false, {
+        fileName: "src/Presentational/modifierCalculator.js",
+        lineNumber: 4,
+        columnNumber: 3
+    }, this);
+}
+_c = Modifiers;
+const tdee = [
+    {
+        mod: 1.2,
+        label: "Sedentary | < 5k Steps",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 1.375,
+        label: "Lightly Active",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 1.46,
+        label: "Light to Moderately Active",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 1.55,
+        label: "Moderately Active",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 1.725,
+        label: "Very Active",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 1.9,
+        label: "Extremely Active",
+        id: crypto.randomUUID()
+    }
+];
+const deficit = [
+    {
+        mod: 0.1,
+        label: "10%",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 0.15,
+        label: "15%",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 0.2,
+        label: "20%",
+        id: crypto.randomUUID()
+    },
+    {
+        mod: 1,
+        label: "Maintenance",
+        id: crypto.randomUUID()
+    }
+];
+var _c;
+$RefreshReg$(_c, "Modifiers");
+
+  $parcel$ReactRefreshHelpers$75b3.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","./formOptions":"3GHwi","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3GHwi":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$2145 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$2145.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "FormSelect", ()=>FormSelect);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+function FormSelect({ id , options , label  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: `form__content--${id}`,
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                htmlFor: id,
+                children: label
+            }, void 0, false, {
+                fileName: "src/Presentational/formOptions.js",
+                lineNumber: 4,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
+                name: id.toUpperCase(),
+                id: id,
+                children: options.map((pair)=>{
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                        value: pair.mod,
+                        children: pair.label
+                    }, pair.id, false, {
+                        fileName: "src/Presentational/formOptions.js",
+                        lineNumber: 8,
+                        columnNumber: 7
+                    }, this);
+                })
+            }, void 0, false, {
+                fileName: "src/Presentational/formOptions.js",
+                lineNumber: 5,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/Presentational/formOptions.js",
+        lineNumber: 3,
+        columnNumber: 3
+    }, this);
+}
+_c = FormSelect;
+var _c;
+$RefreshReg$(_c, "FormSelect");
+
+  $parcel$ReactRefreshHelpers$2145.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")
 
 //# sourceMappingURL=index.0641b553.js.map
