@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BMRCalc } from './Presentational/bmrCalculator';
 import { MyHeader } from './Presentational/Header';
-import { Modifiers, tdee, deficit } from './Presentational/modifierCalculator';
-import { FormSelect } from './Presentational/formOptions';
+import { Modifiers } from './Presentational/modifierCalculator';
 // import { Proteins } from './Presentational/proteinCalculator';
 import { Output } from './Presentational/output';
 import MacroMath from './Math/bmr';
@@ -43,6 +42,20 @@ function App() {
 		const bmr = calculator.calcBMR();
 		setBMR(bmr);
 	}, [bio]);
+	const [modifiers, setModifiers] = useState({ TDEE: 1.2, DEFICIT: 0.1 });
+	const updateModifiers = ({ target: { name, value } }) => {
+		console.log(name, value);
+		setModifiers((prev) => {
+			return { ...prev, [name]: value };
+		});
+	};
+	useEffect(() => {
+		// const energyExpenditure = calculator.calcTDEE(bmr, {
+		// 	activty: tdee,
+		// 	deficit: 1,
+		// });
+		console.log('updating modifiers');
+	}, [modifiers]);
 	const [macros, setMacros] = useState({
 		fats: {
 			percentage: 30,
@@ -65,14 +78,19 @@ function App() {
 		<div>
 			<MyHeader title="A REACTive Macro Calculator" subtitle="Eventually!" />
 			<main>
-				<Output gender={bio.gender} personInfo={bio} bmr={bmr} />
+				<Output
+					gender={bio.gender}
+					personInfo={bio}
+					bmr={bmr}
+					modifiers={modifiers}
+				/>
 				<BMRCalc
 					title="Hello, there."
 					personInfo={bio}
 					setPersonInfo={setPersonInfo}
 					toggleGender={toggleGender}
 				/>
-				<Modifiers />
+				<Modifiers updateModifiers={updateModifiers} />
 			</main>
 			<footer id="copyright"></footer>
 		</div>

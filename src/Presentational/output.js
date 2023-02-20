@@ -1,5 +1,10 @@
 import React from 'react';
-export function Output({ gender, personInfo, bmr }) {
+export function Output({
+	gender,
+	personInfo,
+	bmr,
+	modifiers: { TDEE, DEFICIT },
+}) {
 	const returnHeightDetails = () => {
 		if (personInfo.heightFt % 12 === 0) {
 			return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
@@ -27,7 +32,10 @@ export function Output({ gender, personInfo, bmr }) {
 						Current Age: <strong>{personInfo.age}</strong>
 					</p>
 				</div>
-
+				<div className="totals">
+					BMR <strong>{bmr} calories</strong>
+					TDEE <strong>{TDEE} modifier</strong>
+				</div>
 				<div className="percents">
 					<div className="percent__proteins">
 						<h2>Protein:</h2>
@@ -47,3 +55,11 @@ export function Output({ gender, personInfo, bmr }) {
 		</section>
 	);
 }
+// PROBLEM CODE
+
+// 	<p>
+// 		BMR: <strong>{bmr} calories</strong>
+// 	</p>
+// 	<p>
+//
+// 	</p>

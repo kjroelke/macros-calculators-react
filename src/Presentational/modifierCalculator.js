@@ -1,8 +1,8 @@
 import { FormSelect } from './formOptions';
-export function Modifiers() {
+export function Modifiers({ updateModifiers }) {
 	return (
 		<div id="modifiers" data-step="1" className="form">
-			<div className="form__content">
+			<div className="form__content" onChange={updateModifiers}>
 				<FormSelect
 					label="Total Daily Energy Expenditure"
 					options={tdee}

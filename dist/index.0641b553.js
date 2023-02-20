@@ -2932,7 +2932,6 @@ var _client = require("react-dom/client");
 var _bmrCalculator = require("./Presentational/bmrCalculator");
 var _header = require("./Presentational/Header");
 var _modifierCalculator = require("./Presentational/modifierCalculator");
-var _formOptions = require("./Presentational/formOptions");
 // import { Proteins } from './Presentational/proteinCalculator';
 var _output = require("./Presentational/output");
 var _bmr = require("./Math/bmr");
@@ -2986,6 +2985,28 @@ function App() {
     }, [
         bio
     ]);
+    const [modifiers, setModifiers] = (0, _react.useState)({
+        TDEE: 1.2,
+        DEFICIT: 0.1
+    });
+    const updateModifiers = ({ target: { name , value  }  })=>{
+        console.log(name, value);
+        setModifiers((prev)=>{
+            return {
+                ...prev,
+                [name]: value
+            };
+        });
+    };
+    (0, _react.useEffect)(()=>{
+        // const energyExpenditure = calculator.calcTDEE(bmr, {
+        // 	activty: tdee,
+        // 	deficit: 1,
+        // });
+        console.log("updating modifiers");
+    }, [
+        modifiers
+    ]);
     const [macros, setMacros] = (0, _react.useState)({
         fats: {
             percentage: 30,
@@ -3010,7 +3031,7 @@ function App() {
                 subtitle: "Eventually!"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 66,
+                lineNumber: 79,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
@@ -3018,10 +3039,11 @@ function App() {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _output.Output), {
                         gender: bio.gender,
                         personInfo: bio,
-                        bmr: bmr
+                        bmr: bmr,
+                        modifiers: modifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 68,
+                        lineNumber: 81,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
@@ -3031,39 +3053,41 @@ function App() {
                         toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 69,
+                        lineNumber: 87,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {}, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {
+                        updateModifiers: updateModifiers
+                    }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 75,
+                        lineNumber: 93,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 67,
+                lineNumber: 80,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 77,
+                lineNumber: 95,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.js",
-        lineNumber: 65,
+        lineNumber: 78,
         columnNumber: 3
     }, this);
 }
-_s(App, "7Q9jGXQKO3ao+erwbYzEzW/2AzU=");
+_s(App, "0w5mozLHpLfnOPuLFx8dYQJIdz4=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 82,
+    lineNumber: 100,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -3074,7 +3098,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Presentational/modifierCalculator":"9GldO","./Presentational/formOptions":"3GHwi"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Presentational/modifierCalculator":"9GldO"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("5e854a9e9ebec4e2");
 
@@ -27707,11 +27731,18 @@ $parcel$ReactRefreshHelpers$2078.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Output", ()=>Output);
+parcelHelpers.export(exports, "Output", ()=>Output) // PROBLEM CODE
+ // 	<p>
+ // 		BMR: <strong>{bmr} calories</strong>
+ // 	</p>
+ // 	<p>
+ //
+ // 	</p>
+;
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function Output({ gender , personInfo , bmr  }) {
+function Output({ gender , personInfo , bmr , modifiers: { TDEE , DEFICIT  }  }) {
     const returnHeightDetails = ()=>{
         if (personInfo.heightFt % 12 === 0) return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
         else return `${personInfo.heightFt} ft, ${personInfo.heightIn} in (${personInfo.totalInches} inches)`;
@@ -27725,12 +27756,12 @@ function Output({ gender , personInfo , bmr  }) {
                     children: "Macros Breakdown"
                 }, void 0, false, {
                     fileName: "src/Presentational/output.js",
-                    lineNumber: 13,
+                    lineNumber: 18,
                     columnNumber: 5
                 }, this)
             }, void 0, false, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 12,
+                lineNumber: 17,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27746,13 +27777,13 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: gender
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 18,
+                                        lineNumber: 23,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 17,
+                                lineNumber: 22,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -27762,13 +27793,13 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: returnHeightDetails()
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 21,
+                                        lineNumber: 26,
                                         columnNumber: 23
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 20,
+                                lineNumber: 25,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -27778,13 +27809,13 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: personInfo.weight
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 24,
+                                        lineNumber: 29,
                                         columnNumber: 23
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 23,
+                                lineNumber: 28,
                                 columnNumber: 6
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -27794,19 +27825,50 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: personInfo.age
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 27,
+                                        lineNumber: 32,
                                         columnNumber: 20
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/Presentational/output.js",
-                                lineNumber: 26,
+                                lineNumber: 31,
                                 columnNumber: 6
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 16,
+                        lineNumber: 21,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "totals",
+                        children: [
+                            "BMR ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: [
+                                    bmr,
+                                    " calories"
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 36,
+                                columnNumber: 10
+                            }, this),
+                            "TDEE ",
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                children: [
+                                    TDEE,
+                                    " modifier"
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 37,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 35,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27819,57 +27881,11 @@ function Output({ gender , personInfo , bmr  }) {
                                         children: "Protein:"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
-                                        lineNumber: 33,
-                                        columnNumber: 7
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        children: "40%"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 34,
-                                        columnNumber: 7
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 32,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "percent__fats",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                        children: "Fats:"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 37,
-                                        columnNumber: 7
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        children: "30%"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 38,
-                                        columnNumber: 7
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 36,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "percent__carbs",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                        children: "Carbs:"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
                                         lineNumber: 41,
                                         columnNumber: 7
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        children: "30%"
+                                        children: "40%"
                                     }, void 0, false, {
                                         fileName: "src/Presentational/output.js",
                                         lineNumber: 42,
@@ -27880,11 +27896,57 @@ function Output({ gender , personInfo , bmr  }) {
                                 fileName: "src/Presentational/output.js",
                                 lineNumber: 40,
                                 columnNumber: 6
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "percent__fats",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                        children: "Fats:"
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 45,
+                                        columnNumber: 7
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        children: "30%"
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 46,
+                                        columnNumber: 7
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 44,
+                                columnNumber: 6
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                className: "percent__carbs",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                                        children: "Carbs:"
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 49,
+                                        columnNumber: 7
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                        children: "30%"
+                                    }, void 0, false, {
+                                        fileName: "src/Presentational/output.js",
+                                        lineNumber: 50,
+                                        columnNumber: 7
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/Presentational/output.js",
+                                lineNumber: 48,
+                                columnNumber: 6
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 31,
+                        lineNumber: 39,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27892,19 +27954,19 @@ function Output({ gender , personInfo , bmr  }) {
                         id: "reset"
                     }, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 45,
+                        lineNumber: 53,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 15,
+                lineNumber: 20,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/output.js",
-        lineNumber: 11,
+        lineNumber: 16,
         columnNumber: 3
     }, this);
 }
@@ -27927,8 +27989,8 @@ class MacroMath {
     calcBMR() {
         const height = this.state.totalInches;
         // Calc BMR
-        const bmr = this.state.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
-        return bmr;
+        const bmr1 = this.state.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
+        return bmr1;
     }
     #calcFemaleBMR(height) {
         return Math.round(655 + 4.35 * this.state.weight + 4.7 * height - 4.7 * this.state.age);
@@ -27936,15 +27998,15 @@ class MacroMath {
     #calcMaleBMR(height1) {
         return Math.round(66 + 6.23 * this.state.weight + 12.7 * height1 - 6.8 * this.state.age);
     }
-    calcTDEE() {
+    calcTDEE(bmr1, modifiers) {
         // calc TDEE
-        this.state.tdee = Math.round(this.state.bmr * this.state.modifiers.activity);
-        this.state.calorieGoal = this.#calcCalorieGoal(this.state.tdee, this.state.modifiers.deficit);
+        const tdee = Math.round(bmr1 * modifiers.activity);
+        this.state.calorieGoal = this.#calcCalorieGoal(tdee, modifiers.deficit, bmr1);
     }
     #calcCalorieGoal(tdee, deficit) {
         let calories;
         if (deficit < 1) {
-            if (Math.round(tdee - tdee * deficit) < this.state.bmr) {
+            if (Math.round(tdee - tdee * deficit) < bmr) {
                 calories = "Too low!";
                 return calories;
             }
@@ -27970,13 +28032,14 @@ parcelHelpers.export(exports, "tdee", ()=>tdee);
 parcelHelpers.export(exports, "deficit", ()=>deficit);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _formOptions = require("./formOptions");
-function Modifiers() {
+function Modifiers({ updateModifiers  }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         id: "modifiers",
         "data-step": "1",
         className: "form",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "form__content",
+            onChange: updateModifiers,
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
                     label: "Total Daily Energy Expenditure",

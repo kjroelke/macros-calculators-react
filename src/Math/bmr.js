@@ -21,21 +21,20 @@ export default class MacroMath {
 			66 + 6.23 * this.state.weight + 12.7 * height - 6.8 * this.state.age,
 		);
 	}
-	calcTDEE() {
+	calcTDEE(bmr, modifiers) {
 		// calc TDEE
-		this.state.tdee = Math.round(
-			this.state.bmr * this.state.modifiers.activity,
-		);
+		const tdee = Math.round(bmr * modifiers.activity);
 		this.state.calorieGoal = this.#calcCalorieGoal(
-			this.state.tdee,
-			this.state.modifiers.deficit,
+			tdee,
+			modifiers.deficit,
+			bmr,
 		);
 	}
 
 	#calcCalorieGoal(tdee, deficit) {
 		let calories;
 		if (deficit < 1) {
-			if (Math.round(tdee - tdee * deficit) < this.state.bmr) {
+			if (Math.round(tdee - tdee * deficit) < bmr) {
 				calories = 'Too low!';
 				return calories;
 			}
