@@ -104,7 +104,7 @@ function App() {
 					toggleGender={toggleGender}
 				/>
 				<Modifiers updateModifiers={updateModifiers} />
-				<MacroForm />
+				<MacroForm gender={bio.gender} />
 			</main>
 			<footer id="copyright"></footer>
 		</div>

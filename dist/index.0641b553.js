@@ -3071,7 +3071,9 @@ function App() {
                         lineNumber: 106,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macroForm.MacroForm), {}, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macroForm.MacroForm), {
+                        gender: bio.gender
+                    }, void 0, false, {
                         fileName: "src/app.js",
                         lineNumber: 107,
                         columnNumber: 5
@@ -28279,21 +28281,64 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MacroForm", ()=>MacroForm);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-function MacroForm() {
+function MacroForm({ gender  }) {
+    function setProteinRange() {
+        if (gender === "Female") recommendedRange = `0.6 – 1.0`;
+        else if (gender === "Male") recommendedRange = `0.8 – 1.2`;
+        return recommendedRange;
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
         id: "protein-calculator",
         "data-step": "2",
-        class: "form",
+        className: "form",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            class: "form__content"
-        }, void 0, false, {
+            className: "form__content",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                    htmlFor: "protein",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                            children: gender
+                        }, void 0, false, {
+                            fileName: "src/Presentational/MacroForm.js",
+                            lineNumber: 14,
+                            columnNumber: 6
+                        }, this),
+                        " Protein Modifier (grams per lb.)",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/Presentational/MacroForm.js",
+                            lineNumber: 15,
+                            columnNumber: 6
+                        }, this),
+                        "Recommended range is ",
+                        setProteinRange(),
+                        "."
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Presentational/MacroForm.js",
+                    lineNumber: 13,
+                    columnNumber: 5
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                    type: "number",
+                    inputMode: "decimal",
+                    step: "0.1",
+                    name: "protein",
+                    id: "protein-modifier"
+                }, void 0, false, {
+                    fileName: "src/Presentational/MacroForm.js",
+                    lineNumber: 18,
+                    columnNumber: 5
+                }, this)
+            ]
+        }, void 0, true, {
             fileName: "src/Presentational/MacroForm.js",
-            lineNumber: 4,
+            lineNumber: 12,
             columnNumber: 4
         }, this)
     }, void 0, false, {
         fileName: "src/Presentational/MacroForm.js",
-        lineNumber: 3,
+        lineNumber: 11,
         columnNumber: 3
     }, this);
 }
