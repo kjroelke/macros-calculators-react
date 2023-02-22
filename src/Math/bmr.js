@@ -4,7 +4,6 @@ export default class MacroMath {
 	}
 	calcBMR() {
 		const height = this.state.totalInches;
-		// Calc BMR
 		const bmr =
 			this.state.gender === 'Female'
 				? this.#calcFemaleBMR(height)
@@ -22,16 +21,12 @@ export default class MacroMath {
 		);
 	}
 	calcTDEE(bmr, modifiers) {
-		// calc TDEE
 		const tdee = Math.round(bmr * modifiers.activity);
-		this.state.calorieGoal = this.#calcCalorieGoal(
-			tdee,
-			modifiers.deficit,
-			bmr,
-		);
+		const calorieGoal = this.#calcCalorieGoal(tdee, modifiers.deficit, bmr);
+		return { tdee: tdee, calorieGoal: calorieGoal };
 	}
 
-	#calcCalorieGoal(tdee, deficit) {
+	#calcCalorieGoal(tdee, deficit, bmr) {
 		let calories;
 		if (deficit < 1) {
 			if (Math.round(tdee - tdee * deficit) < bmr) {
