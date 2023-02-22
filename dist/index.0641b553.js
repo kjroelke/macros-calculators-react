@@ -2936,11 +2936,14 @@ var _modifierCalculator = require("./Presentational/modifierCalculator");
 var _output = require("./Presentational/output");
 var _bmr = require("./Math/bmr");
 var _bmrDefault = parcelHelpers.interopDefault(_bmr);
+var _macroForm = require("./Presentational/MacroForm");
 var _s = $RefreshSig$();
 const root = (0, _client.createRoot)(document.getElementById("app"));
 function App() {
     _s();
-    const [bio, setBio] = (0, _react.useState)({
+    /** Step 1: Person Biology !DONE
+	 * BUG: Math doesn't calculate correctly.
+	 */ const [bio, setBio] = (0, _react.useState)({
         gender: "Female",
         weight: 160,
         heightFt: 5,
@@ -2948,7 +2951,8 @@ function App() {
         totalInches: 64,
         age: 29
     });
-    const toggleGender = (ev)=>{
+    const [bmr, setBMR] = (0, _react.useState)(1500);
+    function toggleGender(ev) {
         ev.preventDefault();
         setBio((prev)=>{
             return {
@@ -2956,15 +2960,15 @@ function App() {
                 gender: prev.gender === "Female" ? "Male" : "Female"
             };
         });
-    };
-    const setPersonInfo = ({ target: { name , value  }  })=>{
+    }
+    function setPersonInfo({ target: { name , value  }  }) {
         setBio((prev)=>{
             return {
                 ...prev,
                 [name]: value
             };
         });
-    };
+    }
     (0, _react.useEffect)(()=>{
         setBio((prev)=>{
             const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
@@ -2977,37 +2981,39 @@ function App() {
         bio.heightFt,
         bio.heightIn
     ]);
-    const [bmr, setBMR] = (0, _react.useState)({});
+    const calculator = new (0, _bmrDefault.default)(bio);
     (0, _react.useEffect)(()=>{
-        const calculator = new (0, _bmrDefault.default)(bio);
         const bmr = calculator.calcBMR();
         setBMR(bmr);
     }, [
         bio
     ]);
-    const [modifiers, setModifiers] = (0, _react.useState)({
-        TDEE: 1.2,
-        DEFICIT: 0.1
+    /** Step 2: Modifiers DOING: */ const [modifiers, setModifiers] = (0, _react.useState)({
+        tdee: 1.2,
+        deficit: 0.1
     });
+    const [calorieGoal, setCalorieGoal] = (0, _react.useState)(1800);
+    const [tdee, setTdee] = (0, _react.useState)(2000);
     const updateModifiers = ({ target: { name , value  }  })=>{
-        console.log(name, value);
         setModifiers((prev)=>{
             return {
                 ...prev,
-                [name]: value
+                [name]: Number(value)
             };
         });
     };
     (0, _react.useEffect)(()=>{
-        // const energyExpenditure = calculator.calcTDEE(bmr, {
-        // 	activty: tdee,
-        // 	deficit: 1,
-        // });
-        console.log("updating modifiers");
+        const calories = calculator.calcTDEE(bmr, {
+            activity: modifiers.tdee,
+            deficit: modifiers.deficit
+        });
+        setCalorieGoal(calories.calorieGoal);
+        setTdee(calories.tdee);
     }, [
-        modifiers
+        modifiers,
+        bio
     ]);
-    const [macros, setMacros] = (0, _react.useState)({
+    /** Step 3: Macros TODO: */ const [macros, setMacros] = (0, _react.useState)({
         fats: {
             percentage: 30,
             grams: 0,
@@ -3031,7 +3037,7 @@ function App() {
                 subtitle: "Eventually!"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 79,
+                lineNumber: 90,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
@@ -3040,10 +3046,12 @@ function App() {
                         gender: bio.gender,
                         personInfo: bio,
                         bmr: bmr,
-                        modifiers: modifiers
+                        modifiers: modifiers,
+                        calorieGoal: calorieGoal,
+                        tdee: tdee
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 81,
+                        lineNumber: 92,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
@@ -3053,41 +3061,46 @@ function App() {
                         toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 87,
+                        lineNumber: 100,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {
                         updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 93,
+                        lineNumber: 106,
+                        columnNumber: 5
+                    }, this),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macroForm.MacroForm), {}, void 0, false, {
+                        fileName: "src/app.js",
+                        lineNumber: 107,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 80,
+                lineNumber: 91,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 95,
+                lineNumber: 109,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.js",
-        lineNumber: 78,
+        lineNumber: 89,
         columnNumber: 3
     }, this);
 }
-_s(App, "0w5mozLHpLfnOPuLFx8dYQJIdz4=");
+_s(App, "thHUygzxpJd+IwFAgvVKAyu7Z0Y=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 100,
+    lineNumber: 114,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -3098,7 +3111,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Presentational/modifierCalculator":"9GldO"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Presentational/modifierCalculator":"9GldO","./Presentational/MacroForm":"a1kdQ"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("5e854a9e9ebec4e2");
 
@@ -27294,7 +27307,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "BMRCalc", ()=>BMRCalc);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-function BMRCalc({ title , personInfo , toggleGender , setPersonInfo  }) {
+function BMRCalc({ personInfo , toggleGender , setPersonInfo  }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
         id: "bmr-calculator",
         "data-step": "0",
@@ -27731,22 +27744,15 @@ $parcel$ReactRefreshHelpers$2078.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Output", ()=>Output) // PROBLEM CODE
- // 	<p>
- // 		BMR: <strong>{bmr} calories</strong>
- // 	</p>
- // 	<p>
- //
- // 	</p>
-;
+parcelHelpers.export(exports, "Output", ()=>Output);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function Output({ gender , personInfo , bmr , modifiers: { TDEE , DEFICIT  }  }) {
-    const returnHeightDetails = ()=>{
+function Output({ gender , personInfo , bmr , calorieGoal , tdee  }) {
+    function returnHeightDetails() {
         if (personInfo.heightFt % 12 === 0) return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
         else return `${personInfo.heightFt} ft, ${personInfo.heightIn} in (${personInfo.totalInches} inches)`;
-    };
+    }
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
         className: "answer",
         children: [
@@ -27756,197 +27762,39 @@ function Output({ gender , personInfo , bmr , modifiers: { TDEE , DEFICIT  }  })
                     children: "Macros Breakdown"
                 }, void 0, false, {
                     fileName: "src/Presentational/output.js",
-                    lineNumber: 18,
+                    lineNumber: 13,
                     columnNumber: 5
                 }, this)
             }, void 0, false, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 17,
+                lineNumber: 12,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "answer__container",
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "personInfo",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "Gender: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: gender
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 23,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 22,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "Current Height: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: returnHeightDetails()
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 26,
-                                        columnNumber: 23
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 25,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "Current Weight: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: personInfo.weight
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 29,
-                                        columnNumber: 23
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 28,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                children: [
-                                    "Current Age: ",
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                        children: personInfo.age
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 32,
-                                        columnNumber: 20
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 31,
-                                columnNumber: 6
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(PersonInfo, {
+                        gender: gender,
+                        weight: personInfo.weight,
+                        age: personInfo.age,
+                        height: returnHeightDetails()
+                    }, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 21,
+                        lineNumber: 16,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "totals",
-                        children: [
-                            "BMR ",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: [
-                                    bmr,
-                                    " calories"
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 36,
-                                columnNumber: 10
-                            }, this),
-                            "TDEE ",
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
-                                children: [
-                                    TDEE,
-                                    " modifier"
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 37,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Calories, {
+                        bmr: bmr,
+                        calorieGoal: calorieGoal,
+                        tdee: tdee
+                    }, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 35,
+                        lineNumber: 22,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "percents",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "percent__proteins",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                        children: "Protein:"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 41,
-                                        columnNumber: 7
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        children: "40%"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 42,
-                                        columnNumber: 7
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 40,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "percent__fats",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                        children: "Fats:"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 45,
-                                        columnNumber: 7
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        children: "30%"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 46,
-                                        columnNumber: 7
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 44,
-                                columnNumber: 6
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "percent__carbs",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                        children: "Carbs:"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 49,
-                                        columnNumber: 7
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                                        children: "30%"
-                                    }, void 0, false, {
-                                        fileName: "src/Presentational/output.js",
-                                        lineNumber: 50,
-                                        columnNumber: 7
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/Presentational/output.js",
-                                lineNumber: 48,
-                                columnNumber: 6
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Macros, {}, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 39,
+                        lineNumber: 23,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27954,25 +27802,254 @@ function Output({ gender , personInfo , bmr , modifiers: { TDEE , DEFICIT  }  })
                         id: "reset"
                     }, void 0, false, {
                         fileName: "src/Presentational/output.js",
-                        lineNumber: 53,
+                        lineNumber: 24,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 20,
+                lineNumber: 15,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/output.js",
-        lineNumber: 16,
+        lineNumber: 11,
         columnNumber: 3
     }, this);
 }
 _c = Output;
-var _c;
+function PersonInfo({ gender , weight , age , height  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "personInfo",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Gender: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: gender
+                    }, void 0, false, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 34,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 33,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Current Height: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: height
+                    }, void 0, false, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 37,
+                        columnNumber: 21
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 36,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Current Weight: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: weight
+                    }, void 0, false, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 40,
+                        columnNumber: 21
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 39,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Current Age: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: age
+                    }, void 0, false, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 43,
+                        columnNumber: 18
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 42,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/Presentational/output.js",
+        lineNumber: 32,
+        columnNumber: 3
+    }, this);
+}
+_c1 = PersonInfo;
+function Calories({ bmr , calorieGoal , tdee  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "totals",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "BMR: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            bmr,
+                            " calories"
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 52,
+                        columnNumber: 10
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 51,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "TDEE: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            tdee,
+                            " calories"
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 55,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 54,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                children: [
+                    "Calorie Goal: ",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                        children: [
+                            calorieGoal,
+                            " calories"
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/Presentational/output.js",
+                        lineNumber: 58,
+                        columnNumber: 19
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 57,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/Presentational/output.js",
+        lineNumber: 50,
+        columnNumber: 3
+    }, this);
+}
+_c2 = Calories;
+function Macros() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "percents",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "percent__proteins",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: [
+                        "Protein: ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            children: "40%"
+                        }, void 0, false, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 68,
+                            columnNumber: 15
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Presentational/output.js",
+                    lineNumber: 67,
+                    columnNumber: 5
+                }, this)
+            }, void 0, false, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 66,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "percent__fats",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: [
+                        "Fats: ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            children: "30%"
+                        }, void 0, false, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 73,
+                            columnNumber: 12
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Presentational/output.js",
+                    lineNumber: 72,
+                    columnNumber: 5
+                }, this)
+            }, void 0, false, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 71,
+                columnNumber: 4
+            }, this),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "percent__carbs",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                    children: [
+                        "Carbs: ",
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            children: "30%"
+                        }, void 0, false, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 78,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/Presentational/output.js",
+                    lineNumber: 77,
+                    columnNumber: 5
+                }, this)
+            }, void 0, false, {
+                fileName: "src/Presentational/output.js",
+                lineNumber: 76,
+                columnNumber: 4
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "src/Presentational/output.js",
+        lineNumber: 65,
+        columnNumber: 3
+    }, this);
+}
+_c3 = Macros;
+var _c, _c1, _c2, _c3;
 $RefreshReg$(_c, "Output");
+$RefreshReg$(_c1, "PersonInfo");
+$RefreshReg$(_c2, "Calories");
+$RefreshReg$(_c3, "Macros");
 
   $parcel$ReactRefreshHelpers$2078.postlude(module);
 } finally {
@@ -27988,9 +28065,8 @@ class MacroMath {
     }
     calcBMR() {
         const height = this.state.totalInches;
-        // Calc BMR
-        const bmr1 = this.state.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
-        return bmr1;
+        const bmr = this.state.gender === "Female" ? this.#calcFemaleBMR(height) : this.#calcMaleBMR(height);
+        return bmr;
     }
     #calcFemaleBMR(height) {
         return Math.round(655 + 4.35 * this.state.weight + 4.7 * height - 4.7 * this.state.age);
@@ -27998,12 +28074,15 @@ class MacroMath {
     #calcMaleBMR(height1) {
         return Math.round(66 + 6.23 * this.state.weight + 12.7 * height1 - 6.8 * this.state.age);
     }
-    calcTDEE(bmr1, modifiers) {
-        // calc TDEE
-        const tdee = Math.round(bmr1 * modifiers.activity);
-        this.state.calorieGoal = this.#calcCalorieGoal(tdee, modifiers.deficit, bmr1);
+    calcTDEE(bmr, modifiers) {
+        const tdee = Math.round(bmr * modifiers.activity);
+        const calorieGoal = this.#calcCalorieGoal(tdee, modifiers.deficit, bmr);
+        return {
+            tdee: tdee,
+            calorieGoal: calorieGoal
+        };
     }
-    #calcCalorieGoal(tdee, deficit) {
+    #calcCalorieGoal(tdee, deficit, bmr) {
         let calories;
         if (deficit < 1) {
             if (Math.round(tdee - tdee * deficit) < bmr) {
@@ -28028,50 +28107,8 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Modifiers", ()=>Modifiers);
-parcelHelpers.export(exports, "tdee", ()=>tdee);
-parcelHelpers.export(exports, "deficit", ()=>deficit);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _formOptions = require("./formOptions");
-function Modifiers({ updateModifiers  }) {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        id: "modifiers",
-        "data-step": "1",
-        className: "form",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "form__content",
-            onChange: updateModifiers,
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
-                    label: "Total Daily Energy Expenditure",
-                    options: tdee,
-                    id: "tdee"
-                }, void 0, false, {
-                    fileName: "src/Presentational/modifierCalculator.js",
-                    lineNumber: 6,
-                    columnNumber: 5
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
-                    label: "Deficit Selector",
-                    options: deficit,
-                    id: "deficit"
-                }, void 0, false, {
-                    fileName: "src/Presentational/modifierCalculator.js",
-                    lineNumber: 11,
-                    columnNumber: 5
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "src/Presentational/modifierCalculator.js",
-            lineNumber: 5,
-            columnNumber: 4
-        }, this)
-    }, void 0, false, {
-        fileName: "src/Presentational/modifierCalculator.js",
-        lineNumber: 4,
-        columnNumber: 3
-    }, this);
-}
-_c = Modifiers;
 const tdee = [
     {
         mod: 1.2,
@@ -28126,6 +28163,46 @@ const deficit = [
         id: crypto.randomUUID()
     }
 ];
+function Modifiers({ updateModifiers  }) {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+        id: "modifiers",
+        "data-step": "1",
+        className: "form",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "form__content",
+            onChange: updateModifiers,
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
+                    label: "Total Daily Energy Expenditure",
+                    options: tdee,
+                    id: "tdee"
+                }, void 0, false, {
+                    fileName: "src/Presentational/modifierCalculator.js",
+                    lineNumber: 26,
+                    columnNumber: 5
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formOptions.FormSelect), {
+                    label: "Deficit Selector",
+                    options: deficit,
+                    id: "deficit"
+                }, void 0, false, {
+                    fileName: "src/Presentational/modifierCalculator.js",
+                    lineNumber: 31,
+                    columnNumber: 5
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/Presentational/modifierCalculator.js",
+            lineNumber: 25,
+            columnNumber: 4
+        }, this)
+    }, void 0, false, {
+        fileName: "src/Presentational/modifierCalculator.js",
+        lineNumber: 24,
+        columnNumber: 3
+    }, this);
+}
+_c = Modifiers;
 var _c;
 $RefreshReg$(_c, "Modifiers");
 
@@ -28158,7 +28235,7 @@ function FormSelect({ id , options , label  }) {
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                name: id.toUpperCase(),
+                name: id,
                 id: id,
                 children: options.map((pair)=>{
                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
@@ -28187,6 +28264,44 @@ var _c;
 $RefreshReg$(_c, "FormSelect");
 
   $parcel$ReactRefreshHelpers$2145.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"a1kdQ":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$4c46 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$4c46.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "MacroForm", ()=>MacroForm);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+function MacroForm() {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+        id: "protein-calculator",
+        "data-step": "2",
+        class: "form",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            class: "form__content"
+        }, void 0, false, {
+            fileName: "src/Presentational/MacroForm.js",
+            lineNumber: 4,
+            columnNumber: 4
+        }, this)
+    }, void 0, false, {
+        fileName: "src/Presentational/MacroForm.js",
+        lineNumber: 3,
+        columnNumber: 3
+    }, this);
+}
+_c = MacroForm;
+var _c;
+$RefreshReg$(_c, "MacroForm");
+
+  $parcel$ReactRefreshHelpers$4c46.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
