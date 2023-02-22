@@ -6,10 +6,15 @@ import { Modifiers } from './Presentational/modifierCalculator';
 // import { Proteins } from './Presentational/proteinCalculator';
 import { Output } from './Presentational/output';
 import MacroMath from './Math/bmr';
+import { MacroForm } from './Presentational/MacroForm';
 
 const root = createRoot(document.getElementById('app'));
 
 function App() {
+	/** Step 1: Person Biology !DONE
+	 * BUG: Math doesn't calculate correctly.
+	 */
+
 	const [bio, setBio] = useState({
 		gender: 'Female',
 		weight: 160,
@@ -18,44 +23,50 @@ function App() {
 		totalInches: 64,
 		age: 29,
 	});
-	const toggleGender = (ev) => {
+	const [bmr, setBMR] = useState(1500);
+	function toggleGender(ev) {
 		ev.preventDefault();
 		setBio((prev) => {
 			return { ...prev, gender: prev.gender === 'Female' ? 'Male' : 'Female' };
 		});
-	};
-	const setPersonInfo = ({ target: { name, value } }) => {
+	}
+	function setPersonInfo({ target: { name, value } }) {
 		setBio((prev) => {
 			return { ...prev, [name]: value };
 		});
-	};
+	}
 	useEffect(() => {
 		setBio((prev) => {
 			const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
 			return { ...prev, totalInches: newTotal };
 		});
 	}, [bio.heightFt, bio.heightIn]);
-
-	const [bmr, setBMR] = useState({});
+	const calculator = new MacroMath(bio);
 	useEffect(() => {
-		const calculator = new MacroMath(bio);
 		const bmr = calculator.calcBMR();
 		setBMR(bmr);
 	}, [bio]);
-	const [modifiers, setModifiers] = useState({ TDEE: 1.2, DEFICIT: 0.1 });
+
+	/** Step 2: Modifiers DOING: */
+	const [modifiers, setModifiers] = useState({ tdee: 1.2, deficit: 0.1 });
+	const [calorieGoal, setCalorieGoal] = useState(1800);
+	const [tdee, setTdee] = useState(2000);
 	const updateModifiers = ({ target: { name, value } }) => {
-		console.log(name, value);
 		setModifiers((prev) => {
-			return { ...prev, [name]: value };
+			return { ...prev, [name]: Number(value) };
 		});
 	};
+
 	useEffect(() => {
-		// const energyExpenditure = calculator.calcTDEE(bmr, {
-		// 	activty: tdee,
-		// 	deficit: 1,
-		// });
-		console.log('updating modifiers');
-	}, [modifiers]);
+		const calories = calculator.calcTDEE(bmr, {
+			activity: modifiers.tdee,
+			deficit: modifiers.deficit,
+		});
+		setCalorieGoal(calories.calorieGoal);
+		setTdee(calories.tdee);
+	}, [modifiers, bio]);
+
+	/** Step 3: Macros TODO: */
 	const [macros, setMacros] = useState({
 		fats: {
 			percentage: 30,
@@ -83,6 +94,8 @@ function App() {
 					personInfo={bio}
 					bmr={bmr}
 					modifiers={modifiers}
+					calorieGoal={calorieGoal}
+					tdee={tdee}
 				/>
 				<BMRCalc
 					title="Hello, there."
@@ -91,6 +104,7 @@ function App() {
 					toggleGender={toggleGender}
 				/>
 				<Modifiers updateModifiers={updateModifiers} />
+				<MacroForm />
 			</main>
 			<footer id="copyright"></footer>
 		</div>
