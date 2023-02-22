@@ -1,4 +1,4 @@
-export function BMRCalc({ title, personInfo, toggleGender, setPersonInfo }) {
+export function BMRCalc({ personInfo, toggleGender, setPersonInfo }) {
 	return (
 		<section
 			id="bmr-calculator"
