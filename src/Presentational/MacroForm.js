@@ -1,4 +1,4 @@
-export function MacroForm({ gender }) {
+export function MacroForm({ gender, modifier, updateModifiers }) {
 	function setProteinRange() {
 		if (gender === 'Female') {
 			recommendedRange = `0.6 – 1.0`;
@@ -21,6 +21,8 @@ export function MacroForm({ gender }) {
 					step="0.1"
 					name="protein"
 					id="protein-modifier"
+					value={modifier}
+					onChange={(ev) => updateModifiers(ev)}
 				/>
 			</div>
 		</section>

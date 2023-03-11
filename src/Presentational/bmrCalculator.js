@@ -6,13 +6,16 @@ export function BMRCalc({ personInfo, toggleGender, setPersonInfo }) {
 			className="form"
 			onSubmit={(ev) => ev.preventDefault()}>
 			<div className="form__content">
-				<Gender initalGender={personInfo.gender} toggleGender={toggleGender} />
+				<GenderButton
+					initalGender={personInfo.gender}
+					toggleGender={toggleGender}
+				/>
 				<ClientInfo personInfo={personInfo} setPersonInfo={setPersonInfo} />
 			</div>
 		</section>
 	);
 }
-function Gender({ initalGender, toggleGender }) {
+function GenderButton({ initalGender, toggleGender }) {
 	return (
 		<div className="form__content--gender">
 			<p>

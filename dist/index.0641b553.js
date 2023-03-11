@@ -2932,7 +2932,6 @@ var _client = require("react-dom/client");
 var _bmrCalculator = require("./Presentational/bmrCalculator");
 var _header = require("./Presentational/Header");
 var _modifierCalculator = require("./Presentational/modifierCalculator");
-// import { Proteins } from './Presentational/proteinCalculator';
 var _output = require("./Presentational/output");
 var _bmr = require("./Math/bmr");
 var _bmrDefault = parcelHelpers.interopDefault(_bmr);
@@ -2945,7 +2944,7 @@ function App() {
 	 * BUG: Math doesn't calculate correctly.
 	 */ const [bio, setBio] = (0, _react.useState)({
         gender: "Female",
-        weight: 160,
+        weight: 140,
         heightFt: 5,
         heightIn: 4,
         totalInches: 64,
@@ -2988,9 +2987,10 @@ function App() {
     }, [
         bio
     ]);
-    /** Step 2: Modifiers DOING: */ const [modifiers, setModifiers] = (0, _react.useState)({
+    /** Step 2: Modifiers !DONE */ const [modifiers, setModifiers] = (0, _react.useState)({
         tdee: 1.2,
-        deficit: 0.1
+        deficit: 0.1,
+        protein: 0.8
     });
     const [calorieGoal, setCalorieGoal] = (0, _react.useState)(1800);
     const [tdee, setTdee] = (0, _react.useState)(2000);
@@ -3013,7 +3013,7 @@ function App() {
         modifiers,
         bio
     ]);
-    /** Step 3: Macros TODO: */ const [macros, setMacros] = (0, _react.useState)({
+    /** Step 3: Macros DOING: */ const [macros, setMacros] = (0, _react.useState)({
         fats: {
             percentage: 30,
             grams: 0,
@@ -3030,6 +3030,18 @@ function App() {
             calories: 0
         }
     });
+    (0, _react.useEffect)(()=>{
+        const props = {
+            macros: macros,
+            proteinMod: modifiers.protein,
+            calorieGoal: calorieGoal
+        };
+        calculator.calcMacros(props);
+    // setMacros(calculator.calcMacros(props));
+    }, [
+        calorieGoal,
+        modifiers
+    ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _header.MyHeader), {
@@ -3037,7 +3049,7 @@ function App() {
                 subtitle: "Eventually!"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 90,
+                lineNumber: 101,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
@@ -3048,10 +3060,11 @@ function App() {
                         bmr: bmr,
                         modifiers: modifiers,
                         calorieGoal: calorieGoal,
-                        tdee: tdee
+                        tdee: tdee,
+                        macros: macros
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 92,
+                        lineNumber: 103,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
@@ -3061,48 +3074,50 @@ function App() {
                         toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 100,
+                        lineNumber: 112,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {
                         updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 106,
+                        lineNumber: 118,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macroForm.MacroForm), {
-                        gender: bio.gender
+                        gender: bio.gender,
+                        modifier: modifiers.protein,
+                        updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 107,
+                        lineNumber: 119,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 91,
+                lineNumber: 102,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 109,
+                lineNumber: 125,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.js",
-        lineNumber: 89,
+        lineNumber: 100,
         columnNumber: 3
     }, this);
 }
-_s(App, "thHUygzxpJd+IwFAgvVKAyu7Z0Y=");
+_s(App, "+HoDu3zTNc36LHl6fvc/1VkfudM=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 114,
+    lineNumber: 130,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -27318,7 +27333,7 @@ function BMRCalc({ personInfo , toggleGender , setPersonInfo  }) {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "form__content",
             children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Gender, {
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(GenderButton, {
                     initalGender: personInfo.gender,
                     toggleGender: toggleGender
                 }, void 0, false, {
@@ -27331,7 +27346,7 @@ function BMRCalc({ personInfo , toggleGender , setPersonInfo  }) {
                     setPersonInfo: setPersonInfo
                 }, void 0, false, {
                     fileName: "src/Presentational/bmrCalculator.js",
-                    lineNumber: 10,
+                    lineNumber: 13,
                     columnNumber: 5
                 }, this)
             ]
@@ -27347,7 +27362,7 @@ function BMRCalc({ personInfo , toggleGender , setPersonInfo  }) {
     }, this);
 }
 _c = BMRCalc;
-function Gender({ initalGender , toggleGender  }) {
+function GenderButton({ initalGender , toggleGender  }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "form__content--gender",
         children: [
@@ -27359,13 +27374,13 @@ function Gender({ initalGender , toggleGender  }) {
                         children: initalGender
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 19,
+                        lineNumber: 22,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 18,
+                lineNumber: 21,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27373,17 +27388,17 @@ function Gender({ initalGender , toggleGender  }) {
                 children: "Toggle Gender "
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 21,
+                lineNumber: 24,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/bmrCalculator.js",
-        lineNumber: 17,
+        lineNumber: 20,
         columnNumber: 3
     }, this);
 }
-_c1 = Gender;
+_c1 = GenderButton;
 function ClientInfo({ personInfo , setPersonInfo  }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         id: "body",
@@ -27392,7 +27407,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 children: "Client Info"
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 29,
+                lineNumber: 32,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27400,7 +27415,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 children: "Weight (in pounds)"
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 30,
+                lineNumber: 33,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27413,7 +27428,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 value: personInfo.weight
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 31,
+                lineNumber: 34,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27423,7 +27438,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         children: "Height"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 41,
+                        lineNumber: 44,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27431,7 +27446,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         children: "Ft"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 42,
+                        lineNumber: 45,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27443,7 +27458,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         value: personInfo.heightFt
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 43,
+                        lineNumber: 46,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27451,7 +27466,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         children: "In"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 51,
+                        lineNumber: 54,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27465,13 +27480,13 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                         min: "0"
                     }, void 0, false, {
                         fileName: "src/Presentational/bmrCalculator.js",
-                        lineNumber: 52,
+                        lineNumber: 55,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 40,
+                lineNumber: 43,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27479,7 +27494,7 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 children: "Age"
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 63,
+                lineNumber: 66,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27491,20 +27506,20 @@ function ClientInfo({ personInfo , setPersonInfo  }) {
                 value: personInfo.age
             }, void 0, false, {
                 fileName: "src/Presentational/bmrCalculator.js",
-                lineNumber: 64,
+                lineNumber: 67,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/Presentational/bmrCalculator.js",
-        lineNumber: 28,
+        lineNumber: 31,
         columnNumber: 3
     }, this);
 }
 _c2 = ClientInfo;
 var _c, _c1, _c2;
 $RefreshReg$(_c, "BMRCalc");
-$RefreshReg$(_c1, "Gender");
+$RefreshReg$(_c1, "GenderButton");
 $RefreshReg$(_c2, "ClientInfo");
 
   $parcel$ReactRefreshHelpers$2249.postlude(module);
@@ -27750,7 +27765,7 @@ parcelHelpers.export(exports, "Output", ()=>Output);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-function Output({ gender , personInfo , bmr , calorieGoal , tdee  }) {
+function Output({ gender , personInfo , bmr , calorieGoal , tdee , macros  }) {
     function returnHeightDetails() {
         if (personInfo.heightFt % 12 === 0) return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
         else return `${personInfo.heightFt} ft, ${personInfo.heightIn} in (${personInfo.totalInches} inches)`;
@@ -27794,7 +27809,9 @@ function Output({ gender , personInfo , bmr , calorieGoal , tdee  }) {
                         lineNumber: 22,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Macros, {}, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Macros, {
+                        macros: macros
+                    }, void 0, false, {
                         fileName: "src/Presentational/output.js",
                         lineNumber: 23,
                         columnNumber: 5
@@ -27966,7 +27983,7 @@ function Calories({ bmr , calorieGoal , tdee  }) {
     }, this);
 }
 _c2 = Calories;
-function Macros() {
+function Macros({ macros: { fats , carbs , proteins  }  }) {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "percents",
         children: [
@@ -27974,13 +27991,29 @@ function Macros() {
                 className: "percent__proteins",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                     children: [
-                        "Protein: ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            children: "40%"
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                            children: "Protein:"
                         }, void 0, false, {
                             fileName: "src/Presentational/output.js",
                             lineNumber: 68,
-                            columnNumber: 15
+                            columnNumber: 6
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 69,
+                            columnNumber: 6
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            children: [
+                                proteins.calories,
+                                "g (",
+                                proteins.percentage,
+                                "%)"
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 70,
+                            columnNumber: 6
                         }, this)
                     ]
                 }, void 0, true, {
@@ -27997,46 +28030,78 @@ function Macros() {
                 className: "percent__fats",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                     children: [
-                        "Fats: ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            children: "30%"
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                            children: "Fat:"
                         }, void 0, false, {
                             fileName: "src/Presentational/output.js",
-                            lineNumber: 73,
-                            columnNumber: 12
+                            lineNumber: 77,
+                            columnNumber: 6
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 78,
+                            columnNumber: 6
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            children: [
+                                fats.calories,
+                                "g (",
+                                fats.percentage,
+                                "%)"
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 79,
+                            columnNumber: 6
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/Presentational/output.js",
-                    lineNumber: 72,
+                    lineNumber: 76,
                     columnNumber: 5
                 }, this)
             }, void 0, false, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 71,
+                lineNumber: 75,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "percent__carbs",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                     children: [
-                        "Carbs: ",
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                            children: "30%"
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                            children: "Carbs:"
                         }, void 0, false, {
                             fileName: "src/Presentational/output.js",
-                            lineNumber: 78,
-                            columnNumber: 13
+                            lineNumber: 86,
+                            columnNumber: 6
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 87,
+                            columnNumber: 6
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                            children: [
+                                carbs.calories,
+                                "g (",
+                                carbs.percentage,
+                                "%)"
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/Presentational/output.js",
+                            lineNumber: 88,
+                            columnNumber: 6
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/Presentational/output.js",
-                    lineNumber: 77,
+                    lineNumber: 85,
                     columnNumber: 5
                 }, this)
             }, void 0, false, {
                 fileName: "src/Presentational/output.js",
-                lineNumber: 76,
+                lineNumber: 84,
                 columnNumber: 4
             }, this)
         ]
@@ -28095,6 +28160,50 @@ class MacroMath {
         } else if (deficit === 1) calories = tdee;
         else if (deficit > 1) calories = Math.round(tdee * deficit);
         return calories;
+    }
+    calcMacros({ macros: { carbs , fats , proteins  }  }, proteinMod, calorieGoal) {
+        const macroObject = {};
+        // Calc Proteins
+        macroObject.proteins = this.#calcProteins(proteins, proteinMod, calorieGoal);
+        console.log(macroObject);
+    // Calc Fats
+    // macroObject.fats = this.#calcFats(macros.fats);
+    // Calc Carbs
+    // macroObject.carbs = this.#calcCarbs(macros, calorieGoal);
+    // return macroObject;
+    }
+    #calcProteins(proteins, modifier, calorieGoal) {
+        let { grams , calories , percentage  } = proteins;
+        grams = Math.round(this.state.weight * modifier);
+        calories = Math.round(grams * 4);
+        percentage = Math.round(calories / calorieGoal * 100);
+        return {
+            grams: grams,
+            calories: calories,
+            percentage: percentage
+        };
+    }
+    #calcFats(fats) {
+        let { grams , calories , percentage  } = fats;
+        percentage = 30;
+        calories = Math.round(percentage / 100 * this.state.calorieGoal);
+        grams = Math.round(calories / 9);
+        return {
+            grams: grams,
+            calories: calories,
+            percentage: percentage
+        };
+    }
+    #calcCarbs(macros, goal) {
+        let { carbs: { grams: cGrams , percentage: cPercent , calories: cCals  } , fats: { calories: fCals  } , proteins: { calories: pCals  }  } = macros;
+        cCals = Math.round(goal - fCals - pCals);
+        cGrams = Math.round(cCals / 4);
+        cPercent = Math.round(cCals / goal * 100);
+        return {
+            calories: cCals,
+            grams: cGrams,
+            percentage: cPercent
+        };
     }
 }
 exports.default = MacroMath;
@@ -28281,7 +28390,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MacroForm", ()=>MacroForm);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-function MacroForm({ gender  }) {
+function MacroForm({ gender , modifier , updateModifiers  }) {
     function setProteinRange() {
         if (gender === "Female") recommendedRange = `0.6 – 1.0`;
         else if (gender === "Male") recommendedRange = `0.8 – 1.2`;
@@ -28324,7 +28433,9 @@ function MacroForm({ gender  }) {
                     inputMode: "decimal",
                     step: "0.1",
                     name: "protein",
-                    id: "protein-modifier"
+                    id: "protein-modifier",
+                    value: modifier,
+                    onChange: (ev)=>updateModifiers(ev)
                 }, void 0, false, {
                     fileName: "src/Presentational/MacroForm.js",
                     lineNumber: 18,
