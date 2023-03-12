@@ -39,24 +39,25 @@ export default class MacroMath {
 		return calories;
 	}
 
-	calcMacros({ macros: { carbs, fats, proteins } }, proteinMod, calorieGoal) {
+	calcMacros({ macros, modifier, calorieGoal }) {
+		const { proteins, fats } = macros;
 		const macroObject = {};
 		// Calc Proteins
-		macroObject.proteins = this.#calcProteins(
-			proteins,
-			proteinMod,
-			calorieGoal,
-		);
-		console.log(macroObject);
+		macroObject.proteins = this.#calcProteins(proteins, modifier, calorieGoal);
 
 		// Calc Fats
-		// macroObject.fats = this.#calcFats(macros.fats);
+		macroObject.fats = this.#calcFats(fats, calorieGoal);
+
 		// Calc Carbs
-		// macroObject.carbs = this.#calcCarbs(macros, calorieGoal);
-		// return macroObject;
+		const currentMacros = { ...macros, ...macroObject };
+		macroObject.carbs = this.#calcCarbs(currentMacros, calorieGoal);
+		return macroObject;
 	}
-	#calcProteins(proteins, modifier, calorieGoal) {
-		let { grams, calories, percentage } = proteins;
+	#calcProteins(
+		{ proteins: grams, calories, percentage },
+		modifier,
+		calorieGoal,
+	) {
 		grams = Math.round(this.state.weight * modifier);
 		calories = Math.round(grams * 4);
 		percentage = Math.round((calories / calorieGoal) * 100);
@@ -67,10 +68,9 @@ export default class MacroMath {
 		};
 	}
 
-	#calcFats(fats) {
-		let { grams, calories, percentage } = fats;
+	#calcFats({ grams, calories, percentage }, calorieGoal) {
 		percentage = 30;
-		calories = Math.round((percentage / 100) * this.state.calorieGoal);
+		calories = Math.round((percentage / 100) * calorieGoal);
 		grams = Math.round(calories / 9);
 		return {
 			grams: grams,

@@ -3013,7 +3013,7 @@ function App() {
         modifiers,
         bio
     ]);
-    /** Step 3: Macros DOING: */ const [macros, setMacros] = (0, _react.useState)({
+    /** Step 3: Macros !DONE */ const [macros, setMacros] = (0, _react.useState)({
         fats: {
             percentage: 30,
             grams: 0,
@@ -3033,11 +3033,11 @@ function App() {
     (0, _react.useEffect)(()=>{
         const props = {
             macros: macros,
-            proteinMod: modifiers.protein,
+            modifier: modifiers.protein,
             calorieGoal: calorieGoal
         };
-        calculator.calcMacros(props);
-    // setMacros(calculator.calcMacros(props));
+        // calculator.calcMacros(props);
+        setMacros(calculator.calcMacros(props));
     }, [
         calorieGoal,
         modifiers
@@ -3045,8 +3045,8 @@ function App() {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _header.MyHeader), {
-                title: "A REACTive Macro Calculator",
-                subtitle: "Eventually!"
+                title: "A Macro Calculator",
+                subtitle: "Built with ❤️ and reactjs"
             }, void 0, false, {
                 fileName: "src/app.js",
                 lineNumber: 101,
@@ -3064,24 +3064,23 @@ function App() {
                         macros: macros
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 103,
+                        lineNumber: 106,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
-                        title: "Hello, there.",
                         personInfo: bio,
                         setPersonInfo: setPersonInfo,
                         toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 112,
+                        lineNumber: 115,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {
                         updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 118,
+                        lineNumber: 120,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macroForm.MacroForm), {
@@ -3090,20 +3089,20 @@ function App() {
                         updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 119,
+                        lineNumber: 121,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 102,
+                lineNumber: 105,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 125,
+                lineNumber: 127,
                 columnNumber: 4
             }, this)
         ]
@@ -3117,7 +3116,7 @@ _s(App, "+HoDu3zTNc36LHl6fvc/1VkfudM=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 130,
+    lineNumber: 132,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -28161,19 +28160,22 @@ class MacroMath {
         else if (deficit > 1) calories = Math.round(tdee * deficit);
         return calories;
     }
-    calcMacros({ macros: { carbs , fats , proteins  }  }, proteinMod, calorieGoal) {
+    calcMacros({ macros , modifier , calorieGoal  }) {
+        const { proteins , fats  } = macros;
         const macroObject = {};
         // Calc Proteins
-        macroObject.proteins = this.#calcProteins(proteins, proteinMod, calorieGoal);
-        console.log(macroObject);
-    // Calc Fats
-    // macroObject.fats = this.#calcFats(macros.fats);
-    // Calc Carbs
-    // macroObject.carbs = this.#calcCarbs(macros, calorieGoal);
-    // return macroObject;
+        macroObject.proteins = this.#calcProteins(proteins, modifier, calorieGoal);
+        // Calc Fats
+        macroObject.fats = this.#calcFats(fats, calorieGoal);
+        // Calc Carbs
+        const currentMacros = {
+            ...macros,
+            ...macroObject
+        };
+        macroObject.carbs = this.#calcCarbs(currentMacros, calorieGoal);
+        return macroObject;
     }
-    #calcProteins(proteins, modifier, calorieGoal) {
-        let { grams , calories , percentage  } = proteins;
+    #calcProteins({ proteins: grams , calories , percentage  }, modifier, calorieGoal) {
         grams = Math.round(this.state.weight * modifier);
         calories = Math.round(grams * 4);
         percentage = Math.round(calories / calorieGoal * 100);
@@ -28183,15 +28185,14 @@ class MacroMath {
             percentage: percentage
         };
     }
-    #calcFats(fats) {
-        let { grams , calories , percentage  } = fats;
-        percentage = 30;
-        calories = Math.round(percentage / 100 * this.state.calorieGoal);
-        grams = Math.round(calories / 9);
+    #calcFats({ grams: grams1 , calories: calories1 , percentage: percentage1  }, calorieGoal1) {
+        percentage1 = 30;
+        calories1 = Math.round(percentage1 / 100 * calorieGoal1);
+        grams1 = Math.round(calories1 / 9);
         return {
-            grams: grams,
-            calories: calories,
-            percentage: percentage
+            grams: grams1,
+            calories: calories1,
+            percentage: percentage1
         };
     }
     #calcCarbs(macros, goal) {
@@ -28434,7 +28435,7 @@ function MacroForm({ gender , modifier , updateModifiers  }) {
                     step: "0.1",
                     name: "protein",
                     id: "protein-modifier",
-                    value: modifier,
+                    value: modifier == 0 ? "" : modifier,
                     onChange: (ev)=>updateModifiers(ev)
                 }, void 0, false, {
                     fileName: "src/Presentational/MacroForm.js",

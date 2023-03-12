@@ -21,7 +21,7 @@ export function MacroForm({ gender, modifier, updateModifiers }) {
 					step="0.1"
 					name="protein"
 					id="protein-modifier"
-					value={modifier}
+					value={modifier == 0 ? '' : modifier}
 					onChange={(ev) => updateModifiers(ev)}
 				/>
 			</div>

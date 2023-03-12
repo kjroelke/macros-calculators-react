@@ -69,7 +69,7 @@ function App() {
 		setTdee(calories.tdee);
 	}, [modifiers, bio]);
 
-	/** Step 3: Macros DOING: */
+	/** Step 3: Macros !DONE */
 	const [macros, setMacros] = useState({
 		fats: {
 			percentage: 30,
@@ -90,15 +90,18 @@ function App() {
 	useEffect(() => {
 		const props = {
 			macros: macros,
-			proteinMod: modifiers.protein,
+			modifier: modifiers.protein,
 			calorieGoal: calorieGoal,
 		};
-		calculator.calcMacros(props);
-		// setMacros(calculator.calcMacros(props));
+		// calculator.calcMacros(props);
+		setMacros(calculator.calcMacros(props));
 	}, [calorieGoal, modifiers]);
 	return (
 		<div>
-			<MyHeader title="A REACTive Macro Calculator" subtitle="Eventually!" />
+			<MyHeader
+				title="A Macro Calculator"
+				subtitle="Built with ❤️ and reactjs"
+			/>
 			<main>
 				<Output
 					gender={bio.gender}
@@ -110,7 +113,6 @@ function App() {
 					macros={macros}
 				/>
 				<BMRCalc
-					title="Hello, there."
 					personInfo={bio}
 					setPersonInfo={setPersonInfo}
 					toggleGender={toggleGender}
