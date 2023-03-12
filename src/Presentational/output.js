@@ -1,5 +1,5 @@
 import React from 'react';
-export function Output({ gender, personInfo, bmr, calorieGoal, tdee }) {
+export function Output({ gender, personInfo, bmr, calorieGoal, tdee, macros }) {
 	function returnHeightDetails() {
 		if (personInfo.heightFt % 12 === 0) {
 			return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
@@ -20,7 +20,7 @@ export function Output({ gender, personInfo, bmr, calorieGoal, tdee }) {
 					height={returnHeightDetails()}
 				/>
 				<Calories bmr={bmr} calorieGoal={calorieGoal} tdee={tdee} />
-				<Macros />
+				<Macros macros={macros} />
 				<input type="reset" id="reset" />
 			</div>
 		</section>
@@ -60,22 +60,34 @@ function Calories({ bmr, calorieGoal, tdee }) {
 		</div>
 	);
 }
-function Macros() {
+function Macros({ macros: { fats, carbs, proteins } }) {
 	return (
 		<div className="percents">
 			<div className="percent__proteins">
 				<p>
-					Protein: <span>40%</span>
+					<strong>Protein:</strong>
+					<br />
+					<span>
+						{proteins.calories}g ({proteins.percentage}%)
+					</span>
 				</p>
 			</div>
 			<div className="percent__fats">
 				<p>
-					Fats: <span>30%</span>
+					<strong>Fat:</strong>
+					<br />
+					<span>
+						{fats.calories}g ({fats.percentage}%)
+					</span>
 				</p>
 			</div>
 			<div className="percent__carbs">
 				<p>
-					Carbs: <span>30%</span>
+					<strong>Carbs:</strong>
+					<br />
+					<span>
+						{carbs.calories}g ({carbs.percentage}%)
+					</span>
 				</p>
 			</div>
 		</div>

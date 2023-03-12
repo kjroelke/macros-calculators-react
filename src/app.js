@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { BMRCalc } from './Presentational/bmrCalculator';
 import { MyHeader } from './Presentational/Header';
 import { Modifiers } from './Presentational/modifierCalculator';
-// import { Proteins } from './Presentational/proteinCalculator';
 import { Output } from './Presentational/output';
 import MacroMath from './Math/bmr';
 import { MacroForm } from './Presentational/MacroForm';
@@ -17,7 +16,7 @@ function App() {
 
 	const [bio, setBio] = useState({
 		gender: 'Female',
-		weight: 160,
+		weight: 140,
 		heightFt: 5,
 		heightIn: 4,
 		totalInches: 64,
@@ -47,8 +46,12 @@ function App() {
 		setBMR(bmr);
 	}, [bio]);
 
-	/** Step 2: Modifiers DOING: */
-	const [modifiers, setModifiers] = useState({ tdee: 1.2, deficit: 0.1 });
+	/** Step 2: Modifiers !DONE */
+	const [modifiers, setModifiers] = useState({
+		tdee: 1.2,
+		deficit: 0.1,
+		protein: 0.8,
+	});
 	const [calorieGoal, setCalorieGoal] = useState(1800);
 	const [tdee, setTdee] = useState(2000);
 	const updateModifiers = ({ target: { name, value } }) => {
@@ -66,7 +69,7 @@ function App() {
 		setTdee(calories.tdee);
 	}, [modifiers, bio]);
 
-	/** Step 3: Macros TODO: */
+	/** Step 3: Macros !DONE */
 	const [macros, setMacros] = useState({
 		fats: {
 			percentage: 30,
@@ -84,10 +87,21 @@ function App() {
 			calories: 0,
 		},
 	});
-
+	useEffect(() => {
+		const props = {
+			macros: macros,
+			modifier: modifiers.protein,
+			calorieGoal: calorieGoal,
+		};
+		// calculator.calcMacros(props);
+		setMacros(calculator.calcMacros(props));
+	}, [calorieGoal, modifiers]);
 	return (
 		<div>
-			<MyHeader title="A REACTive Macro Calculator" subtitle="Eventually!" />
+			<MyHeader
+				title="A Macro Calculator"
+				subtitle="Built with ❤️ and reactjs"
+			/>
 			<main>
 				<Output
 					gender={bio.gender}
@@ -96,15 +110,19 @@ function App() {
 					modifiers={modifiers}
 					calorieGoal={calorieGoal}
 					tdee={tdee}
+					macros={macros}
 				/>
 				<BMRCalc
-					title="Hello, there."
 					personInfo={bio}
 					setPersonInfo={setPersonInfo}
 					toggleGender={toggleGender}
 				/>
 				<Modifiers updateModifiers={updateModifiers} />
-				<MacroForm />
+				<MacroForm
+					gender={bio.gender}
+					modifier={modifiers.protein}
+					updateModifiers={updateModifiers}
+				/>
 			</main>
 			<footer id="copyright"></footer>
 		</div>

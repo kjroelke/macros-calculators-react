@@ -38,4 +38,60 @@ export default class MacroMath {
 		else if (deficit > 1) calories = Math.round(tdee * deficit);
 		return calories;
 	}
+
+	calcMacros({ macros, modifier, calorieGoal }) {
+		const { proteins, fats } = macros;
+		const macroObject = {};
+		// Calc Proteins
+		macroObject.proteins = this.#calcProteins(proteins, modifier, calorieGoal);
+
+		// Calc Fats
+		macroObject.fats = this.#calcFats(fats, calorieGoal);
+
+		// Calc Carbs
+		const currentMacros = { ...macros, ...macroObject };
+		macroObject.carbs = this.#calcCarbs(currentMacros, calorieGoal);
+		return macroObject;
+	}
+	#calcProteins(
+		{ proteins: grams, calories, percentage },
+		modifier,
+		calorieGoal,
+	) {
+		grams = Math.round(this.state.weight * modifier);
+		calories = Math.round(grams * 4);
+		percentage = Math.round((calories / calorieGoal) * 100);
+		return {
+			grams: grams,
+			calories: calories,
+			percentage: percentage,
+		};
+	}
+
+	#calcFats({ grams, calories, percentage }, calorieGoal) {
+		percentage = 30;
+		calories = Math.round((percentage / 100) * calorieGoal);
+		grams = Math.round(calories / 9);
+		return {
+			grams: grams,
+			calories: calories,
+			percentage: percentage,
+		};
+	}
+
+	#calcCarbs(macros, goal) {
+		let {
+			carbs: { grams: cGrams, percentage: cPercent, calories: cCals },
+			fats: { calories: fCals },
+			proteins: { calories: pCals },
+		} = macros;
+		cCals = Math.round(goal - fCals - pCals);
+		cGrams = Math.round(cCals / 4);
+		cPercent = Math.round((cCals / goal) * 100);
+		return {
+			calories: cCals,
+			grams: cGrams,
+			percentage: cPercent,
+		};
+	}
 }
