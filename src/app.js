@@ -4,16 +4,13 @@ import { BMRCalc } from './Presentational/bmrCalculator';
 import { MyHeader } from './Presentational/Header';
 import { Modifiers } from './Presentational/modifierCalculator';
 import { Output } from './Presentational/output';
-import MacroMath from './Math/bmr';
+import { MacroMath } from './Math/bmr';
 import { MacroForm } from './Presentational/MacroForm';
+import { calcBMR } from './Math/calculator';
 
 const root = createRoot(document.getElementById('app'));
 
 function App() {
-	/** Step 1: Person Biology !DONE
-	 * BUG: Math doesn't calculate correctly.
-	 */
-
 	const [bio, setBio] = useState({
 		gender: 'Female',
 		weight: 140,
@@ -42,11 +39,10 @@ function App() {
 	}, [bio.heightFt, bio.heightIn]);
 	const calculator = new MacroMath(bio);
 	useEffect(() => {
-		const bmr = calculator.calcBMR();
-		setBMR(bmr);
+		// const bmr = calculator.calcBMR();
+		setBMR(calcBMR(bio));
 	}, [bio]);
 
-	/** Step 2: Modifiers !DONE */
 	const [modifiers, setModifiers] = useState({
 		tdee: 1.2,
 		deficit: 0.1,
@@ -69,7 +65,6 @@ function App() {
 		setTdee(calories.tdee);
 	}, [modifiers, bio]);
 
-	/** Step 3: Macros !DONE */
 	const [macros, setMacros] = useState({
 		fats: {
 			percentage: 30,
@@ -88,13 +83,8 @@ function App() {
 		},
 	});
 	useEffect(() => {
-		const props = {
-			macros: macros,
-			modifier: modifiers.protein,
-			calorieGoal: calorieGoal,
-		};
 		// calculator.calcMacros(props);
-		setMacros(calculator.calcMacros(props));
+		// setMacros(calculator.calcMacros(macros, modifiers, calorieGoal));
 	}, [calorieGoal, modifiers]);
 	return (
 		<div>

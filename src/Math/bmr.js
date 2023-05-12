@@ -1,4 +1,4 @@
-export default class MacroMath {
+export class MacroMath {
 	constructor(state) {
 		this.state = state;
 	}
@@ -6,16 +6,16 @@ export default class MacroMath {
 		const height = this.state.totalInches;
 		const bmr =
 			this.state.gender === 'Female'
-				? this.#calcFemaleBMR(height)
-				: this.#calcMaleBMR(height);
+				? this.calcFemaleBMR(height)
+				: this.calcMaleBMR(height);
 		return bmr;
 	}
-	#calcFemaleBMR(height) {
+	calcFemaleBMR(height) {
 		return Math.round(
 			655 + 4.35 * this.state.weight + 4.7 * height - 4.7 * this.state.age,
 		);
 	}
-	#calcMaleBMR(height) {
+	calcMaleBMR(height) {
 		return Math.round(
 			66 + 6.23 * this.state.weight + 12.7 * height - 6.8 * this.state.age,
 		);
@@ -39,7 +39,8 @@ export default class MacroMath {
 		return calories;
 	}
 
-	calcMacros({ macros, modifier, calorieGoal }) {
+	calcMacros(macros, modifiers, calorieGoal) {
+		const { protien: modifier } = modifiers;
 		const { proteins, fats } = macros;
 		const macroObject = {};
 		// Calc Proteins
