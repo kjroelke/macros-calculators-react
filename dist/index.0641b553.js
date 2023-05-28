@@ -2978,18 +2978,16 @@ function App() {
         bio.heightFt,
         bio.heightIn
     ]);
-    const calculator = new (0, _bmr.MacroMath)(bio);
     (0, _react.useEffect)(()=>{
-        // const bmr = calculator.calcBMR();
         setBMR((0, _calculator.calcBMR)(bio));
     }, [
         bio
     ]);
-    const [modifiers, setModifiers] = (0, _react.useState)({
+    const [modifiers, setModifiers] = (0, _react.useState) < modifiers > {
         tdee: 1.2,
         deficit: 0.1,
         protein: 0.8
-    });
+    };
     const [calorieGoal, setCalorieGoal] = (0, _react.useState)(1800);
     const [tdee, setTdee] = (0, _react.useState)(2000);
     const updateModifiers = ({ target: { name , value  }  })=>{
@@ -3000,11 +2998,13 @@ function App() {
             };
         });
     };
+    const calculator = new (0, _bmr.MacroMath)(bio);
     (0, _react.useEffect)(()=>{
-        const calories = calculator.calcTDEE(bmr, {
+        (0, _calculator.calcTDEE)(bmr, {
             activity: modifiers.tdee,
             deficit: modifiers.deficit
         });
+        const calories = calculator.calcTDEE(bmr);
         setCalorieGoal(calories.calorieGoal);
         setTdee(calories.tdee);
     }, [
@@ -3042,7 +3042,7 @@ function App() {
                 subtitle: "Built with ❤️ and reactjs"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 91,
+                lineNumber: 94,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
@@ -3057,7 +3057,7 @@ function App() {
                         macros: macros
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 96,
+                        lineNumber: 99,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrCalculator.BMRCalc), {
@@ -3066,14 +3066,14 @@ function App() {
                         toggleGender: toggleGender
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 105,
+                        lineNumber: 108,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifierCalculator.Modifiers), {
                         updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 110,
+                        lineNumber: 113,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macroForm.MacroForm), {
@@ -3082,34 +3082,34 @@ function App() {
                         updateModifiers: updateModifiers
                     }, void 0, false, {
                         fileName: "src/app.js",
-                        lineNumber: 111,
+                        lineNumber: 114,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.js",
-                lineNumber: 95,
+                lineNumber: 98,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("footer", {
                 id: "copyright"
             }, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 117,
+                lineNumber: 120,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.js",
-        lineNumber: 90,
+        lineNumber: 93,
         columnNumber: 3
     }, this);
 }
-_s(App, "+HoDu3zTNc36LHl6fvc/1VkfudM=");
+_s(App, "+h6TRQChAS8rB4EDSNJhy39F/Yk=");
 _c = App;
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(App, {}, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 122,
+    lineNumber: 125,
     columnNumber: 13
 }, undefined));
 var _c;
@@ -3120,7 +3120,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/modifierCalculator":"9GldO","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","./Presentational/MacroForm":"a1kdQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Math/calculator":"apaW5"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./Presentational/bmrCalculator":"bEn59","./Presentational/Header":"ihLBL","./Presentational/modifierCalculator":"9GldO","./Presentational/output":"6bjXZ","./Math/bmr":"6kuAL","./Presentational/MacroForm":"a1kdQ","./Math/calculator":"apaW5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("c295ebd89415dde8");
 
@@ -28461,6 +28461,13 @@ $RefreshReg$(_c, "MacroForm");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "calcBMR", ()=>calcBMR);
+/**
+ * Calculates TDEE
+ * @param {number} bmr the bmr
+ * @param modifiers
+ * @returns
+ */ parcelHelpers.export(exports, "calcTDEE", ()=>calcTDEE);
+parcelHelpers.export(exports, "calcMacros", ()=>calcMacros);
 function calcBMR(person) {
     if ("Female" === person.gender) return calcFemaleBMR(person);
     else if ("Male" === person.gender) return calcMaleBMR(person);
@@ -28471,6 +28478,77 @@ function calcFemaleBMR(person) {
 }
 function calcMaleBMR(person) {
     return Math.round(66 + 6.23 * person.weight + 12.7 * person.totalInches - 6.8 * person.age);
+}
+function calcTDEE(bmr, modifiers1) {
+    const tdee = Math.round(bmr * modifiers1.activity);
+    const calorieGoal1 = calcCalorieGoal(tdee, modifiers1.deficit, bmr);
+    return {
+        tdee: tdee,
+        calorieGoal: calorieGoal1
+    };
+}
+function calcCalorieGoal(tdee, deficit, bmr) {
+    let calories;
+    if (deficit < 1) {
+        if (Math.round(tdee - tdee * deficit) < bmr) {
+            calories = "Too low!";
+            return calories;
+        }
+        calories = Math.round(tdee - tdee * deficit);
+    } else if (deficit === 1) calories = tdee;
+    else if (deficit > 1) calories = Math.round(tdee * deficit);
+    return calories;
+}
+function calcMacros() {
+    // if (state.tdee === 0) {
+    // 	throw 'Do the rest of the form first!';
+    // }
+    // Get Form
+    // const proteinMod = form.querySelector('#protein-modifier');
+    // Destructure State
+    // let { macros, modifiers } = this.state;
+    // const { calorieGoal } = this.state;
+    // Set Protein Modifier to State
+    // modifiers.protein = getOptionsValue(proteinMod);
+    // Calc Proteins
+    calcProteins(macros.proteins, modifiers.protein);
+    // Calc Fats
+    calcFats(macros.fats);
+    // Calc Carbs
+    calcCarbs(macros, calorieGoal);
+}
+function calcProteins(proteins, modifier) {
+    let { grams , calories , percentage  } = proteins;
+    grams = Math.round(this.state.person.weight * modifier);
+    calories = Math.round(grams * 4);
+    percentage = Math.round(calories / this.state.calorieGoal * 100);
+    this.state.macros.proteins = {
+        grams: grams,
+        calories: calories,
+        percentage: percentage
+    };
+}
+function calcFats(fats) {
+    let { grams , calories , percentage  } = fats;
+    percentage = 30;
+    calories = Math.round(percentage / 100 * this.state.calorieGoal);
+    grams = Math.round(calories / 9);
+    this.state.macros.fats = {
+        grams: grams,
+        calories: calories,
+        percentage: percentage
+    };
+}
+function calcCarbs(macros1, goal) {
+    let { carbs: { grams: cGrams , percentage: cPercent , calories: cCals  } , fats: { calories: fCals  } , proteins: { calories: pCals  }  } = macros1;
+    cCals = Math.round(goal - fCals - pCals);
+    cGrams = Math.round(cCals / 4);
+    cPercent = Math.round(cCals / goal * 100);
+    this.state.macros.carbs = {
+        calories: cCals,
+        grams: cGrams,
+        percentage: cPercent
+    };
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1xC6H","lKzq4","bNKaB"], "bNKaB", "parcelRequire406a")

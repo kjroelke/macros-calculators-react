@@ -16,3 +16,9 @@ export type Person = {
 	totalInches: number;
 	age: number;
 };
+
+export type modifiers = {
+	tdee: number;
+	deficit: number;
+	protein: number;
+};

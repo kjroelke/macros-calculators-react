@@ -6,40 +6,39 @@ import { Modifiers } from './Presentational/modifierCalculator';
 import { Output } from './Presentational/output';
 import { MacroMath } from './Math/bmr';
 import { MacroForm } from './Presentational/MacroForm';
-import { calcBMR } from './Math/calculator';
+import { calcBMR, calcTDEE } from './Math/calculator';
+import { modifiers, Person } from './types';
 
 const root = createRoot(document.getElementById('app'));
 
 function App() {
-	const [bio, setBio] = useState({
+	const [bio, setBio] = useState<Person>({
 		gender: 'Female',
 		weight: 140,
 		heightFt: 5,
 		heightIn: 4,
 		totalInches: 64,
 		age: 29,
-	});
+	} as Person);
 	const [bmr, setBMR] = useState(1500);
-	function toggleGender(ev) {
+	function toggleGender(ev: Event) {
 		ev.preventDefault();
-		setBio((prev) => {
+		setBio((prev: Person) => {
 			return { ...prev, gender: prev.gender === 'Female' ? 'Male' : 'Female' };
 		});
 	}
 	function setPersonInfo({ target: { name, value } }) {
-		setBio((prev) => {
+		setBio((prev: Person) => {
 			return { ...prev, [name]: value };
 		});
 	}
 	useEffect(() => {
-		setBio((prev) => {
+		setBio((prev: Person) => {
 			const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
 			return { ...prev, totalInches: newTotal };
 		});
 	}, [bio.heightFt, bio.heightIn]);
-	const calculator = new MacroMath(bio);
 	useEffect(() => {
-		// const bmr = calculator.calcBMR();
 		setBMR(calcBMR(bio));
 	}, [bio]);
 
@@ -56,11 +55,13 @@ function App() {
 		});
 	};
 
+	const calculator = new MacroMath(bio);
 	useEffect(() => {
-		const calories = calculator.calcTDEE(bmr, {
+		calcTDEE(bmr, {
 			activity: modifiers.tdee,
 			deficit: modifiers.deficit,
 		});
+		const calories = calculator.calcTDEE(bmr);
 		setCalorieGoal(calories.calorieGoal);
 		setTdee(calories.tdee);
 	}, [modifiers, bio]);
