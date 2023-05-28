@@ -1,6 +1,6 @@
 import { FormSelect } from './formOptions';
 
-const tdee = [
+const activity = [
 	{
 		mod: 1.2,
 		label: 'Sedentary | < 5k Steps',
@@ -24,9 +24,9 @@ export function Modifiers({ updateModifiers }) {
 		<section id="modifiers" data-step="1" className="form">
 			<div className="form__content" onChange={updateModifiers}>
 				<FormSelect
-					label="Total Daily Energy Expenditure"
-					options={tdee}
-					id="tdee"
+					label="Activity Modifier"
+					options={activity}
+					id="activity"
 				/>
 				<FormSelect label="Deficit Selector" options={deficit} id="deficit" />
 			</div>

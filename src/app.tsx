@@ -4,10 +4,9 @@ import { BMRCalc } from './Presentational/bmrCalculator';
 import { MyHeader } from './Presentational/Header';
 import { Modifiers } from './Presentational/modifierCalculator';
 import { Output } from './Presentational/output';
-import { MacroMath } from './Math/bmr';
 import { MacroForm } from './Presentational/MacroForm';
-import { calcBMR, calcTDEE } from './Math/calculator';
-import { modifiers, Person } from './types';
+import { calcBMR, calcCalorieGoal, calcMacros } from './Math/calculator';
+import { macroState, modifiers, Person } from './types';
 
 const root = createRoot(document.getElementById('app'));
 
@@ -20,7 +19,7 @@ function App() {
 		totalInches: 64,
 		age: 29,
 	} as Person);
-	const [bmr, setBMR] = useState(1500);
+	const [bmr, setBMR] = useState<number>(1500);
 	function toggleGender(ev: Event) {
 		ev.preventDefault();
 		setBio((prev: Person) => {
@@ -42,28 +41,22 @@ function App() {
 		setBMR(calcBMR(bio));
 	}, [bio]);
 
-	const [modifiers, setModifiers] = useState({
-		tdee: 1.2,
+	const [modifiers, setModifiers] = useState<modifiers>({
+		activity: 1.2,
 		deficit: 0.1,
 		protein: 0.8,
 	});
-	const [calorieGoal, setCalorieGoal] = useState(1800);
-	const [tdee, setTdee] = useState(2000);
+	const [calorieGoal, setCalorieGoal] = useState<number>(1800);
+	const [tdee, setTdee] = useState<number>(2000);
 	const updateModifiers = ({ target: { name, value } }) => {
-		setModifiers((prev) => {
+		setModifiers((prev: modifiers) => {
 			return { ...prev, [name]: Number(value) };
 		});
 	};
-
-	const calculator = new MacroMath(bio);
 	useEffect(() => {
-		calcTDEE(bmr, {
-			activity: modifiers.tdee,
-			deficit: modifiers.deficit,
-		});
-		const calories = calculator.calcTDEE(bmr);
-		setCalorieGoal(calories.calorieGoal);
-		setTdee(calories.tdee);
+		const newTdee = Math.round(bmr * modifiers.activity);
+		setTdee(newTdee);
+		setCalorieGoal(calcCalorieGoal(newTdee, modifiers.deficit, bmr));
 	}, [modifiers, bio]);
 
 	const [macros, setMacros] = useState({
@@ -82,8 +75,10 @@ function App() {
 			grams: 0,
 			calories: 0,
 		},
-	});
+	} as macroState);
 	useEffect(() => {
+		const newMacros = calcMacros(macros, modifiers, bio, calorieGoal);
+		console.log(newMacros);
 		// calculator.calcMacros(props);
 		// setMacros(calculator.calcMacros(macros, modifiers, calorieGoal));
 	}, [calorieGoal, modifiers]);
@@ -98,7 +93,7 @@ function App() {
 					gender={bio.gender}
 					personInfo={bio}
 					bmr={bmr}
-					modifiers={modifiers}
+					// modifiers={modifiers}
 					calorieGoal={calorieGoal}
 					tdee={tdee}
 					macros={macros}

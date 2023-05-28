@@ -1,4 +1,4 @@
-interface Macros {
+export interface Macros {
 	percentage: number;
 	grams: number;
 	calories: number;
@@ -18,7 +18,7 @@ export type Person = {
 };
 
 export type modifiers = {
-	tdee: number;
+	activity: number;
 	deficit: number;
 	protein: number;
 };

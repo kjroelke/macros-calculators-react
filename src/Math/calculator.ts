@@ -1,4 +1,4 @@
-import type { Person } from '../types';
+import type { Macros, Person, macroState, modifiers } from '../types';
 export function calcBMR(person: Person): number {
 	if ('Female' === person.gender) {
 		return calcFemaleBMR(person);
@@ -17,31 +17,38 @@ function calcMaleBMR(person: Person) {
 	);
 }
 /**
- * Calculates TDEE
- * @param {number} bmr the bmr
- * @param modifiers
+ *
+ * @param tdee the tdee
+ * @param deficit the cut
+ * @param bmr
  * @returns
  */
-export function calcTDEE(bmr, modifiers) {
-	const tdee = Math.round(bmr * modifiers.activity);
-	const calorieGoal = calcCalorieGoal(tdee, modifiers.deficit, bmr);
-	return { tdee: tdee, calorieGoal: calorieGoal };
-}
-
-function calcCalorieGoal(tdee, deficit, bmr) {
-	let calories;
-	if (deficit < 1) {
-		if (Math.round(tdee - tdee * deficit) < bmr) {
-			calories = 'Too low!';
-			return calories;
-		}
+export function calcCalorieGoal(
+	tdee: number,
+	deficit: number,
+	bmr: number,
+): number | string {
+	let calories: number | string = 0;
+	if (1.0 > deficit) {
 		calories = Math.round(tdee - tdee * deficit);
-	} else if (deficit === 1) calories = tdee;
-	else if (deficit > 1) calories = Math.round(tdee * deficit);
+		if (calories < bmr) {
+			calories = 'Too low!';
+		}
+	} else if (1.0 === deficit) {
+		calories = tdee;
+	} else if (1.0 < deficit) {
+		calories = Math.round(tdee * deficit);
+	}
 	return calories;
 }
 
-export function calcMacros() {
+export function calcMacros(
+	macros: macroState,
+	modifiers: modifiers,
+	bio: Person,
+	calorieGoal: number,
+): macroState {
+	console.log(macros, modifiers);
 	// if (state.tdee === 0) {
 	// 	throw 'Do the rest of the form first!';
 	// }
@@ -56,19 +63,24 @@ export function calcMacros() {
 	// modifiers.protein = getOptionsValue(proteinMod);
 
 	// Calc Proteins
-	calcProteins(macros.proteins, modifiers.protein);
+	calcProteins(macros.proteins, modifiers.protein, bio, calorieGoal);
 
 	// Calc Fats
-	calcFats(macros.fats);
+	calcFats(macros.fats, calorieGoal);
 
 	// Calc Carbs
 	calcCarbs(macros, calorieGoal);
 }
-function calcProteins(proteins, modifier) {
+function calcProteins(
+	proteins: Macros,
+	modifier: number,
+	person: Person,
+	calorieGoal: number,
+) {
 	let { grams, calories, percentage } = proteins;
-	grams = Math.round(this.state.person.weight * modifier);
+	grams = Math.round(person.weight * modifier);
 	calories = Math.round(grams * 4);
-	percentage = Math.round((calories / this.state.calorieGoal) * 100);
+	percentage = Math.round((calories / calorieGoal) * 100);
 	this.state.macros.proteins = {
 		grams: grams,
 		calories: calories,
@@ -76,10 +88,10 @@ function calcProteins(proteins, modifier) {
 	};
 }
 
-function calcFats(fats) {
+function calcFats(fats, calorieGoal) {
 	let { grams, calories, percentage } = fats;
 	percentage = 30;
-	calories = Math.round((percentage / 100) * this.state.calorieGoal);
+	calories = Math.round((percentage / 100) * calorieGoal);
 	grams = Math.round(calories / 9);
 	this.state.macros.fats = {
 		grams: grams,
