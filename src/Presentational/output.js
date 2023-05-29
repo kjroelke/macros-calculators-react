@@ -68,7 +68,7 @@ function Macros({ macros: { fats, carbs, proteins } }) {
 					<strong>Protein:</strong>
 					<br />
 					<span>
-						{proteins.calories}g ({proteins.percentage}%)
+						{proteins.grams}g ({proteins.percentage}%)
 					</span>
 				</p>
 			</div>
@@ -77,7 +77,7 @@ function Macros({ macros: { fats, carbs, proteins } }) {
 					<strong>Fat:</strong>
 					<br />
 					<span>
-						{fats.calories}g ({fats.percentage}%)
+						{fats.grams}g ({fats.percentage}%)
 					</span>
 				</p>
 			</div>
@@ -86,7 +86,7 @@ function Macros({ macros: { fats, carbs, proteins } }) {
 					<strong>Carbs:</strong>
 					<br />
 					<span>
-						{carbs.calories}g ({carbs.percentage}%)
+						{carbs.grams}g ({carbs.percentage}%)
 					</span>
 				</p>
 			</div>

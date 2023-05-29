@@ -16,13 +16,7 @@ function calcMaleBMR(person: Person) {
 		66 + 6.23 * person.weight + 12.7 * person.totalInches - 6.8 * person.age,
 	);
 }
-/**
- *
- * @param tdee the tdee
- * @param deficit the cut
- * @param bmr
- * @returns
- */
+
 export function calcCalorieGoal(
 	tdee: number,
 	deficit: number,
@@ -48,59 +42,47 @@ export function calcMacros(
 	bio: Person,
 	calorieGoal: number,
 ): macroState {
-	console.log(macros, modifiers);
-	// if (state.tdee === 0) {
-	// 	throw 'Do the rest of the form first!';
-	// }
-	// Get Form
-	// const proteinMod = form.querySelector('#protein-modifier');
-
-	// Destructure State
-	// let { macros, modifiers } = this.state;
-	// const { calorieGoal } = this.state;
-
-	// Set Protein Modifier to State
-	// modifiers.protein = getOptionsValue(proteinMod);
-
-	// Calc Proteins
-	calcProteins(macros.proteins, modifiers.protein, bio, calorieGoal);
-
-	// Calc Fats
-	calcFats(macros.fats, calorieGoal);
-
-	// Calc Carbs
-	calcCarbs(macros, calorieGoal);
+	macros.proteins = calcProteins(
+		macros.proteins,
+		modifiers.protein,
+		bio,
+		calorieGoal,
+	);
+	macros.fats = calcFats(macros.fats, calorieGoal);
+	macros.carbs = calcCarbs(macros, calorieGoal);
+	return macros;
 }
 function calcProteins(
 	proteins: Macros,
 	modifier: number,
 	person: Person,
 	calorieGoal: number,
-) {
-	let { grams, calories, percentage } = proteins;
+): Macros {
+	let { grams, calories } = proteins;
 	grams = Math.round(person.weight * modifier);
 	calories = Math.round(grams * 4);
-	percentage = Math.round((calories / calorieGoal) * 100);
-	this.state.macros.proteins = {
+	const percentage = Math.round((calories / calorieGoal) * 100);
+	const proteinMacros = {
+		percentage: percentage,
 		grams: grams,
 		calories: calories,
-		percentage: percentage,
 	};
+	return proteinMacros;
 }
 
-function calcFats(fats, calorieGoal) {
-	let { grams, calories, percentage } = fats;
-	percentage = 30;
-	calories = Math.round((percentage / 100) * calorieGoal);
+function calcFats(fats: Macros, calorieGoal: number): Macros {
+	let { grams, calories } = fats;
+	calories = Math.round((30 / 100) * calorieGoal);
 	grams = Math.round(calories / 9);
-	this.state.macros.fats = {
+	const fatMacros = {
 		grams: grams,
 		calories: calories,
-		percentage: percentage,
+		percentage: 30,
 	};
+	return fatMacros;
 }
 
-function calcCarbs(macros, goal) {
+function calcCarbs(macros: macroState, goal: number): Macros {
 	let {
 		carbs: { grams: cGrams, percentage: cPercent, calories: cCals },
 		fats: { calories: fCals },
@@ -108,10 +90,12 @@ function calcCarbs(macros, goal) {
 	} = macros;
 	cCals = Math.round(goal - fCals - pCals);
 	cGrams = Math.round(cCals / 4);
+	console.log(cCals, cGrams);
 	cPercent = Math.round((cCals / goal) * 100);
-	this.state.macros.carbs = {
+	const carbMacros = {
 		calories: cCals,
 		grams: cGrams,
 		percentage: cPercent,
 	};
+	return carbMacros;
 }

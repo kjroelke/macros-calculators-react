@@ -77,10 +77,7 @@ function App() {
 		},
 	} as macroState);
 	useEffect(() => {
-		const newMacros = calcMacros(macros, modifiers, bio, calorieGoal);
-		console.log(newMacros);
-		// calculator.calcMacros(props);
-		// setMacros(calculator.calcMacros(macros, modifiers, calorieGoal));
+		setMacros(calcMacros(macros, modifiers, bio, calorieGoal));
 	}, [calorieGoal, modifiers]);
 	return (
 		<div>
@@ -93,7 +90,6 @@ function App() {
 					gender={bio.gender}
 					personInfo={bio}
 					bmr={bmr}
-					// modifiers={modifiers}
 					calorieGoal={calorieGoal}
 					tdee={tdee}
 					macros={macros}
