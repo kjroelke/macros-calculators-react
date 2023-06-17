@@ -8,14 +8,6 @@ export type macroState = {
 	proteins: Macros;
 	carbs: Macros;
 };
-export type Person = {
-	gender: 'Female' | 'Male';
-	weight: number;
-	heightFt: number;
-	heightIn: number;
-	totalInches: number;
-	age: number;
-};
 
 export type modifiers = {
 	activity: number;

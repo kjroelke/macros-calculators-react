@@ -1,45 +1,46 @@
-import React, { useState, useEffect } from 'react';
+// 3rd Parties
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
+
+// Components
+import Header from './Presentational/Header';
+import Output from './Presentational/output';
+import Footer from './Presentational/Footer';
+
+// Utilites
 import { BMRCalc } from './Presentational/bmrCalculator';
-import { MyHeader } from './Presentational/Header';
 import { Modifiers } from './Presentational/modifierCalculator';
-import { Output } from './Presentational/output';
 import { MacroForm } from './Presentational/MacroForm';
 import { calcBMR, calcCalorieGoal, calcMacros } from './Math/calculator';
-import { macroState, modifiers, Person } from './types';
+import { MacroProvider, useMacros } from './MacroContext';
+
+// Types
+import { macroState, modifiers } from './types/types.macros';
+import GenderButton from './Components/GenderButton';
+import ClientInfo from './Components/ClientInfo';
 
 const root = createRoot(document.getElementById('app'));
 
 function App() {
-	const [bio, setBio] = useState<Person>({
-		gender: 'Female',
-		weight: 140,
-		heightFt: 5,
-		heightIn: 4,
-		totalInches: 64,
-		age: 29,
-	} as Person);
+	// const [bio, setBio] = useState<Person>({
+	// 	gender: 'Female',
+	// 	weight: 140,
+	// 	heightFt: 5,
+	// 	heightIn: 4,
+	// 	totalInches: 64,
+	// 	age: 29,
+	// } as Person);
 	const [bmr, setBMR] = useState<number>(1500);
-	function toggleGender(ev: Event) {
-		ev.preventDefault();
-		setBio((prev: Person) => {
-			return { ...prev, gender: prev.gender === 'Female' ? 'Male' : 'Female' };
-		});
-	}
-	function setPersonInfo({ target: { name, value } }) {
-		setBio((prev: Person) => {
-			return { ...prev, [name]: value };
-		});
-	}
-	useEffect(() => {
-		setBio((prev: Person) => {
-			const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
-			return { ...prev, totalInches: newTotal };
-		});
-	}, [bio.heightFt, bio.heightIn]);
-	useEffect(() => {
-		setBMR(calcBMR(bio));
-	}, [bio]);
+
+	// useEffect(() => {
+	// 	setBio((prev: Person) => {
+	// 		const newTotal = Number(bio.heightFt) * 12 + Number(bio.heightIn);
+	// 		return { ...prev, totalInches: newTotal };
+	// 	});
+	// }, [bio.heightFt, bio.heightIn]);
+	// useEffect(() => {
+	// 	setBMR(calcBMR(bio));
+	// }, [bio]);
 
 	const [modifiers, setModifiers] = useState<modifiers>({
 		activity: 1.2,
@@ -48,16 +49,17 @@ function App() {
 	});
 	const [calorieGoal, setCalorieGoal] = useState<number>(1800);
 	const [tdee, setTdee] = useState<number>(2000);
+
 	const updateModifiers = ({ target: { name, value } }) => {
 		setModifiers((prev: modifiers) => {
 			return { ...prev, [name]: Number(value) };
 		});
 	};
-	useEffect(() => {
-		const newTdee = Math.round(bmr * modifiers.activity);
-		setTdee(newTdee);
-		setCalorieGoal(calcCalorieGoal(newTdee, modifiers.deficit, bmr));
-	}, [modifiers, bio]);
+	// useEffect(() => {
+	// 	const newTdee = Math.round(bmr * modifiers.activity);
+	// 	setTdee(newTdee);
+	// 	setCalorieGoal(calcCalorieGoal(newTdee, modifiers.deficit, bmr));
+	// }, [modifiers, bio]);
 
 	const [macros, setMacros] = useState({
 		fats: {
@@ -76,39 +78,24 @@ function App() {
 			calories: 0,
 		},
 	} as macroState);
-	useEffect(() => {
-		setMacros(calcMacros(macros, modifiers, bio, calorieGoal));
-	}, [calorieGoal, modifiers]);
+	// useEffect(() => {
+	// 	setMacros(calcMacros(macros, modifiers, bio, calorieGoal));
+	// }, [calorieGoal, modifiers, macros, bio]);
 	return (
-		<div>
-			<MyHeader
-				title="A Macro Calculator"
-				subtitle="Built with ❤️ and reactjs"
-			/>
+		<>
+			<Header title="A Macro Calculator" subtitle="Built with ❤️ and reactjs" />
 			<main>
-				<Output
-					gender={bio.gender}
-					personInfo={bio}
-					bmr={bmr}
-					calorieGoal={calorieGoal}
-					tdee={tdee}
-					macros={macros}
-				/>
-				<BMRCalc
-					personInfo={bio}
-					setPersonInfo={setPersonInfo}
-					toggleGender={toggleGender}
-				/>
-				<Modifiers updateModifiers={updateModifiers} />
-				<MacroForm
-					gender={bio.gender}
-					modifier={modifiers.protein}
-					updateModifiers={updateModifiers}
-				/>
+				<MacroProvider>
+					<GenderButton />
+				</MacroProvider>
 			</main>
-			<footer id="copyright"></footer>
-		</div>
+			<Footer />
+		</>
 	);
 }
 
-root.render(<App />);
+root.render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+);

@@ -1,5 +1,12 @@
 import React from 'react';
-export function Output({ gender, personInfo, bmr, calorieGoal, tdee, macros }) {
+export default function Output({
+	gender,
+	personInfo,
+	bmr,
+	calorieGoal,
+	tdee,
+	macros,
+}) {
 	function returnHeightDetails() {
 		if (personInfo.heightFt % 12 === 0) {
 			return `${personInfo.heightFt} ft (${personInfo.totalInches} inches)`;
