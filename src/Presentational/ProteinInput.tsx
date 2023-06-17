@@ -22,7 +22,10 @@ export default function MacroForm() {
 					name="protein"
 					id="protein-modifier"
 					value={modifier === 0 ? '' : modifier}
-					onChange={(ev) => dispatch({ type: 'updateModifiers', payload: ev })}
+					onChange={(ev) => {
+						dispatch({ type: 'updateModifiers', payload: ev });
+						dispatch({ type: 'calcMacros' });
+					}}
 				/>
 			</div>
 		</section>

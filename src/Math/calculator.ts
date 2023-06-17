@@ -61,6 +61,10 @@ function calcProteins(
 	person: Person,
 	calorieGoal: number,
 ): Macros {
+	if (typeof calorieGoal === 'string') {
+		alert('Calorie Goal too low!');
+		return;
+	}
 	let { grams, calories } = proteins;
 	grams = Math.round(person.weight * modifier);
 	calories = Math.round(grams * 4);
@@ -93,7 +97,7 @@ function calcCarbs(macros: macroState, goal: number): Macros {
 	} = macros;
 	cCals = Math.round(goal - fCals - pCals);
 	cGrams = Math.round(cCals / 4);
-	console.log(cCals, cGrams);
+	// console.log(cCals, cGrams);
 	cPercent = Math.round((cCals / goal) * 100);
 	const carbMacros = {
 		calories: cCals,

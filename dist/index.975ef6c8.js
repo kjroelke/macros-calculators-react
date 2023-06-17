@@ -27215,99 +27215,74 @@ var _modifiers = require("./Presentational/Modifiers");
 var _modifiersDefault = parcelHelpers.interopDefault(_modifiers);
 var _bmrcalc = require("./Presentational/BMRCalc");
 var _bmrcalcDefault = parcelHelpers.interopDefault(_bmrcalc);
-// Utilites
-var _macroContext = require("./MacroContext");
-var _s = $RefreshSig$();
+var _resetButton = require("./Components/Buttons/ResetButton");
+var _resetButtonDefault = parcelHelpers.interopDefault(_resetButton);
 function App() {
-    _s();
-    const { dispatch  } = (0, _macroContext.useMacros)();
-    (0, _react.useEffect)(()=>{
-        dispatch({
-            type: "calcMacros"
-        });
-    }, [
-        dispatch
-    ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("main", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _outputDefault.default), {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _personInfoDefault.default), {}, void 0, false, {
                         fileName: "src/app.tsx",
-                        lineNumber: 29,
+                        lineNumber: 22,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _caloriesDefault.default), {}, void 0, false, {
                         fileName: "src/app.tsx",
-                        lineNumber: 30,
+                        lineNumber: 23,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _macrosDefault.default), {}, void 0, false, {
                         fileName: "src/app.tsx",
-                        lineNumber: 31,
+                        lineNumber: 24,
                         columnNumber: 5
                     }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        id: "reset",
-                        onClick: (ev)=>{
-                            ev.preventDefault();
-                            console.log("hello");
-                            dispatch({
-                                type: "reset"
-                            });
-                        },
-                        children: "Reset"
-                    }, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _resetButtonDefault.default), {}, void 0, false, {
                         fileName: "src/app.tsx",
-                        lineNumber: 32,
+                        lineNumber: 25,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.tsx",
-                lineNumber: 28,
+                lineNumber: 21,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _bmrcalcDefault.default), {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _genderButtonDefault.default), {}, void 0, false, {
                         fileName: "src/app.tsx",
-                        lineNumber: 43,
+                        lineNumber: 28,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _clientInfoDefault.default), {}, void 0, false, {
                         fileName: "src/app.tsx",
-                        lineNumber: 44,
+                        lineNumber: 29,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/app.tsx",
-                lineNumber: 42,
+                lineNumber: 27,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modifiersDefault.default), {}, void 0, false, {
                 fileName: "src/app.tsx",
-                lineNumber: 46,
+                lineNumber: 31,
                 columnNumber: 4
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _proteinInputDefault.default), {}, void 0, false, {
                 fileName: "src/app.tsx",
-                lineNumber: 47,
+                lineNumber: 32,
                 columnNumber: 4
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/app.tsx",
-        lineNumber: 27,
+        lineNumber: 20,
         columnNumber: 3
     }, this);
 }
-_s(App, "DnxJ5sAWMjJeFMHY00RYCngT1zA=", false, function() {
-    return [
-        (0, _macroContext.useMacros)
-    ];
-});
 _c = App;
 var _c;
 $RefreshReg$(_c, "App");
@@ -27317,7 +27292,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Components/Buttons/GenderButton":"e9gmM","./Components/ClientInfo":"1PeQb","./Components/Calories":"evp2g","./Presentational/PersonInfo":"kElUi","./Presentational/Output":"db0Vq","./Presentational/Macros":"82uXV","./Presentational/ProteinInput":"3H1Hi","./Presentational/Modifiers":"5ppBp","./Presentational/BMRCalc":"4WkuH","./MacroContext":"iItRT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"e9gmM":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Components/Buttons/GenderButton":"e9gmM","./Components/ClientInfo":"1PeQb","./Components/Calories":"evp2g","./Presentational/PersonInfo":"kElUi","./Presentational/Output":"db0Vq","./Presentational/Macros":"82uXV","./Presentational/ProteinInput":"3H1Hi","./Presentational/Modifiers":"5ppBp","./Presentational/BMRCalc":"4WkuH","./Components/Buttons/ResetButton":"8tjMk","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"e9gmM":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$abaf = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27444,56 +27419,60 @@ const initialState = {
     tdee: 2000,
     bmr: 1429
 };
+function calcAllMacros(state) {
+    const bmr = (0, _calculator.calcBMR)(state.bio);
+    const newTdee = Math.round(bmr * state.modifiers.activity);
+    const newState = {
+        ...state,
+        bmr: bmr,
+        tdee: newTdee,
+        calorieGoal: (0, _calculator.calcCalorieGoal)(newTdee, state.modifiers.deficit, bmr),
+        macros: (0, _calculator.calcMacros)(state.macros, state.modifiers, state.bio, state.calorieGoal)
+    };
+    console.log(newState);
+    return newState;
+}
 function reducer(state, action) {
+    console.log(`running ${action.type}`);
     switch(action.type){
-        case "calcMacros":
-            {
-                console.log(`caculating ${action.type}`);
-                const bmr = (0, _calculator.calcBMR)(state.bio);
-                const newTdee = Math.round(bmr * state.modifiers.activity);
-                return {
-                    ...state,
-                    bmr: bmr,
-                    tdee: newTdee,
-                    calorieGoal: (0, _calculator.calcCalorieGoal)(newTdee, state.modifiers.deficit, bmr),
-                    macros: (0, _calculator.calcMacros)(state.macros, state.modifiers, state.bio, state.calorieGoal)
-                };
-            }
         case "updateModifiers":
             {
                 const { target: { name , value  }  } = action.payload;
-                return {
+                const updatedState = {
                     ...state,
                     modifiers: {
                         ...state.modifiers,
                         [name]: Number(value)
                     }
                 };
+                return calcAllMacros(updatedState);
             }
         case "bio/gender":
             {
                 const gender = state.bio.gender === "Female" ? "Male" : "Female";
-                return {
+                const updatedState = {
                     ...state,
                     bio: {
                         ...state.bio,
                         gender: gender
                     }
                 };
+                return calcAllMacros(updatedState);
             }
         case "bio/personInfo":
             {
                 const { target: { name , value  }  } = action.payload;
-                return {
+                const updatedState = {
                     ...state,
                     bio: {
                         ...state.bio,
                         [name]: Number(value)
                     }
                 };
+                return calcAllMacros(updatedState);
             }
         case "reset":
-            return initialState;
+            return calcAllMacros(initialState);
         default:
             throw new Error(`Unknown Action! ${action.type}`);
     }
@@ -27523,7 +27502,7 @@ function MacroProvider({ children  }) {
         children: children
     }, void 0, false, {
         fileName: "src/MacroContext.tsx",
-        lineNumber: 117,
+        lineNumber: 120,
         columnNumber: 3
     }, this);
 }
@@ -27570,6 +27549,10 @@ function calcMacros(macros, modifiers, bio, calorieGoal) {
     return macros;
 }
 function calcProteins(proteins, modifier, person, calorieGoal) {
+    if (typeof calorieGoal === "string") {
+        alert("Calorie Goal too low!");
+        return;
+    }
     let { grams , calories  } = proteins;
     grams = Math.round(person.weight * modifier);
     calories = Math.round(grams * 4);
@@ -27596,7 +27579,7 @@ function calcCarbs(macros, goal) {
     let { carbs: { grams: cGrams , percentage: cPercent , calories: cCals  } , fats: { calories: fCals  } , proteins: { calories: pCals  }  } = macros;
     cCals = Math.round(goal - fCals - pCals);
     cGrams = Math.round(cCals / 4);
-    console.log(cCals, cGrams);
+    // console.log(cCals, cGrams);
     cPercent = Math.round(cCals / goal * 100);
     const carbMacros = {
         calories: cCals,
@@ -28411,10 +28394,15 @@ function MacroForm() {
                     name: "protein",
                     id: "protein-modifier",
                     value: modifier === 0 ? "" : modifier,
-                    onChange: (ev)=>dispatch({
+                    onChange: (ev)=>{
+                        dispatch({
                             type: "updateModifiers",
                             payload: ev
-                        })
+                        });
+                        dispatch({
+                            type: "calcMacros"
+                        });
+                    }
                 }, void 0, false, {
                     fileName: "src/Presentational/ProteinInput.tsx",
                     lineNumber: 18,
@@ -28478,10 +28466,12 @@ function Modifiers() {
         className: "form",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "form__content",
-            onChange: (ev)=>dispatch({
+            onChange: (ev)=>{
+                dispatch({
                     type: "updateModifiers",
                     payload: ev
-                }),
+                });
+            },
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formSelectDefault.default), {
                     label: "Activity Modifier",
@@ -28489,7 +28479,7 @@ function Modifiers() {
                     id: "activity"
                 }, void 0, false, {
                     fileName: "src/Presentational/Modifiers.tsx",
-                    lineNumber: 13,
+                    lineNumber: 15,
                     columnNumber: 5
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formSelectDefault.default), {
@@ -28498,7 +28488,7 @@ function Modifiers() {
                     id: "deficit"
                 }, void 0, false, {
                     fileName: "src/Presentational/Modifiers.tsx",
-                    lineNumber: 18,
+                    lineNumber: 20,
                     columnNumber: 5
                 }, this)
             ]
@@ -28671,7 +28661,55 @@ $RefreshReg$(_c, "BMRCalc");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fcCXo":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"8tjMk":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$daea = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$daea.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _macroContext = require("../../MacroContext");
+var _s = $RefreshSig$();
+function ResetButton() {
+    _s();
+    const { dispatch  } = (0, _macroContext.useMacros)();
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+        id: "reset",
+        onClick: (ev)=>{
+            ev.preventDefault();
+            dispatch({
+                type: "reset"
+            });
+        },
+        children: "Reset"
+    }, void 0, false, {
+        fileName: "src/Components/Buttons/ResetButton.tsx",
+        lineNumber: 7,
+        columnNumber: 3
+    }, this);
+}
+_s(ResetButton, "mGMGf4gN5ZBWBko7I8syX3NTLek=", false, function() {
+    return [
+        (0, _macroContext.useMacros)
+    ];
+});
+_c = ResetButton;
+exports.default = /*#__PURE__*/ _c1 = (0, _react.memo)(ResetButton);
+var _c, _c1;
+$RefreshReg$(_c, "ResetButton");
+$RefreshReg$(_c1, "%default%");
+
+  $parcel$ReactRefreshHelpers$daea.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../MacroContext":"iItRT","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fcCXo":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2672 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

@@ -40,63 +40,66 @@ const initialState: AppState = {
 	tdee: 2000,
 	bmr: 1429,
 };
-
+function calcAllMacros(state: AppState): AppState {
+	const bmr = calcBMR(state.bio);
+	const newTdee = Math.round(bmr * state.modifiers.activity);
+	const newState = {
+		...state,
+		bmr: bmr,
+		tdee: newTdee,
+		calorieGoal: calcCalorieGoal(newTdee, state.modifiers.deficit, bmr),
+		macros: calcMacros(
+			state.macros,
+			state.modifiers,
+			state.bio,
+			state.calorieGoal,
+		),
+	};
+	console.log(newState);
+	return newState;
+}
 function reducer(state: AppState, action: reducerAction) {
+	console.log(`running ${action.type}`);
 	switch (action.type) {
-		case 'calcMacros': {
-			console.log(`caculating ${action.type}`);
-			const bmr = calcBMR(state.bio);
-			const newTdee = Math.round(bmr * state.modifiers.activity);
-
-			return {
-				...state,
-				bmr: bmr,
-				tdee: newTdee,
-				calorieGoal: calcCalorieGoal(newTdee, state.modifiers.deficit, bmr),
-				macros: calcMacros(
-					state.macros,
-					state.modifiers,
-					state.bio,
-					state.calorieGoal,
-				),
-			};
-		}
 		case 'updateModifiers': {
 			const {
 				target: { name, value },
 			} = action.payload;
-			return {
+			const updatedState = {
 				...state,
 				modifiers: {
 					...state.modifiers,
 					[name]: Number(value),
 				},
 			};
+			return calcAllMacros(updatedState);
 		}
 		case 'bio/gender': {
 			const gender = state.bio.gender === 'Female' ? 'Male' : 'Female';
-			return {
+			const updatedState = {
 				...state,
 				bio: {
 					...state.bio,
 					gender: gender,
 				},
 			};
+			return calcAllMacros(updatedState);
 		}
 		case 'bio/personInfo': {
 			const {
 				target: { name, value },
 			} = action.payload;
-			return {
+			const updatedState = {
 				...state,
 				bio: {
 					...state.bio,
 					[name]: Number(value),
 				},
 			};
+			return calcAllMacros(updatedState);
 		}
 		case 'reset':
-			return initialState;
+			return calcAllMacros(initialState);
 		default:
 			throw new Error(`Unknown Action! ${action.type}`);
 	}

@@ -13,31 +13,16 @@ import Macros from './Presentational/Macros';
 import ProteinInput from './Presentational/ProteinInput';
 import Modifiers from './Presentational/Modifiers';
 import BMRCalc from './Presentational/BMRCalc';
-
-// Utilites
-import { useMacros } from './MacroContext';
+import ResetButton from './Components/Buttons/ResetButton';
 
 export default function App() {
-	const { dispatch } = useMacros();
-	useEffect(() => {
-		dispatch({ type: 'calcMacros' });
-	}, [dispatch]);
-
 	return (
 		<main>
 			<Output>
 				<PersonInfo />
 				<Calories />
 				<Macros />
-				<button
-					id="reset"
-					onClick={(ev) => {
-						ev.preventDefault();
-						console.log('hello');
-						dispatch({ type: 'reset' });
-					}}>
-					Reset
-				</button>
+				<ResetButton />
 			</Output>
 			<BMRCalc>
 				<GenderButton />

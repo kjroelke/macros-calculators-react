@@ -5,7 +5,7 @@ export type AppState = {
 	bio: Person;
 	macros: macroState;
 	modifiers: modifiers;
-	calorieGoal: number;
+	calorieGoal: number | string;
 	tdee: number;
 	bmr: undefined | number;
 };

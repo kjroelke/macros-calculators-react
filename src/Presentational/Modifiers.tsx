@@ -9,7 +9,9 @@ export default function Modifiers() {
 		<section id="modifiers" data-step="1" className="form">
 			<div
 				className="form__content"
-				onChange={(ev) => dispatch({ type: 'updateModifiers', payload: ev })}>
+				onChange={(ev) => {
+					dispatch({ type: 'updateModifiers', payload: ev });
+				}}>
 				<FormSelect
 					label="Activity Modifier"
 					options={activity}
