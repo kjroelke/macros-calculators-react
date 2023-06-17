@@ -1,9 +1,7 @@
-import type {
-	Macros,
-	Person,
-	macroState,
-	modifiers,
-} from '../types/types.macros';
+import type { Macros, macroState, modifiers } from '../types/types.macros';
+import { Person } from '../types/types.person';
+
+/** Returns BMR as Number */
 export function calcBMR(person: Person): number {
 	if ('Female' === person.gender) {
 		return calcFemaleBMR(person);

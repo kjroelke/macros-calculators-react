@@ -92,11 +92,11 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 .container {
-  width: 88%;
-  max-width: 1200px;
   flex-flow: wrap;
   justify-content: space-evenly;
   align-items: flex-start;
+  width: 88%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 6.5rem 0;
   display: flex;
@@ -130,9 +130,9 @@ button, input[type="submit"], input[type="reset"] {
 
 @media screen and (width <= 48rem) {
   .container .answer {
-    width: 100%;
     flex: auto;
     order: 1;
+    width: 100%;
     margin: 0;
     top: 0%;
   }
@@ -186,14 +186,14 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 .header__img svg {
-  height: 20rem;
   width: 20rem;
+  height: 20rem;
 }
 
 @media screen and (width <= 48rem) {
   .header__img svg {
-    height: 10rem;
     width: 10rem;
+    height: 10rem;
   }
 }
 

@@ -7,9 +7,12 @@ export type AppState = {
 	modifiers: modifiers;
 	calorieGoal: number;
 	tdee: number;
+	bmr: undefined | number;
 };
 
 export type reducerAction = {
 	type: string;
 	payload: any;
 };
+
+export type modiferLabel = { mod: number; label: string };
