@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BMRCalc } from './Presentational/bmrCalculator';
-import { MyHeader } from './Presentational/Header';
+import Header from './Presentational/Header';
 import { Modifiers } from './Presentational/modifierCalculator';
 import { Output } from './Presentational/output';
 import MacroMath from './Math/bmr';
 import { MacroForm } from './Presentational/MacroForm';
+import { MacroProvider } from './MacroContext';
+import GenderButton from './Components/Buttons/GenderButton';
 
 const root = createRoot(document.getElementById('app'));
 
@@ -97,36 +99,40 @@ function App() {
 		setMacros(calculator.calcMacros(props));
 	}, [calorieGoal, modifiers]);
 	return (
-		<div>
-			<MyHeader
-				title="A Macro Calculator"
-				subtitle="Built with ❤️ and reactjs"
-			/>
+		<>
+			<Header title="A Macro Calculator" subtitle="Built with ❤️ and reactjs" />
 			<main>
-				<Output
-					gender={bio.gender}
-					personInfo={bio}
-					bmr={bmr}
-					modifiers={modifiers}
-					calorieGoal={calorieGoal}
-					tdee={tdee}
-					macros={macros}
-				/>
-				<BMRCalc
-					personInfo={bio}
-					setPersonInfo={setPersonInfo}
-					toggleGender={toggleGender}
-				/>
-				<Modifiers updateModifiers={updateModifiers} />
-				<MacroForm
-					gender={bio.gender}
-					modifier={modifiers.protein}
-					updateModifiers={updateModifiers}
-				/>
+				<MacroProvider>
+					<Output
+						gender={bio.gender}
+						personInfo={bio}
+						bmr={bmr}
+						modifiers={modifiers}
+						calorieGoal={calorieGoal}
+						tdee={tdee}
+						macros={macros}
+					/>
+					<BMRCalc
+						personInfo={bio}
+						setPersonInfo={setPersonInfo}
+						toggleGender={toggleGender}>
+						<GenderButton />
+					</BMRCalc>
+					<Modifiers updateModifiers={updateModifiers} />
+					<MacroForm
+						gender={bio.gender}
+						modifier={modifiers.protein}
+						updateModifiers={updateModifiers}
+					/>
+				</MacroProvider>
 			</main>
 			<footer id="copyright"></footer>
-		</div>
+		</>
 	);
 }
 
-root.render(<App />);
+root.render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+);

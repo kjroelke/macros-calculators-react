@@ -1,28 +1,12 @@
-export function BMRCalc({ personInfo, toggleGender, setPersonInfo }) {
+export function BMRCalc({ children }) {
 	return (
 		<section
 			id="bmr-calculator"
 			data-step="0"
 			className="form"
 			onSubmit={(ev) => ev.preventDefault()}>
-			<div className="form__content">
-				<GenderButton
-					initalGender={personInfo.gender}
-					toggleGender={toggleGender}
-				/>
-				<ClientInfo personInfo={personInfo} setPersonInfo={setPersonInfo} />
-			</div>
+			<div className="form__content">{children}</div>
 		</section>
-	);
-}
-function GenderButton({ initalGender, toggleGender }) {
-	return (
-		<div className="form__content--gender">
-			<p>
-				Current Gender: <span className="current-gender">{initalGender}</span>
-			</p>
-			<button onClick={(ev) => toggleGender(ev)}>Toggle Gender </button>
-		</div>
 	);
 }
 
