@@ -24,7 +24,6 @@ export default function MacroForm() {
 					value={modifier === 0 ? '' : modifier}
 					onChange={(ev) => {
 						dispatch({ type: 'updateModifiers', payload: ev });
-						dispatch({ type: 'calcMacros' });
 					}}
 				/>
 			</div>

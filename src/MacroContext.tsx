@@ -40,6 +40,7 @@ const initialState: AppState = {
 	tdee: 2000,
 	bmr: 1429,
 };
+
 function calcAllMacros(state: AppState): AppState {
 	const bmr = calcBMR(state.bio);
 	const newTdee = Math.round(bmr * state.modifiers.activity);
@@ -55,7 +56,6 @@ function calcAllMacros(state: AppState): AppState {
 			state.calorieGoal,
 		),
 	};
-	console.log(newState);
 	return newState;
 }
 function reducer(state: AppState, action: reducerAction) {
@@ -74,6 +74,7 @@ function reducer(state: AppState, action: reducerAction) {
 			};
 			return calcAllMacros(updatedState);
 		}
+
 		case 'bio/gender': {
 			const gender = state.bio.gender === 'Female' ? 'Male' : 'Female';
 			const updatedState = {
@@ -85,6 +86,7 @@ function reducer(state: AppState, action: reducerAction) {
 			};
 			return calcAllMacros(updatedState);
 		}
+
 		case 'bio/personInfo': {
 			const {
 				target: { name, value },
@@ -96,16 +98,19 @@ function reducer(state: AppState, action: reducerAction) {
 					[name]: Number(value),
 				},
 			};
+			// console.log(updatedState.bio);
 			return calcAllMacros(updatedState);
 		}
 		case 'reset':
 			return calcAllMacros(initialState);
+
 		default:
 			throw new Error(`Unknown Action! ${action.type}`);
 	}
 }
 
 const MacroContext = createContext();
+
 export function useMacros() {
 	const context = useContext(MacroContext);
 	if (!context)

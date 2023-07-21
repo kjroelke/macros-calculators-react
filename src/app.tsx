@@ -1,8 +1,7 @@
 // 3rd Parties
-import React, { useEffect } from 'react';
+import React from 'react';
 
 // Components
-import GenderButton from './Components/Buttons/GenderButton';
 import ClientInfo from './Components/ClientInfo';
 import Calories from './Components/Calories';
 
@@ -13,19 +12,31 @@ import Macros from './Presentational/Macros';
 import ProteinInput from './Presentational/ProteinInput';
 import Modifiers from './Presentational/Modifiers';
 import BMRCalc from './Presentational/BMRCalc';
-import ResetButton from './Components/Buttons/ResetButton';
+import Button from './Components/Buttons/Button';
+import { useMacros } from './MacroContext';
 
 export default function App() {
+	const {
+		bio: { gender },
+	} = useMacros();
+
 	return (
 		<main>
 			<Output>
 				<PersonInfo />
 				<Calories />
 				<Macros />
-				<ResetButton />
+				<Button dispatchType="reset" id="reset">
+					Reset
+				</Button>
 			</Output>
 			<BMRCalc>
-				<GenderButton />
+				<div className="form__content--gender">
+					<p>
+						Current Gender: <span className="current-gender">{gender}</span>
+					</p>
+					<Button dispatchType="bio/gender">Toggle Gender</Button>
+				</div>
 				<ClientInfo />
 			</BMRCalc>
 			<Modifiers />

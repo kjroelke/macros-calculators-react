@@ -10,13 +10,15 @@ export function calcBMR(person: Person): number {
 	} else throw new Error('Gender is undefined!');
 }
 function calcFemaleBMR(person: Person) {
+	const totalInches = person.heightFt * 12 + person.heightIn;
 	return Math.round(
-		655 + 4.35 * person.weight + 4.7 * person.totalInches - 4.7 * person.age,
+		655 + 4.35 * person.weight + 4.7 * totalInches - 4.7 * person.age,
 	);
 }
 function calcMaleBMR(person: Person) {
+	const totalInches = person.heightFt * 12 + person.heightIn;
 	return Math.round(
-		66 + 6.23 * person.weight + 12.7 * person.totalInches - 6.8 * person.age,
+		66 + 6.23 * person.weight + 12.7 * totalInches - 6.8 * person.age,
 	);
 }
 
@@ -55,6 +57,7 @@ export function calcMacros(
 	macros.carbs = calcCarbs(macros, calorieGoal);
 	return macros;
 }
+
 function calcProteins(
 	proteins: Macros,
 	modifier: number,
