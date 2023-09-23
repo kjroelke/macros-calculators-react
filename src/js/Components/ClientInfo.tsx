@@ -1,10 +1,10 @@
-import React from 'react';
-import { useMacros } from '../MacroContext';
+import React from "react";
+import { useMacros } from "../Context/MacroContext";
 export default function ClientInfo() {
 	const { bio, dispatch } = useMacros();
 	const { age, weight, heightFt, heightIn } = bio;
 	function handleChange(ev) {
-		dispatch({ type: 'bio/personInfo', payload: ev });
+		dispatch({ type: "bio/personInfo", payload: ev });
 	}
 
 	return (

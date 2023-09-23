@@ -1,13 +1,13 @@
 // 3rd Parties
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useReducer, useContext } from "react";
 
 // Types
-import { AppState, reducerAction } from './types/types.app';
-import { calcBMR, calcCalorieGoal, calcMacros } from './Math/calculator';
+import { AppState, reducerAction } from "../../types/types.app";
+import { calcBMR, calcCalorieGoal, calcMacros } from "../../Math/calculator";
 
 const initialState: AppState = {
 	bio: {
-		gender: 'Female',
+		gender: "Female",
 		weight: 140,
 		heightFt: 5,
 		heightIn: 4,
@@ -59,9 +59,9 @@ function calcAllMacros(state: AppState): AppState {
 	return newState;
 }
 function reducer(state: AppState, action: reducerAction) {
-	console.log(`running ${action.type}`);
+	// console.log(`running ${action.type}`);
 	switch (action.type) {
-		case 'updateModifiers': {
+		case "updateModifiers": {
 			const {
 				target: { name, value },
 			} = action.payload;
@@ -75,8 +75,8 @@ function reducer(state: AppState, action: reducerAction) {
 			return calcAllMacros(updatedState);
 		}
 
-		case 'bio/gender': {
-			const gender = state.bio.gender === 'Female' ? 'Male' : 'Female';
+		case "bio/gender": {
+			const gender = state.bio.gender === "Female" ? "Male" : "Female";
 			const updatedState = {
 				...state,
 				bio: {
@@ -87,7 +87,7 @@ function reducer(state: AppState, action: reducerAction) {
 			return calcAllMacros(updatedState);
 		}
 
-		case 'bio/personInfo': {
+		case "bio/personInfo": {
 			const {
 				target: { name, value },
 			} = action.payload;
@@ -101,7 +101,7 @@ function reducer(state: AppState, action: reducerAction) {
 			// console.log(updatedState.bio);
 			return calcAllMacros(updatedState);
 		}
-		case 'reset':
+		case "reset":
 			return calcAllMacros(initialState);
 
 		default:
@@ -114,7 +114,7 @@ const MacroContext = createContext();
 export function useMacros() {
 	const context = useContext(MacroContext);
 	if (!context)
-		throw new Error('Attempting to use context outside of provider!');
+		throw new Error("Attempting to use context outside of provider!");
 	return context;
 }
 
@@ -123,7 +123,15 @@ export function MacroProvider({ children }) {
 	const { bio, macros, modifiers, calorieGoal, tdee, bmr } = state;
 	return (
 		<MacroContext.Provider
-			value={{ bio, macros, modifiers, calorieGoal, tdee, bmr, dispatch }}>
+			value={{
+				bio,
+				macros,
+				modifiers,
+				calorieGoal,
+				tdee,
+				bmr,
+				dispatch,
+			}}>
 			{children}
 		</MacroContext.Provider>
 	);

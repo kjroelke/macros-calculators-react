@@ -1,5 +1,5 @@
-import React from 'react';
-import { useMacros } from '../MacroContext';
+import React from "react";
+import { useMacros } from "../Context/MacroContext";
 
 function Calories() {
 	const { bmr, calorieGoal, tdee } = useMacros();

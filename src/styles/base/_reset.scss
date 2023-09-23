@@ -1,5 +1,5 @@
-@use '../abstracts/variables';
-@use '../abstracts/mixins';
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 *,
 *::after,
@@ -15,30 +15,34 @@ html {
 
 body {
 	box-sizing: border-box;
-	background-color: variables.$color-secondary;
 }
 
 section {
 	margin-bottom: 2em;
 }
+
 form {
 	@include mixins.mainBorder;
 	font-size: 2rem;
+
 	fieldset {
 		padding: 2rem;
 
 		&:not(:last-child) {
 			margin-bottom: 2rem;
 		}
+
 		legend {
 			color: variables.$color-primary;
 			font-weight: 700;
 		}
+
 		label {
 			margin-bottom: 1rem;
 			font-weight: 700;
 			font-size: 1.6rem;
 		}
+
 		h3 {
 			margin-top: 2rem;
 			font-size: 2rem;

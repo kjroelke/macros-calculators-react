@@ -1,5 +1,5 @@
-@use '../abstracts/variables';
-@use '../abstracts/mixins';
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 .form {
 	background-color: white;
@@ -19,7 +19,7 @@
 	}
 	&__content {
 		@include mixins.displayFlex(column, flex-start, stretch);
-		padding: 3rem;
+
 		&--fields {
 			@include mixins.displayFlex(row, space-around);
 		}

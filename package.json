@@ -3,6 +3,7 @@
 	"version": "1.0",
 	"description": "Built with react",
 	"browserslist": "> 0.5%, last 2 versions, not dead",
+	"prettier": "@wordpress/prettier-config",
 	"scripts": {
 		"start": "parcel src/index.html",
 		"build": "parcel build src/index.html"
@@ -14,12 +15,14 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@parcel/transformer-sass": "^2.7.0",
-		"@parcel/transformer-svg-react": "^2.8.3",
-		"@types/react": "^18.2.12",
+		"@wordpress/prettier-config": "^2.25.0",
+		"@parcel/transformer-sass": "^2.9.3",
+		"@parcel/transformer-svg": "^2.9.3",
+		"@parcel/transformer-svg-react": "^2.9.3",
+		"@types/react": "^18.2.22",
 		"dotenv": "^16.0.2",
 		"eslint-config-react-app": "^7.0.1",
-		"parcel": "^2.9.1",
+		"parcel": "^2.9.3",
 		"process": "^0.11.10"
 	}
 }

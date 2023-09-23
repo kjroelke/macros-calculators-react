@@ -1,20 +1,25 @@
-@use '../abstracts/variables';
-@use '../abstracts/mixins';
+@use "../abstracts/variables";
+@use "../abstracts/mixins" as m;
 
 .header {
-	@include mixins.displayFlex(row, center, center);
-	padding: 3rem 0;
 	background-color: white;
-	border-bottom: 2rem solid variables.$color-primary;
-	& > * {
-		margin-bottom: 3rem;
-	}
-	@include mixins.responsive(48rem) {
+	border-bottom: 2rem solid var(--color-primary);
+	@include m.responsive(48rem) {
 		padding: 3rem 2rem;
 	}
+
+	&__container {
+		@include m.displayFlex(row, center, center);
+		gap: 2rem;
+		padding: 3rem 0;
+		width: 88%;
+		margin: 0 auto;
+	}
+
 	&__title {
-		color: variables.$color-primary;
-		@include mixins.responsive(48rem) {
+		color: var(--color-primary);
+
+		@include m.responsive(48rem) {
 			h1 {
 				font-size: 3.2rem;
 			}
@@ -22,11 +27,8 @@
 	}
 
 	&__img svg {
-		height: 20rem;
-		width: 20rem;
-		@include mixins.responsive(48rem) {
-			height: 10rem;
-			width: 10rem;
-		}
+		--size: 10rem;
+		@include m.square(var(--size));
+		margin-right: auto;
 	}
 }

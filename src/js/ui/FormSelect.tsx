@@ -1,5 +1,5 @@
-import React from 'react';
-import { modiferLabel } from '../types/types.app';
+import React from "react";
+import { modiferLabel } from "../../types/types.app";
 export default function FormSelect({
 	id,
 	options,

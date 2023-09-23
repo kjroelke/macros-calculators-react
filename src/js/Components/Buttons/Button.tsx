@@ -1,5 +1,5 @@
-import React from 'react';
-import { useMacros } from '../../MacroContext';
+import React from "react";
+import { useMacros } from "../../Context/MacroContext";
 export default function Button({
 	children,
 	dispatchType,
@@ -12,7 +12,7 @@ export default function Button({
 	const { dispatch } = useMacros();
 	return (
 		<button
-			id={`${id ?? ''}`}
+			id={`${id ?? ""}`}
 			onClick={(ev) => {
 				ev.preventDefault();
 				dispatch({ type: dispatchType });
