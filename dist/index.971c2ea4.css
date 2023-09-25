@@ -207,14 +207,12 @@ body {
   color: var(--color-primary);
 }
 
-@media screen and (width <= 48rem) {
-  .header__title h1 {
-    font-size: 3.2rem;
-  }
+.header__title h1 {
+  font-size: 3rem;
 }
 
 .header__img svg {
-  --size: 10rem;
+  --size: 7rem;
   width: var(--size);
   height: var(--size);
   margin-right: auto;
@@ -357,109 +355,45 @@ button:hover, #reset:hover, button:focus, #reset:focus, button:active, #reset:ac
   margin: 0;
 }
 
+.percents {
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
+
+.percents > * {
+  margin: 0 .5em;
+}
+
+.percents h2 {
+  font-size: 2.4rem;
+}
+
 .answer {
-  color: #3c1c12;
+  color: var(--color-primary);
   background-color: #fff;
 }
 
 .answer * {
-  color: #3c1c12;
+  color: var(--color-primary);
+}
+
+.answer__container {
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  display: flex;
 }
 
 .answer__header {
-  background-color: #d2bdb6;
+  background-color: var(--color-secondary--light);
 }
 
 .answer__header h2 {
   text-transform: uppercase;
   text-align: center;
   font-weight: 700;
-}
-
-.answer__container {
-  flex-flow: wrap;
-  justify-content: space-around;
-  align-items: center;
-  padding: 1rem;
-  display: flex;
-}
-
-@media screen and (width <= 25.875em) {
-  .answer__container {
-    padding: 1rem;
-  }
-}
-
-.answer__container > * {
-  margin: 1em;
-}
-
-.answer__container .percents {
-  flex-flow: wrap;
-  justify-content: flex-start;
-  align-items: flex-start;
-  display: flex;
-}
-
-.answer__container .percents > * {
-  margin: 0 .5em;
-}
-
-.answer__container .percents h2 {
-  font-size: 2.4rem;
-}
-
-@media screen and (width <= 25.875em) {
-  .answer__container .percents {
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    display: flex;
-  }
-
-  .answer__container .percents > * {
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin: .5em;
-    display: flex;
-  }
-}
-
-@media screen and (width <= 48rem) {
-  .answer {
-    border-radius: unset;
-    border-left: unset;
-    border-right: unset;
-    margin-bottom: 2rem;
-  }
-
-  .answer__header {
-    padding: 1rem;
-  }
-
-  .answer__container {
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    align-items: stretch;
-    display: flex;
-  }
-
-  .answer__container h2 {
-    font-size: 2rem;
-  }
-
-  .answer__container .totals, .answer__container .percents {
-    flex-flow: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 1rem;
-    display: flex;
-  }
-
-  .answer #reset {
-    margin-top: 1rem;
-  }
 }
 
 /*# sourceMappingURL=index.971c2ea4.css.map */

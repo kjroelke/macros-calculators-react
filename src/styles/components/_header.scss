@@ -19,15 +19,13 @@
 	&__title {
 		color: var(--color-primary);
 
-		@include m.responsive(48rem) {
-			h1 {
-				font-size: 3.2rem;
-			}
+		h1 {
+			font-size: 3rem;
 		}
 	}
 
 	&__img svg {
-		--size: 10rem;
+		--size: 7rem;
 		@include m.square(var(--size));
 		margin-right: auto;
 	}

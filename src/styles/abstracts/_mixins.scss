@@ -36,9 +36,15 @@
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.35);
 }
 
-@mixin responsive($breakpoint) {
-	@media screen and (max-width: $breakpoint) {
-		@content;
+@mixin responsive($breakpoint, $direction: down) {
+	@if ($direction == down) {
+		@media screen and (max-width: $breakpoint) {
+			@content;
+		}
+	} @else {
+		@media screen and (min-width: $breakpoint) {
+			@content;
+		}
 	}
 }
 
