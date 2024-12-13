@@ -1,12 +1,4 @@
-@use "./vendors/fonts";
-
-@use "./abstracts/variables";
-@use "./abstracts/mixins";
-@use "./abstracts/utilities";
-
-@use "./base/reset";
 @use "./base/typography";
-@use "./base/base";
 
 @use "./layouts/grid";
 
@@ -15,3 +7,7 @@
 @use "./components/forms";
 @use "./components/buttons";
 @use "./components/output";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
