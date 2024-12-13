@@ -15,14 +15,15 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@wordpress/prettier-config": "^2.25.0",
-		"@parcel/transformer-sass": "^2.9.3",
-		"@parcel/transformer-svg": "^2.9.3",
-		"@parcel/transformer-svg-react": "^2.9.3",
-		"@types/react": "^18.2.22",
-		"dotenv": "^16.0.2",
+		"@parcel/transformer-sass": "^2.13.2",
+		"@parcel/transformer-svg": "^2.13.2",
+		"@parcel/transformer-svg-react": "^2.13.2",
+		"@types/react": "^19.0.1",
+		"@wordpress/prettier-config": "^4.14.0",
+		"dotenv": "^16.4.7",
 		"eslint-config-react-app": "^7.0.1",
-		"parcel": "^2.9.3",
-		"process": "^0.11.10"
+		"parcel": "^2.13.2",
+		"process": "^0.11.10",
+		"svgo": "^3.3.2"
 	}
 }
