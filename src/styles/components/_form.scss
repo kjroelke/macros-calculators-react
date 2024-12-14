@@ -1,3 +1,6 @@
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
+
 form {
 	@include mixins.mainBorder;
 	font-size: 2rem;

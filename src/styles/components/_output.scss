@@ -1,17 +1,14 @@
-@use '../abstracts/variables';
-@use '../abstracts/mixins';
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 .answer {
-	// @include mixins.mainBorder(variables.$color-primary);
 	background-color: white;
 	color: variables.$color-primary;
-	// box-shadow: 2px 2px 4px 4px rgba(variables.$color-primary, 0.35);
 	& * {
 		color: variables.$color-primary;
 	}
 	&__header {
 		background-color: variables.$color-secondary--light;
-		// padding: 2em;
 		h2 {
 			text-transform: uppercase;
 			text-align: center;
@@ -42,9 +39,6 @@
 					@include mixins.displayFlex(column);
 				}
 			}
-		}
-		.totals {
-			// @extend .percents;
 		}
 	}
 }
