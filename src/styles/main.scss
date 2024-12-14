@@ -2,10 +2,7 @@
 
 @use "./layouts/grid";
 
-@use "./components/header";
-@use "./components/footer";
 @use "./components/forms";
-@use "./components/buttons";
 @use "./components/output";
 
 @tailwind base;

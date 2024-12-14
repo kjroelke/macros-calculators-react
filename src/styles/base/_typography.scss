@@ -1,11 +1,5 @@
-@use '../abstracts/variables';
-@use '../abstracts/mixins';
-
-body {
-	font-family: variables.$font-primary;
-	font-weight: 400;
-	font-size: 1.6rem;
-}
+@use "../abstracts/variables";
+@use "../abstracts/mixins";
 
 h1,
 h2,
@@ -31,8 +25,8 @@ label {
 }
 
 button,
-input[type='submit'],
-input[type='reset'] {
+input[type="submit"],
+input[type="reset"] {
 	@extend h4;
 	text-transform: uppercase;
 }

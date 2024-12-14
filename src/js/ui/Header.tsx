@@ -1,17 +1,15 @@
 import React, { memo } from 'react';
-import Logo from '../../../public/img/SaraRoelke_StackedLogo_FullColor.svg';
+import Logo from '/public/img/SaraRoelke_StackedLogo_FullColor.svg';
 
 function Header({ title, subtitle }: { title: string; subtitle: string }) {
 	return (
-		<header className="header">
-			<div className="header__container">
-				<figure className="header__img">
-					<Logo />
-				</figure>
-				<div className="header__title">
-					<h1>{title}</h1>
-					<span>{subtitle}</span>
-				</div>
+		<header className="header bg-white border-b-[20px] border-primary mb-6 px-6 py-7 sm:px-2 sm:py-8 flex justify-center items-center gap-5">
+			<figure className="header__img max-w-24 aspect-square w-full h-full">
+				<Logo />
+			</figure>
+			<div className="text-primary">
+				<h1 className="text-3xl">{title}</h1>
+				<span>{subtitle}</span>
 			</div>
 		</header>
 	);
