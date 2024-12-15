@@ -1,5 +1,5 @@
-import React from "react";
-import { useMacros } from "../Context/MacroContext";
+import React from 'react';
+import { useMacros } from '../Context/MacroContext';
 
 function Macros() {
 	const {
@@ -7,25 +7,25 @@ function Macros() {
 	} = useMacros();
 	const macros = [
 		{
-			label: "Protein",
+			label: 'Protein',
 			macro: proteins,
-			id: "proteins",
+			id: 'proteins',
 		},
 		{
-			label: "Fat",
+			label: 'Fat',
 			macro: fats,
-			id: "fats",
+			id: 'fats',
 		},
 		{
-			label: "Carbs",
+			label: 'Carbs',
 			macro: carbs,
-			id: "carbs",
+			id: 'carbs',
 		},
 	];
 	return (
-		<div className="percents">
+		<div className="percents flex flex-wrap gap-3 justify-between items-center">
 			{macros.map((macro) => (
-				<div className={`percent__${macro.id}`}>
+				<div className={`percent__${macro.id}`} key={macro.id}>
 					<p>
 						<strong>{macro.label}:</strong>
 						<br />

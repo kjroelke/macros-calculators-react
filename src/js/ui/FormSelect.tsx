@@ -1,5 +1,5 @@
-import React from "react";
-import { modiferLabel } from "../../types/types.app";
+import React from 'react';
+import { modiferLabel } from '../../types/types.app';
 export default function FormSelect({
 	id,
 	options,
@@ -10,7 +10,7 @@ export default function FormSelect({
 	label: string;
 }) {
 	return (
-		<div className={`form__content--${id}`}>
+		<div className={`form__content--${id} flex flex-col`}>
 			<label htmlFor={id}>{label}</label>
 			<select name={id} id={id}>
 				{options.map((pair) => {

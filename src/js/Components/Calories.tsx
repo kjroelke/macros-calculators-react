@@ -1,10 +1,10 @@
-import React from "react";
-import { useMacros } from "../Context/MacroContext";
+import React from 'react';
+import { useMacros } from '../Context/MacroContext';
 
 function Calories() {
 	const { bmr, calorieGoal, tdee } = useMacros();
 	return (
-		<div className="totals">
+		<div className="totals w-full">
 			<p>
 				BMR: <strong>{bmr} calories</strong>
 			</p>
