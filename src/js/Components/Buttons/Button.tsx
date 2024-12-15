@@ -12,7 +12,7 @@ export default function Button({
 	const { dispatch } = useMacros();
 	return (
 		<button
-			className="text-white bg-brick mt-8 px-5 py-2 text-sm cursor-pointer border-brick border-4 overflow-hidden rounded-lg hover:bg-transparent hover:text-brick transition-colors ease-in-out"
+			className="text-white bg-brick px-5 py-2 text-sm cursor-pointer border-brick border-4 overflow-hidden rounded-lg hover:bg-transparent hover:text-brick transition-colors ease-in-out"
 			id={`${id ?? ''}`}
 			onClick={(ev) => {
 				ev.preventDefault();

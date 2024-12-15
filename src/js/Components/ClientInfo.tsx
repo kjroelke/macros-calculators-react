@@ -1,14 +1,14 @@
-import React from "react";
-import { useMacros } from "../Context/MacroContext";
+import React from 'react';
+import { useMacros } from '../Context/MacroContext';
 export default function ClientInfo() {
 	const { bio, dispatch } = useMacros();
 	const { age, weight, heightFt, heightIn } = bio;
 	function handleChange(ev) {
-		dispatch({ type: "bio/personInfo", payload: ev });
+		dispatch({ type: 'bio/personInfo', payload: ev });
 	}
 
 	return (
-		<div id="body">
+		<div id="body" className="flex flex-col gap-y-3 grow shrink basis-auto">
 			<h3>Client Info</h3>
 			<label htmlFor="weight">Weight (in pounds)</label>
 			<input
@@ -20,7 +20,7 @@ export default function ClientInfo() {
 				id="weight"
 				value={weight}
 			/>
-			<div id="height">
+			<div id="height" className="mt-5">
 				<h4>Height</h4>
 				<label htmlFor="height">Ft</label>
 				<input
