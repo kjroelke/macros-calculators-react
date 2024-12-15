@@ -23,13 +23,13 @@ export default function ClientInfo() {
 				<h4 className="text-md font-bold text-primary">Height</h4>
 				<InputNumber
 					label="Ft"
-					id="height--ft"
+					id="heightFt"
 					value={heightFt}
 					handleChange={handleChange}
 				/>
 				<InputNumber
 					label="In"
-					id="height--in"
+					id="heightIn"
 					value={heightIn}
 					handleChange={handleChange}
 				/>

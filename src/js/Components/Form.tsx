@@ -14,7 +14,7 @@ export default function Form({
 			id={id}
 			className={`col-start-1 bg-white flex flex-col items-stretch ${classList}`}
 		>
-			<div className="flex flex-col items-stretch gap-y-3">
+			<div className="flex flex-col items-stretch gap-y-3 w-full">
 				{children}
 			</div>
 		</SectionContainer>

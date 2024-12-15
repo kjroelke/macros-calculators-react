@@ -1,17 +1,12 @@
 import React from 'react';
 import { useMacros } from '../Context/MacroContext';
 import Form from './Form';
+import InputNumber from '../ui/InputNumber';
 
-function setProteinRange(gender: string): string {
-	let recommendedRange = '';
-	if (gender === 'Female') {
-		recommendedRange = `0.6 &ndash; 1.0`;
-	} else if (gender === 'Male') {
-		recommendedRange = `0.8 &ndash; 1.2`;
-	}
-	return recommendedRange;
-}
-
+const proteinRange = {
+	Female: '0.6 – 1.0',
+	Male: '0.8 – 1.2',
+};
 export default function MacroForm() {
 	const {
 		bio: { gender },
@@ -20,28 +15,22 @@ export default function MacroForm() {
 	} = useMacros();
 	return (
 		<Form id="protein-calculator">
-			<label htmlFor="protein" className="grow shrink basis-auto">
-				<strong>{gender}</strong> Protein Modifier (grams per lb.)
-				<br />
-				<span
-					dangerouslySetInnerHTML={{
-						__html: `Recommended range is ${setProteinRange(
-							gender
-						)}`,
-					}}
-				/>
-			</label>
-			<input
-				className="grow shrink basis-auto"
-				type="number"
-				inputMode="decimal"
-				step="0.1"
-				name="protein"
+			<h3 className="text-primary font-bold">
+				Protein Modifier (grams per lb.)
+			</h3>
+
+			<span>
+				Recommended range for {gender.toLowerCase()}s is{' '}
+				{proteinRange[gender]}
+			</span>
+			<InputNumber
+				label={false}
 				id="protein-modifier"
-				value={modifier === 0 ? '' : modifier}
-				onChange={(ev) => {
+				decimal={true}
+				handleChange={(ev) => {
 					dispatch({ type: 'updateModifiers', payload: ev });
 				}}
+				value={modifier === 0 ? '' : modifier}
 			/>
 		</Form>
 	);

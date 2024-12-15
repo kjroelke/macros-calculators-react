@@ -75,7 +75,8 @@ function reducer(state: AppState, action: reducerAction) {
 		}
 
 		case 'bio/gender': {
-			const gender = state.bio.gender === 'Female' ? 'Male' : 'Female';
+			const gender: 'Male' | 'Female' =
+				state.bio.gender === 'Female' ? 'Male' : 'Female';
 			const updatedState = {
 				...state,
 				bio: {
