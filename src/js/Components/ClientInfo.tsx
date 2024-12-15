@@ -16,6 +16,7 @@ export default function ClientInfo() {
 				label="Weight (in pounds)"
 				id="weight"
 				value={weight}
+				decimal={true}
 				handleChange={handleChange}
 			/>
 			<div id="height" className="flex flex-col gap-y-3">
