@@ -15,4 +15,4 @@ export type reducerAction = {
 	payload: any;
 };
 
-export type modiferLabel = { mod: number; label: string };
+export type modifierLabel = { mod: number; label: string };

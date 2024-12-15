@@ -1,21 +1,17 @@
-import React from "react";
-import { useMacros } from "../Context/MacroContext";
+import React from 'react';
+import { useMacros } from '../Context/MacroContext';
 
 function PersonInfo() {
 	const {
 		bio: { gender, weight, age, heightFt, heightIn, totalInches },
 	} = useMacros();
 
-	const height = returnHeightDetails();
-	function returnHeightDetails() {
-		if (heightFt % 12 === 0) {
-			return `${heightFt} ft (${totalInches} inches)`;
-		} else {
-			return `${heightFt} ft, ${heightIn} in (${totalInches} inches)`;
-		}
-	}
+	const height =
+		heightFt % 12 === 0
+			? `${heightFt} ft (${totalInches} inches)`
+			: `${heightFt} ft, ${heightIn} in (${totalInches} inches)`;
 	return (
-		<div className="personInfo">
+		<div className="personInfo w-full">
 			<p>
 				Gender: <strong>{gender}</strong>
 			</p>

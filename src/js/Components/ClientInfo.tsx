@@ -1,5 +1,7 @@
 import React from 'react';
 import { useMacros } from '../Context/MacroContext';
+import InputNumber from '../ui/InputNumber';
+
 export default function ClientInfo() {
 	const { bio, dispatch } = useMacros();
 	const { age, weight, heightFt, heightIn } = bio;
@@ -9,48 +11,33 @@ export default function ClientInfo() {
 
 	return (
 		<div id="body" className="flex flex-col gap-y-3 grow shrink basis-auto">
-			<h3>Client Info</h3>
-			<label htmlFor="weight">Weight (in pounds)</label>
-			<input
-				onChange={handleChange}
-				name="weight"
-				type="number"
-				inputMode="decimal"
-				step="0.1"
+			<h3 className="text-lg text-primary font-bold">Client Info</h3>
+			<InputNumber
+				label="Weight (in pounds)"
 				id="weight"
 				value={weight}
+				handleChange={handleChange}
 			/>
-			<div id="height" className="mt-5">
-				<h4>Height</h4>
-				<label htmlFor="height">Ft</label>
-				<input
-					onChange={handleChange}
+			<div id="height" className="flex flex-col gap-y-3">
+				<h4 className="text-md font-bold text-primary">Height</h4>
+				<InputNumber
+					label="Ft"
 					id="height--ft"
-					type="number"
-					inputMode="decimal"
-					name="heightFt"
 					value={heightFt}
+					handleChange={handleChange}
 				/>
-				<label htmlFor="height">In</label>
-				<input
-					onChange={handleChange}
+				<InputNumber
+					label="In"
 					id="height--in"
-					type="number"
-					inputMode="decimal"
-					name="heightIn"
 					value={heightIn}
-					max="11"
-					min="0"
+					handleChange={handleChange}
 				/>
 			</div>
-			<label htmlFor="age">Age</label>
-			<input
-				onChange={handleChange}
-				type="number"
-				inputMode="decimal"
+			<InputNumber
+				label="Age"
 				id="age"
-				name="age"
 				value={age}
+				handleChange={handleChange}
 			/>
 		</div>
 	);

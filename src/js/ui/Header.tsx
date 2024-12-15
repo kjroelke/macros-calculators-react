@@ -3,7 +3,7 @@ import Logo from '/public/img/SaraRoelke_StackedLogo_FullColor.svg';
 
 function Header({ title, subtitle }: { title: string; subtitle: string }) {
 	return (
-		<header className="header bg-white border-b-[20px] border-primary mb-6 px-6 py-7 sm:px-2 sm:py-8 flex justify-center items-center gap-5">
+		<header className="header bg-white border-b-[20px] border-primary px-6 py-7 sm:px-2 sm:py-8 flex justify-center items-center gap-5">
 			<figure className="header__img max-w-24 aspect-square w-full h-full">
 				<Logo />
 			</figure>

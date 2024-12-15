@@ -10,7 +10,7 @@ export default function BMRCalc() {
 		bio: { gender },
 	} = useMacros();
 	return (
-		<Form classList="row-start-1" id="bmr-calculator">
+		<Form id="bmr-calculator">
 			<div className="form__content--gender">
 				<p>
 					Current Gender:{' '}

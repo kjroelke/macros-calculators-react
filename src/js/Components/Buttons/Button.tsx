@@ -1,5 +1,6 @@
 import React from 'react';
 import { useMacros } from '../../Context/MacroContext';
+
 export default function Button({
 	children,
 	dispatchType,
