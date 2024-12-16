@@ -75,13 +75,12 @@ function reducer(state: AppState, action: reducerAction) {
         }
 
         case 'bio/gender': {
-            const gender: 'Male' | 'Female' =
-                state.bio.gender === 'Female' ? 'Male' : 'Female';
+            const newGender = action.payload;
             const updatedState = {
                 ...state,
                 bio: {
                     ...state.bio,
-                    gender: gender,
+                    gender: newGender,
                 },
             };
             return calcAllMacros(updatedState);

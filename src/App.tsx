@@ -5,7 +5,7 @@ import Output from './Components/Output';
 
 export default function App() {
     return (
-        <div className='mx-auto my-0 grid md:grid-cols-2 gap-y-10 gap-x-5'>
+        <div className='mx-auto my-0 grid md:grid-cols-2 gap-y-10 gap-x-5 py-10 px-2 max-w-screen-xl'>
             <div className='col-start-2 row-start-1 col-span-full relative'>
                 <Output />
             </div>
