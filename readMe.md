@@ -1,50 +1,61 @@
-# React + TypeScript + Vite
+# Macro Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A macro calculator to help simplify calculations for my wife's business.
+Originally developed in MVC Pattern with 7-1 SCSS structure and BEM class names.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Changelog
 
-## Expanding the ESLint configuration
+## v2.0.0
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+-   Rebuilt with React, Tailwind, shadcn and Vite
+-   Ported changelog from [original repo](https://github.com/kjroelke/macros-calculators)
 
-- Configure the top-level `parserOptions` property like this:
+## v1.2.5
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+-   Minor UI tweaks
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## v1.2.4
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+-   Switched number input type to work better for mobile UIs.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## v1.2.3
+
+-   Fixed UI for mobile devices so the output isn't hilariously large.
+
+## v1.2.2
+
+-   Bug fixes.
+-   Better UI for mobile devices.
+
+## v1.2.1
+
+-   Refactored underlying JS for proper MVC architecture.
+
+## v1.2
+
+### Password Protected!
+
+The calculator now has a very basic password protection so it can be publicly viewable and still inaccessible (as this is a private tool for Sara's business and a personal point of pride for me as a web developer).
+
+Also added a quick AJAX request to ipinfo.io to bypass the password if we're at home so we don't have to type in the password (as that will most likely be 95% of use cases for this tool for now).
+
+## v1.1
+
+### The Calculator has a new UI!
+
+I've updated the tool to have Macros By Sara official branding, as well as set the desktop version to be a 2-column flex-grid that utilizes position:sticky to keep the results in-focus.
+
+_No more scrolling to see the numbers being crunched!_
+
+### Dev notes
+
+-   Now firing `myCopright()` inside `init()`
+-   `myCopyright()` is now located inside of newly-renamed `utilities.js` module
+-   Added docs in `view.js`
+-   Refactored SCSS to implement `@use` in favor of deprecated `@import`
+
+## v1.0
+
+Init.
