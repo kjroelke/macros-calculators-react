@@ -25,6 +25,7 @@ export default function Modifiers() {
 
     return (
         <Form id='modifiers'>
+            <h2 className='text-2xl text-primary font-bold'>Modifiers</h2>
             <div
                 className='flex flex-col gap-y-5'
                 onChange={(ev) => {

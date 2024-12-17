@@ -46,7 +46,7 @@ function calcAllMacros(state: AppState): AppState {
     const newTdee = Math.round(bmr * state.modifiers.activity);
     const newState = {
         ...state,
-        bmr: bmr,
+        bmr,
         tdee: newTdee,
         calorieGoal: calcCalorieGoal(newTdee, state.modifiers.deficit, bmr),
         macros: calcMacros(
@@ -97,6 +97,8 @@ function reducer(state: AppState, action: reducerAction) {
                     [name]: value === '' ? 0 : Number(value),
                 },
             };
+            updatedState.bio.totalInches =
+                updatedState.bio.heightFt * 12 + updatedState.bio.heightIn;
             return calcAllMacros(updatedState);
         }
         case 'reset':

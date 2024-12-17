@@ -1,5 +1,5 @@
 import { useMacros } from '../Context/MacroContext';
-import InputNumber from '../ui/InputNumber';
+import StyledInput from '../ui/StyledInput';
 
 export default function ClientInfo() {
     const { bio, dispatch } = useMacros();
@@ -12,37 +12,51 @@ export default function ClientInfo() {
         <div
             id='body'
             className='flex flex-col gap-y-3 grow shrink basis-auto'>
-            <h3 className='text-lg text-primary font-bold'>Client Info</h3>
-            <InputNumber
-                label='Weight (in pounds)'
-                id='weight'
-                value={weight}
-                decimal={true}
-                handleChange={handleChange}
-            />
+            <div className='flex gap-2 items-center flex-wrap'>
+                <div>
+                    <StyledInput
+                        label='Age'
+                        id='age'
+                        value={age}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <StyledInput
+                        label='Weight'
+                        id='weight'
+                        value={weight}
+                        onChange={handleChange}
+                        step='0.1'
+                        type='number'
+                    />
+                </div>
+            </div>
             <div
                 id='height'
-                className='flex flex-col gap-y-3'>
+                className='flex flex-col'>
                 <h4 className='text-md font-bold text-primary'>Height</h4>
-                <InputNumber
-                    label='Ft'
-                    id='heightFt'
-                    value={heightFt}
-                    handleChange={handleChange}
-                />
-                <InputNumber
-                    label='In'
-                    id='heightIn'
-                    value={heightIn}
-                    handleChange={handleChange}
-                />
+                <div className='flex gap-2 items-center w-full'>
+                    <div className='flex gap-1 items-center'>
+                        <StyledInput
+                            label='Ft'
+                            id='heightFt'
+                            value={heightFt}
+                            onChange={handleChange}
+                            className='grow shrink basis-auto'
+                        />
+                    </div>
+                    <div className='flex gap-1 items-center'>
+                        <StyledInput
+                            label='In'
+                            id='heightIn'
+                            value={heightIn}
+                            onChange={handleChange}
+                            className='grow shrink basis-auto'
+                        />
+                    </div>
+                </div>
             </div>
-            <InputNumber
-                label='Age'
-                id='age'
-                value={age}
-                handleChange={handleChange}
-            />
         </div>
     );
 }
