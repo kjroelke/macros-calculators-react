@@ -3,10 +3,11 @@ import { Person } from './types.person';
 
 export type AppState = {
     bio: Person;
-    macros: macroState;
+    macros: macroState | { lowCarb: macroState; highCarb: macroState };
     modifiers: modifiers;
-    calorieGoal: number | string;
+    calorieGoal: number | string | { lowCarb: number; highCarb: number };
     tdee: number;
+    carbCycle: boolean;
     bmr: undefined | number;
 };
 

@@ -1,4 +1,4 @@
-import { useMacros } from '../Context/MacroContext';
+import { useMacros } from '@/hooks/useMacros';
 import StyledInput from '../ui/StyledInput';
 
 export default function ClientInfo() {

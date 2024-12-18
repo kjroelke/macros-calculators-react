@@ -1,9 +1,10 @@
 // 3rd Parties
-import { createContext, useReducer, useContext } from 'react';
+import React, { useReducer, ChangeEvent, createContext } from 'react';
 
 // Types
 import { AppState, reducerAction } from '../lib/types/types.app';
 import { calcBMR, calcCalorieGoal, calcMacros } from '../lib/Math/calculator';
+import { macroState } from '@/lib/types/types.macros';
 
 const initialState: AppState = {
     bio: {
@@ -39,6 +40,7 @@ const initialState: AppState = {
     calorieGoal: 1800,
     tdee: 2000,
     bmr: 1429,
+    carbCycle: false,
 };
 
 function calcAllMacros(state: AppState): AppState {
@@ -48,22 +50,46 @@ function calcAllMacros(state: AppState): AppState {
         ...state,
         bmr,
         tdee: newTdee,
-        calorieGoal: calcCalorieGoal(newTdee, state.modifiers.deficit, bmr),
-        macros: calcMacros(
-            state.macros,
-            state.modifiers,
-            state.bio,
-            state.calorieGoal,
+        calorieGoal: calcCalorieGoal(
+            newTdee,
+            state.modifiers.deficit,
+            bmr,
+            state.carbCycle,
         ),
     };
+    if (false === state.carbCycle) {
+        newState.macros = calcMacros(
+            state.macros as macroState,
+            state.modifiers,
+            state.bio,
+            state.calorieGoal as string | number,
+        );
+    }
+    if (state.carbCycle) {
+        newState.macros = {
+            lowCarb: calcMacros(
+                state.macros as macroState,
+                state.modifiers,
+                state.bio,
+                newState.calorieGoal.lowCarb as string | number,
+            ),
+            highCarb: calcMacros(
+                state.macros as macroState,
+                state.modifiers,
+                state.bio,
+                newState.calorieGoal.highCarb as string | number,
+            ),
+        };
+    }
     return newState;
 }
+
 function reducer(state: AppState, action: reducerAction) {
     switch (action.type) {
         case 'updateModifiers': {
             const {
                 target: { name, value },
-            } = action.payload;
+            } = action.payload as ChangeEvent<HTMLSelectElement>;
             const updatedState = {
                 ...state,
                 modifiers: {
@@ -75,7 +101,7 @@ function reducer(state: AppState, action: reducerAction) {
         }
 
         case 'bio/gender': {
-            const newGender = action.payload;
+            const newGender = action.payload as 'Male' | 'Female';
             const updatedState = {
                 ...state,
                 bio: {
@@ -89,7 +115,7 @@ function reducer(state: AppState, action: reducerAction) {
         case 'bio/personInfo': {
             const {
                 target: { name, value },
-            } = action.payload;
+            } = action.payload as ChangeEvent<HTMLInputElement>;
             const updatedState = {
                 ...state,
                 bio: {
@@ -101,31 +127,32 @@ function reducer(state: AppState, action: reducerAction) {
                 updatedState.bio.heightFt * 12 + updatedState.bio.heightIn;
             return calcAllMacros(updatedState);
         }
-        case 'reset':
-            return calcAllMacros(initialState);
+        case 'carbCycle': {
+            return state;
+        }
 
         default:
             throw new Error(`Unknown Action! ${action.type}`);
     }
 }
 
-const MacroContext = createContext();
-
-export function useMacros() {
-    const context = useContext(MacroContext);
-    if (!context)
-        throw new Error('Attempting to use context outside of provider!');
-    return context;
+interface MacroContextType {
+    state: AppState;
+    dispatch: React.Dispatch<reducerAction>;
 }
 
-export function MacroProvider({ children }) {
+// eslint-disable-next-line react-refresh/only-export-components
+export const MacroContext = createContext<MacroContextType | null>(null);
+
+export function MacroProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { bio, macros, modifiers, calorieGoal, tdee, bmr } = state;
+    const { bio, macros, modifiers, calorieGoal, tdee, bmr, carbCycle } = state;
     return (
         <MacroContext.Provider
             value={{
                 bio,
                 macros,
+                carbCycle,
                 modifiers,
                 calorieGoal,
                 tdee,
