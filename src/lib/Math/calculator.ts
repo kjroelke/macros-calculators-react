@@ -26,19 +26,22 @@ export function calcCalorieGoal(
     tdee: number,
     deficit: number,
     bmr: number,
-): number | string {
-    let calories: number | string = 0;
-    if (1.0 > deficit) {
-        calories = Math.round(tdee - tdee * deficit);
-        if (calories < bmr) {
-            calories = 'Too low!';
+    carbCycle: boolean,
+): number | string | { lowCarb: number; highCarb: number } {
+    if (!carbCycle) {
+        let calories: number | string = 0;
+        if (1.0 > deficit) {
+            calories = Math.round(tdee - tdee * deficit);
+            if (calories < bmr) {
+                calories = 'Too low!';
+            }
+        } else if (1.0 === deficit) {
+            calories = tdee;
+        } else if (1.0 < deficit) {
+            calories = Math.round(tdee * deficit);
         }
-    } else if (1.0 === deficit) {
-        calories = tdee;
-    } else if (1.0 < deficit) {
-        calories = Math.round(tdee * deficit);
+        return calories;
     }
-    return calories;
 }
 
 export function calcMacros(
