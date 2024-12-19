@@ -12,7 +12,12 @@ export type AppState = {
 };
 
 export type reducerAction = {
-    type: string;
+    type:
+        | 'updateModifiers'
+        | 'bio/person'
+        | 'bio/personInfo'
+        | 'bio/gender'
+        | 'carbCycle';
     payload: unknown;
 };
 
