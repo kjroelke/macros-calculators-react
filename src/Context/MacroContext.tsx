@@ -137,7 +137,13 @@ function reducer(state: AppState, action: reducerAction) {
 }
 
 interface MacroContextType {
-    state: AppState;
+    bio: AppState['bio'];
+    macros: AppState['macros'];
+    modifiers: AppState['modifiers'];
+    calorieGoal: AppState['calorieGoal'];
+    tdee: AppState['tdee'];
+    bmr: AppState['bmr'];
+    carbCycle: AppState['carbCycle'];
     dispatch: React.Dispatch<reducerAction>;
 }
 

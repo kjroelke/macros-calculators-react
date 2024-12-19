@@ -4,7 +4,7 @@ import Macros from './Macros';
 import { useMacros } from '@/hooks/useMacros';
 
 export default function Output() {
-    const { dispatch, bmr, tdee } = useMacros();
+    const { bmr, tdee } = useMacros();
     return (
         <SectionContainer
             className='sticky top-1 bg-white text-primary flex flex-col sm:justify-around items-stretch gap-3 drop-shadow-lg'
