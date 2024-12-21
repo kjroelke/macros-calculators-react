@@ -1,7 +1,7 @@
 import { AppState } from '../types/types.app';
 import { Macros, macroState, modifiers } from '../types/types.macros';
 import { Person } from '../types/types.person';
-import { calcBMR } from './bmr';
+import { calcBMR } from './calcBMR';
 import { calcCalorieGoal } from './calcCalorieGoal';
 
 class MacroCalculator {

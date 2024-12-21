@@ -1,5 +1,11 @@
 import { Person } from '../types/types.person';
 
+/** Returns BMR as Number */
+export function calcBMR(person: Person): number {
+    const calc = new BMR_Calculator(person);
+    return calc.bmr;
+}
+
 class BMR_Calculator {
     /** Height in inches */
     private totalInches: number;
@@ -33,10 +39,4 @@ class BMR_Calculator {
         };
         return bmr[gender];
     }
-}
-
-/** Returns BMR as Number */
-export function calcBMR(person: Person): number {
-    const calc = new BMR_Calculator(person);
-    return calc.bmr;
 }
