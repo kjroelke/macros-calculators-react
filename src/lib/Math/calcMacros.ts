@@ -21,6 +21,9 @@ class MacroCalculator {
      */
     private calorieGoal: number | string;
 
+    private lowCarbDays = 5;
+    private highCarbDays = 2;
+
     constructor(state: AppState) {
         this.state = state;
         this.bmr = calcBMR(state.bio);
@@ -45,7 +48,9 @@ class MacroCalculator {
                 macros: {
                     proteins,
                     fats,
-                    carbs,
+                    carbs: this.state.carbCycle
+                        ? this.calcCarbCycleCarbs(carbs.grams)
+                        : carbs,
                 },
             };
         } catch (error) {
@@ -62,8 +67,8 @@ class MacroCalculator {
             bio: person,
             modifiers: { protein: modifier },
         } = this.state;
-        const { proteins } = this.state.macros as macroState;
-        let { grams, calories } = proteins as Macros;
+        const { proteins } = this.state.macros;
+        let { grams, calories } = proteins;
         grams = Math.round(person.weight * modifier);
         calories = Math.round(grams * 4);
         const percentage = Math.round((calories / this.calorieGoal) * 100);
@@ -91,26 +96,56 @@ class MacroCalculator {
     private calcCarbs(): Macros {
         const goal = this.state.calorieGoal as number;
         const macros = this.state.macros as macroState;
-        let {
-            carbs: { grams: cGrams, percentage: cPercent, calories: cCals },
-        } = macros;
         const {
             fats: { calories: fCals },
             proteins: { calories: pCals },
         } = macros;
-        cCals = Math.round(goal - fCals - pCals);
-        cGrams = Math.round(cCals / 4);
-        cPercent = Math.round((cCals / goal) * 100);
+        const cCals = Math.round(goal - fCals - pCals);
+        const cGrams = Math.round(cCals / 4);
+        const cPercent = Math.round((cCals / goal) * 100);
         const carbMacros = {
             calories: cCals,
             grams: cGrams,
             percentage: cPercent,
         };
+
         return carbMacros;
     }
 
-    private calcLowCarbs(): macroState {}
-    private calcHighCarbs(): macroState {}
+    private calcCarbCycleCarbs(grams: number): {
+        lowCarb: Macros;
+        highCarb: Macros;
+    } {
+        const totalWeeklyCarbs = grams * 7;
+        // Assume low-carb days are 90% of daily carbs
+        // and high-carb days are 125% of daily carbs
+        const lowCarbGrams = grams * 0.9;
+        const lowCarbMacros = {
+            grams: lowCarbGrams,
+            calories: lowCarbGrams * 4,
+            percentage: Math.round(
+                ((lowCarbGrams * 4) / this.calorieGoal) * 100,
+            ),
+        };
+        const lowCarbTotal = lowCarbGrams * this.lowCarbDays;
+        return {
+            lowCarb: lowCarbMacros,
+            highCarb: this.calcHighCarbs(lowCarbTotal, totalWeeklyCarbs),
+        };
+    }
+
+    private calcHighCarbs(
+        lowCarbTotal: number,
+        totalWeeklyCarbs: number,
+    ): Macros {
+        const highCarbTotal = totalWeeklyCarbs - lowCarbTotal;
+        const highCarbIntake = highCarbTotal / this.highCarbDays;
+        return {
+            grams: highCarbIntake,
+            calories: highCarbIntake * 4,
+            percentage: Math.round((highCarbIntake * 4) / this.calorieGoal),
+        };
+    }
 }
 
 export function calcAllMacros(state: AppState): AppState {
