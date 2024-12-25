@@ -64,30 +64,24 @@ class MacroCalculator {
 
     private calcProteins(): Macros {
         const {
-            bio: person,
+            bio: { weight },
             modifiers: { protein: modifier },
         } = this.state;
-        const { proteins } = this.state.macros;
-        let { grams, calories } = proteins;
-        grams = Math.round(person.weight * modifier);
-        calories = Math.round(grams * 4);
+        const grams = Math.round(weight * modifier);
+        const calories = Math.round(grams * 4);
         const percentage = Math.round((calories / this.calorieGoal) * 100);
-        const proteinMacros = {
-            percentage: percentage,
-            grams: grams,
-            calories: calories,
+        return {
+            percentage,
+            grams,
+            calories,
         };
-        return proteinMacros;
     }
 
     private calcFats(): Macros {
-        const { fats } = this.state.macros as macroState;
-        let { grams, calories } = fats;
-        calories = Math.round((30 / 100) * this.calorieGoal);
-        grams = Math.round(calories / 9);
+        const newCalories = Math.round((30 / 100) * this.calorieGoal);
         const fatMacros = {
-            grams: grams,
-            calories: calories,
+            grams: Math.round(newCalories / 9),
+            calories: newCalories,
             percentage: 30,
         };
         return fatMacros;
@@ -95,21 +89,20 @@ class MacroCalculator {
 
     private calcCarbs(): Macros {
         const goal = this.state.calorieGoal as number;
-        const macros = this.state.macros as macroState;
         const {
-            fats: { calories: fCals },
-            proteins: { calories: pCals },
-        } = macros;
-        const cCals = Math.round(goal - fCals - pCals);
-        const cGrams = Math.round(cCals / 4);
-        const cPercent = Math.round((cCals / goal) * 100);
-        const carbMacros = {
-            calories: cCals,
-            grams: cGrams,
-            percentage: cPercent,
+            macros: {
+                fats: { calories: fatCals },
+                proteins: { calories: proteinCals },
+            },
+        } = this.state;
+        const calories = Math.round(goal - fatCals - proteinCals);
+        const grams = Math.round(calories / 4);
+        const percentage = Math.round((calories / goal) * 100);
+        return {
+            calories: calories,
+            grams,
+            percentage,
         };
-
-        return carbMacros;
     }
 
     private calcCarbCycleCarbs(grams: number): {
