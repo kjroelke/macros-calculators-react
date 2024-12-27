@@ -1,9 +1,8 @@
-import { macroState, modifiers } from './types.macros';
+import { modifiers } from './types.macros';
 import { Person } from './types.person';
 
 export type AppState = {
     bio: Person;
-    macros: macroState;
     modifiers: modifiers;
     calorieGoal: number | string | { lowCarb: number; highCarb: number };
     tdee: number;

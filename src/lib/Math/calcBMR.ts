@@ -13,11 +13,23 @@ class BMR_Calculator {
     private weight: number;
     bmr: number;
 
-    constructor(person: Person) {
-        this.totalInches = person.heightFt * 12 + person.heightIn;
-        this.age = person.age;
-        this.weight = person.weight;
-        this.bmr = this.getBMR(person.gender);
+    constructor({
+        heightFt,
+        heightIn,
+        age,
+        weight,
+        gender,
+    }: {
+        heightFt: Person['heightFt'];
+        heightIn: Person['heightIn'];
+        age: Person['age'];
+        weight: Person['weight'];
+        gender: Person['gender'];
+    }) {
+        this.totalInches = heightFt * 12 + heightIn;
+        this.age = age;
+        this.weight = weight;
+        this.bmr = this.getBMR(gender);
     }
 
     private calcFemaleBMR(): number {

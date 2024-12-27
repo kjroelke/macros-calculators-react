@@ -11,12 +11,9 @@ export default function CarbCycleToggle() {
                 <Switch
                     id='carbCycle'
                     checked={carbCycle}
-                    onChange={(checked) =>
-                        dispatch({
-                            type: 'carbCycle',
-                            payload: checked,
-                        })
-                    }
+                    onCheckedChange={(checked) => {
+                        dispatch({ type: 'carbCycle', payload: checked });
+                    }}
                 />
                 <label htmlFor='carbCycle'>On</label>
             </div>

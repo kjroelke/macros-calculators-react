@@ -47,7 +47,7 @@ export default function reducer(state: AppState, action: reducerAction) {
         }
 
         case 'carbCycle': {
-            return state;
+            return { ...state, carbCycle: action.payload as boolean };
         }
         default:
             throw new Error(`Unknown Action! ${action.type}`);
