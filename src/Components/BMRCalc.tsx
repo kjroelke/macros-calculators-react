@@ -1,13 +1,14 @@
 import ClientInfo from './ClientInfo';
-import Form from './Form';
+import Container from './Container';
 import GenderToggle from './GenderToggle';
 
 export default function BMRCalc() {
     return (
-        <Form id='bmr-calculator'>
-            <h2 className='text-2xl  font-bold'>Client Info</h2>
+        <Container
+            id='bmr-calculator'
+            cardTitle='Client Info'>
             <GenderToggle />
             <ClientInfo />
-        </Form>
+        </Container>
     );
 }
