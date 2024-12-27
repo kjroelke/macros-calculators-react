@@ -1,12 +1,11 @@
 import SectionContainer from '../ui/SectionContainer';
-import PersonInfo from '../ui/PersonInfo';
-import Calories from './Calories';
+import CarbCycledMacros from './MacroDisplay';
+import CarbCycleToggle from './CarbCycleToggle';
 import Macros from './Macros';
-import { Button } from './ui/button';
-import { useMacros } from '@/Context/MacroContext';
+import { useMacros } from '@/hooks/useMacros';
 
 export default function Output() {
-    const { dispatch } = useMacros();
+    const { bmr, tdee, carbCycle } = useMacros();
     return (
         <SectionContainer
             className='sticky top-1 bg-white text-primary flex flex-col sm:justify-around items-stretch gap-3 drop-shadow-lg'
@@ -14,18 +13,18 @@ export default function Output() {
             <h2 className='font-bold text-3xl text-primary'>
                 Macros Breakdown
             </h2>
-            <PersonInfo />
-            <Calories />
+            <div className='flex justify-between'>
+                <div className='flex flex-col gap-y-1'>
+                    <p>
+                        BMR: <strong>{bmr} calories</strong>
+                    </p>
+                    <p>
+                        TDEE: <strong>{tdee} calories</strong>
+                    </p>
+                </div>
+                <CarbCycleToggle />
+            </div>
             <Macros />
-            <Button
-                onClick={(ev) => {
-                    ev.preventDefault();
-                    dispatch({ type: 'reset' });
-                }}
-                className='text-white bg-brick px-5 py-2 text-sm cursor-pointer border-brick border-4 overflow-hidden rounded-lg hover:bg-transparent hover:text-brick transition-colors ease-in-out'
-                id='reset'>
-                Reset
-            </Button>
         </SectionContainer>
     );
 }

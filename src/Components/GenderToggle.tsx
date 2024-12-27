@@ -1,4 +1,4 @@
-import { useMacros } from '@/Context/MacroContext';
+import { useMacros } from '@/hooks/useMacros';
 import { Switch } from './ui/switch';
 
 export default function GenderToggle() {

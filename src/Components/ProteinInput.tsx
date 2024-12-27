@@ -1,4 +1,4 @@
-import { useMacros } from '../Context/MacroContext';
+import { useMacros } from '@/hooks/useMacros';
 import Form from './Form';
 import StyledInput from '../ui/StyledInput';
 import { ChangeEvent } from 'react';
