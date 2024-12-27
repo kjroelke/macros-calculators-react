@@ -35,7 +35,7 @@ export default function ClientInfo() {
             <div
                 id='height'
                 className='flex flex-col'>
-                <h4 className='text-md font-bold text-primary'>Height</h4>
+                <h4 className='text-md font-bold'>Height</h4>
                 <div className='flex gap-2 items-center w-full'>
                     <div className='flex gap-1 items-center'>
                         <StyledInput

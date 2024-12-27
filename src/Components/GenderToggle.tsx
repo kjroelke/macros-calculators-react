@@ -8,7 +8,7 @@ export default function GenderToggle() {
     } = useMacros();
     return (
         <div className='flex gap-2 items-center'>
-            <span className='font-bold text-primary'>Male</span>
+            <span className='font-bold'>Male</span>
             <Switch
                 className='data-[state=checked]:bg-primary-light data-[state=unchecked]:bg-secondary-light dark:data-[state=checked]:bg-secondary-light dark:data-[state=unchecked]:bg-primary-light'
                 checked={'Female' === gender}
@@ -19,7 +19,7 @@ export default function GenderToggle() {
                     })
                 }
             />
-            <span className='font-bold text-primary'>Female</span>
+            <span className='font-bold'>Female</span>
         </div>
     );
 }

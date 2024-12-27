@@ -1,6 +1,6 @@
 .cls-1,
 .cls-2 {
-    fill: #2c1d17;
+    fill: light-dark(#2c1d17, #d2bdb6);
 }
 .cls-3 {
     fill: none;
@@ -19,7 +19,7 @@
     fill: #7a4f41;
 }
 .cls-5 {
-    fill: #d2bdb6;
+    fill: light-dark(#d2bdb6, #2c1d17);
 }
 .cls-6 {
     fill: #b48464;

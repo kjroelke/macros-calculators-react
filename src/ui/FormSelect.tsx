@@ -21,7 +21,7 @@ export default function FormSelect({
         <div className={`form__content--${id} flex flex-col`}>
             {label && (
                 <Label
-                    className='font-bold text-primary'
+                    className='font-bold '
                     htmlFor={id}>
                     {label}
                 </Label>
@@ -30,7 +30,7 @@ export default function FormSelect({
                 <SelectTrigger className='border-2 border-primary rounded-md p-1'>
                     <SelectValue placeholder={label} />
                 </SelectTrigger>
-                <SelectContent className='border-primary bg-secondary text-primary dark:border-primary-light dark:bg-primary dark:text-secondary-light'>
+                <SelectContent className='border-primary bg-secondary  dark:border-primary-light dark:bg-primary dark:text-secondary-light'>
                     {options.map((pair) => {
                         return (
                             <SelectItem
