@@ -19,7 +19,7 @@ export default function StyledInput({
             {label && (
                 <Label
                     htmlFor={id}
-                    className='font-bold text-primary'>
+                    className='font-bold'>
                     {label}
                 </Label>
             )}

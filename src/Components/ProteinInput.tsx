@@ -15,7 +15,7 @@ export default function MacroForm() {
     } = useMacros();
     return (
         <Form id='protein-calculator'>
-            <div className='text-primary'>
+            <div>
                 <h2 className='font-bold text-2xl'>Protein Modifier</h2>
                 <p className='italic text-base'>(grams per lb.)</p>
             </div>

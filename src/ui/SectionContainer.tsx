@@ -10,7 +10,7 @@ export default function SectionContainer({
     return (
         <section
             id={id}
-            className={`p-7 rounded-2xl border-primary border-2 overflow-hidden ${className}`}>
+            className={`p-7 rounded-2xl dark:border-primary-light border-primary border-2 overflow-hidden ${className}`}>
             {children}
         </section>
     );
