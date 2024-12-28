@@ -27,7 +27,7 @@ export default function StyledInput({
                 className={cn(
                     'border-2',
                     'border-primary',
-                    'dark:border-primary-light',
+                    'dark:border-secondary-light',
                     'rounded-md',
                     'p-1',
                     className,

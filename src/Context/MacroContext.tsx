@@ -5,7 +5,6 @@ import { initialState } from './initialState';
 
 interface MacroContextType {
     bio: AppState['bio'];
-    macros: AppState['macros'];
     modifiers: AppState['modifiers'];
     calorieGoal: AppState['calorieGoal'];
     tdee: AppState['tdee'];
@@ -19,12 +18,11 @@ export const MacroContext = createContext<MacroContextType | null>(null);
 
 export function MacroProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { bio, macros, modifiers, calorieGoal, tdee, bmr, carbCycle } = state;
+    const { bio, modifiers, calorieGoal, tdee, bmr, carbCycle } = state;
     return (
         <MacroContext.Provider
             value={{
                 bio,
-                macros,
                 carbCycle,
                 modifiers,
                 calorieGoal,
