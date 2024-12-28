@@ -1,27 +1,29 @@
-import SectionContainer from '../ui/SectionContainer';
 import CarbCycleToggle from './CarbCycleToggle';
+import Container from './Container';
 import Macros from './Macros';
 import { useMacros } from '@/hooks/useMacros';
 
 export default function Output() {
-    const { bmr, tdee, carbCycle } = useMacros();
+    const { bmr, tdee } = useMacros();
     return (
-        <SectionContainer
-            className='sticky top-1 dark:bg-stone-900  dark:text-stone-200 bg-white text-primary flex flex-col sm:justify-around items-stretch gap-3 drop-shadow-lg'
-            id='output'>
-            <h2 className='font-bold text-3xl '>Macros Breakdown</h2>
-            <div className='flex justify-between'>
-                <div className='flex flex-col gap-y-1'>
-                    <p>
-                        BMR: <strong>{bmr} calories</strong>
-                    </p>
-                    <p>
-                        TDEE: <strong>{tdee} calories</strong>
-                    </p>
+        <Container
+            id='output'
+            cardTitle='Macros Breakdown'
+            className='sticky top-3 text-primary flex flex-col sm:justify-around items-stretch gap-3 drop-shadow-lg'>
+            <div className='flex flex-col gap-y-4'>
+                <div className='flex justify-between'>
+                    <div className='flex flex-col gap-y-1'>
+                        <p>
+                            BMR: <strong>{bmr} calories</strong>
+                        </p>
+                        <p>
+                            TDEE: <strong>{tdee} calories</strong>
+                        </p>
+                    </div>
+                    <CarbCycleToggle />
                 </div>
-                <CarbCycleToggle />
+                <Macros />
             </div>
-            <Macros />
-        </SectionContainer>
+        </Container>
     );
 }

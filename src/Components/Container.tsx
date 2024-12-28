@@ -6,7 +6,7 @@ import {
     CardTitle,
 } from '@/Components/ui/card';
 
-interface ContainerProps {
+interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     id: string;
     cardTitle: string;
     cardDescription?: string;
@@ -18,11 +18,12 @@ export default function Container({
     cardTitle,
     cardDescription,
     children,
+    ...props
 }: ContainerProps) {
     return (
         <Card
-            id={id}
-            className={`p-7 rounded-2xl dark:border-primary-light border-primary border-2 overflow-hidden`}>
+            {...props}
+            id={id}>
             <CardHeader>
                 <CardTitle className='text-2xl font-bold'>
                     <h2>{cardTitle}</h2>

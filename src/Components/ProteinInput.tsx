@@ -2,6 +2,7 @@ import { useMacros } from '@/hooks/useMacros';
 import Form from './Form';
 import StyledInput from '../ui/StyledInput';
 import { ChangeEvent } from 'react';
+import Container from './Container';
 
 const proteinRange = {
     Female: '0.6 – 1.0',
@@ -14,7 +15,10 @@ export default function MacroForm() {
         dispatch,
     } = useMacros();
     return (
-        <Form id='protein-calculator'>
+        <Container
+            id='protein'
+            cardTitle='Protein Modifier'
+            cardDescription='(grams per lb.)'>
             <div>
                 <h2 className='font-bold text-2xl'>Protein Modifier</h2>
                 <p className='italic text-base'>(grams per lb.)</p>
@@ -33,6 +37,6 @@ export default function MacroForm() {
                 step='0.1'
                 type='number'
             />
-        </Form>
+        </Container>
     );
 }

@@ -10,7 +10,6 @@ export default function GenderToggle() {
         <div className='flex gap-2 items-center'>
             <span className='font-bold'>Male</span>
             <Switch
-                className='data-[state=checked]:bg-primary-light data-[state=unchecked]:bg-secondary-light dark:data-[state=checked]:bg-secondary-light dark:data-[state=unchecked]:bg-primary-light'
                 checked={'Female' === gender}
                 onCheckedChange={(checked) =>
                     dispatch({

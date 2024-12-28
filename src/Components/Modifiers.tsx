@@ -1,6 +1,6 @@
 import { useMacros } from '@/hooks/useMacros';
 import FormSelect from '../ui/FormSelect';
-import Form from './Form';
+import Container from './Container';
 
 const activity = [
     {
@@ -24,8 +24,9 @@ export default function Modifiers() {
     const { dispatch } = useMacros();
 
     return (
-        <Form id='modifiers'>
-            <h2 className='text-2xl font-bold'>Modifiers</h2>
+        <Container
+            id='modifiers'
+            cardTitle='Modifiers'>
             <div
                 className='flex flex-col gap-y-5'
                 onChange={(ev) => {
@@ -42,6 +43,6 @@ export default function Modifiers() {
                     id='deficit'
                 />
             </div>
-        </Form>
+        </Container>
     );
 }

@@ -18,10 +18,10 @@ export default function FormSelect({
     label: string | false;
 }) {
     return (
-        <div className={`form__content--${id} flex flex-col`}>
+        <div className={`form__content--${id} flex flex-col gap-y-3`}>
             {label && (
                 <Label
-                    className='font-bold '
+                    className='font-bold'
                     htmlFor={id}>
                     {label}
                 </Label>
