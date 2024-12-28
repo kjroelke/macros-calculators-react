@@ -18,7 +18,7 @@ export default function Macros() {
         carbCycle,
     } = useMacros();
 
-    const calorieGoal = calcCalorieGoal(tdee, modifiers.deficit, bmr);
+    const calorieGoal = calcCalorieGoal(tdee, modifiers.deficit, bmr!);
     const fats = calcFats(calorieGoal);
     const proteins = calcProteins(weight, modifiers.protein, calorieGoal);
     let carbs: Macros | { lowCarb: Macros; highCarb: Macros } = calcCarbs(

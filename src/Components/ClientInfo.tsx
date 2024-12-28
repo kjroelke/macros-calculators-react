@@ -1,10 +1,11 @@
 import { useMacros } from '@/hooks/useMacros';
 import StyledInput from '../ui/StyledInput';
+import { ChangeEvent } from 'react';
 
 export default function ClientInfo() {
     const { bio, dispatch } = useMacros();
     const { age, weight, heightFt, heightIn } = bio;
-    function handleChange(ev) {
+    function handleChange(ev: ChangeEvent<HTMLInputElement>) {
         dispatch({ type: 'bio/personInfo', payload: ev });
     }
 
