@@ -9,7 +9,7 @@ export default function Output() {
         <Container
             id='output'
             cardTitle='Macros Breakdown'
-            className='sticky top-3 text-primary flex flex-col sm:justify-around items-stretch gap-3 drop-shadow-lg'>
+            className='relative md:sticky md:top-3 text-primary flex flex-col sm:justify-around items-stretch gap-3 drop-shadow-lg'>
             <div className='flex flex-col gap-y-4'>
                 <div className='flex justify-between'>
                     <div className='flex flex-col gap-y-1'>
