@@ -20,8 +20,6 @@ const formSchema = z.object({
     password: z.string(),
 });
 
-const IS_TEST = true;
-
 export default function LoginForm() {
     const { setIsLoggedIn } = useMacros();
     const form = useForm<z.infer<typeof formSchema>>({
