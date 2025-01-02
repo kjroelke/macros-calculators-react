@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -14,11 +13,14 @@ import {
 } from './ui/form';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import Container from './Container';
 
 const formSchema = z.object({
     username: z.string().min(2).max(50),
     password: z.string(),
 });
+
+const IS_TEST = true;
 
 export default function LoginForm() {
     const { setIsLoggedIn } = useMacros();
@@ -32,17 +34,20 @@ export default function LoginForm() {
     async function onSubmit(values: z.infer<typeof formSchema>) {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + import.meta.env.WP_AUTH,
+            'Authorization': `Basic ${btoa(
+                `kj:${import.meta.env.VITE_WP_AUTH}`,
+            )}`,
         };
         try {
             const response = await fetch(
-                'https://macrosbysara.com/wp-json/mbs/v1/auth',
+                `https://macrosbysara.com/wp-json/mbs/v1/auth`,
                 {
                     method: 'POST',
                     headers,
                     body: JSON.stringify(values),
                 },
             );
+            console.log(response);
             if (response.ok) {
                 setIsLoggedIn(true);
             } else {
@@ -50,54 +55,55 @@ export default function LoginForm() {
                 console.error(data);
             }
         } catch (err) {
-            console.error(err);
+            console.warn(err);
         }
     }
     return (
-        <div className='mx-auto my-0 flex flex-col gap-y-10 gap-x-5 md:py-10 md:px-2 max-w-screen-sm'>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className='space-y-8'>
-                    <FormField
-                        control={form.control}
-                        name='username'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Username</FormLabel>
-                                <FormControl>
-                                    <Input {...field} />
-                                </FormControl>
-                                <FormDescription>
-                                    This is your public display name.
-                                </FormDescription>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name='password'
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel htmlFor='password'>
-                                    Password
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        {...field}
-                                        id='password'
-                                        type='password'
-                                        {...form.register('password')}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button type='submit'>Submit</Button>
-                </form>
-            </Form>
+        <div className='mx-auto my-4 md:py-10 md:px-2 max-w-screen-sm'>
+            <Container
+                cardTitle='Login'
+                id='login-form'>
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className='space-y-8'>
+                        <FormField
+                            control={form.control}
+                            name='username'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Username</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name='password'
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel htmlFor='password'>
+                                        Password
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            id='password'
+                                            type='password'
+                                            {...form.register('password')}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type='submit'>Submit</Button>
+                    </form>
+                </Form>
+            </Container>
         </div>
     );
 }
