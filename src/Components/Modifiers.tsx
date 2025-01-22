@@ -21,17 +21,11 @@ const deficit = [
 ];
 
 export default function Modifiers() {
-    const { dispatch } = useMacros();
-
     return (
         <Container
             id='modifiers'
             cardTitle='Modifiers'>
-            <div
-                className='flex flex-col gap-y-5'
-                onChange={(ev) => {
-                    dispatch({ type: 'updateModifiers', payload: ev });
-                }}>
+            <div className='flex flex-col gap-y-5'>
                 <FormSelect
                     label='Activity Modifier'
                     options={activity}

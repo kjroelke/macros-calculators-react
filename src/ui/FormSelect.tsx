@@ -7,6 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/Components/ui/select';
+import { useMacros } from '@/hooks/useMacros';
 
 export default function FormSelect({
     id,
@@ -17,6 +18,7 @@ export default function FormSelect({
     options: modifierLabel[];
     label: string | false;
 }) {
+    const { dispatch, modifiers } = useMacros();
     return (
         <div className={`form__content--${id} flex flex-col gap-y-3`}>
             {label && (
@@ -26,7 +28,14 @@ export default function FormSelect({
                     {label}
                 </Label>
             )}
-            <Select>
+            <Select
+                value={options[modifiers[id]]}
+                onValueChange={(ev) => {
+                    dispatch({
+                        type: 'updateModifiers',
+                        payload: { name: id, value: ev },
+                    });
+                }}>
                 <SelectTrigger className='border-2 border-primary rounded-md p-1'>
                     <SelectValue placeholder={label} />
                 </SelectTrigger>
