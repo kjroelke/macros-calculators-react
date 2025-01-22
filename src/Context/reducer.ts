@@ -5,9 +5,10 @@ import { calcAllMacros } from '@/lib/Math/calcMacros';
 export default function reducer(state: AppState, action: reducerAction) {
     switch (action.type) {
         case 'updateModifiers': {
-            const {
-                target: { name, value },
-            } = action.payload as ChangeEvent<HTMLSelectElement>;
+            const { name, value } = action.payload as {
+                name: string;
+                value: string;
+            };
             const updatedState = {
                 ...state,
                 modifiers: {
