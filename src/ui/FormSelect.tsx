@@ -14,11 +14,13 @@ export default function FormSelect({
     options,
     label,
 }: {
-    id: string;
+    id: 'activity' | 'deficit' | 'protein';
     options: modifierLabel[];
     label: string | false;
 }) {
     const { dispatch, modifiers } = useMacros();
+    const optionsMap = new Map(options.map((pair) => [pair.mod, pair]));
+    const value = `${optionsMap.get(modifiers[id])!.mod}`;
     return (
         <div className={`form__content--${id} flex flex-col gap-y-3`}>
             {label && (
@@ -29,7 +31,7 @@ export default function FormSelect({
                 </Label>
             )}
             <Select
-                value={options[modifiers[id]].label}
+                value={value}
                 onValueChange={(ev) => {
                     dispatch({
                         type: 'updateModifiers',
