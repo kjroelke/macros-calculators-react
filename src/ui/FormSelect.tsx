@@ -29,7 +29,7 @@ export default function FormSelect({
                 </Label>
             )}
             <Select
-                value={options[modifiers[id]]}
+                value={options[modifiers[id]].label}
                 onValueChange={(ev) => {
                     dispatch({
                         type: 'updateModifiers',
