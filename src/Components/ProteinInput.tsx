@@ -50,15 +50,15 @@ export default function MacroForm() {
                             dispatch({
                                 type: 'updateModifiers',
                                 payload: {
-                                    target: {
-                                        name: 'protein',
-                                        value: value[0] / 10,
-                                    },
+                                    name: 'protein',
+                                    value: value[0] / 10,
                                 },
                             });
                         }}
                         min={proteinRange[gender].low * 10}
                         max={proteinRange[gender].high * 10}
+                        step={1}
+                        minStepsBetweenThumbs={1}
                     />{' '}
                     <span
                         className='font-bold'
