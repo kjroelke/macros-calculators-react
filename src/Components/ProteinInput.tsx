@@ -71,7 +71,7 @@ export default function MacroForm() {
                     label={false}
                     id='protein'
                     value={modifier}
-                    onChange={(ev: ChangeEvent) => {
+                    onChange={(ev: ChangeEvent<HTMLInputElement>) => {
                         dispatch({ type: 'updateModifiers', payload: { name: 'protein', value: ev.target.value} });
                     }}
                     step='0.1'
