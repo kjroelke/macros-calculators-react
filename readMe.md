@@ -7,6 +7,10 @@ Originally developed in MVC Pattern with 7-1 SCSS structure and BEM class names.
 
 # Changelog
 
+## v2.1.2
+
+- Fixed vite config bug
+
 ## v2.1.1
 
 - Now deploys to Github Pages
