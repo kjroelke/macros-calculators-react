@@ -1,7 +1,6 @@
 import React, { useReducer, createContext, useState } from 'react';
 import { AppState, reducerAction } from '../lib/types/types.app';
 import reducer from './reducer';
-import { initialState } from './initialState';
 
 interface MacroContextType {
     isLoggedIn: boolean;
@@ -18,7 +17,12 @@ interface MacroContextType {
 // eslint-disable-next-line react-refresh/only-export-components
 export const MacroContext = createContext<MacroContextType | null>(null);
 
-export function MacroProvider({ children }: { children: React.ReactNode }) {
+interface MacroProviderProps {
+    children: React.ReactNode;
+    initialState: AppState;
+}
+
+export function MacroProvider({ children, initialState }: MacroProviderProps) {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const { bio, modifiers, calorieGoal, tdee, bmr, carbCycle } = state;

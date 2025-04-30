@@ -5,14 +5,17 @@ import App from './App.tsx';
 import Header from './ui/Header.tsx';
 import Footer from './ui/Footer.tsx';
 import { MacroProvider } from './Context/MacroContext.tsx';
+import { loadStateFromLocalStorage } from './lib/utils/localStorage';
+import { initialState as defaultState } from './Context/initialState.ts';
 
+const initialState = loadStateFromLocalStorage() || defaultState;
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <Header
             title='A Macro Calculator'
             subtitle='Built with Love and React'
         />
-        <MacroProvider>
+        <MacroProvider initialState={initialState}>
             <App />
         </MacroProvider>
         <Footer />

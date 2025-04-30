@@ -18,49 +18,66 @@ export default function Macros() {
         carbCycle,
     } = useMacros();
 
-    const calorieGoal = calcCalorieGoal(tdee, modifiers.deficit, bmr!);
-    const fats = calcFats(calorieGoal);
-    const proteins = calcProteins(weight, modifiers.protein, calorieGoal);
-    let carbs: Macros | { lowCarb: Macros; highCarb: Macros } = calcCarbs(
-        calorieGoal,
-        fats.calories,
-        proteins.calories,
-    );
-    if (carbCycle) {
-        carbs = calcCarbCycleCarbs(carbs.grams, calorieGoal);
+    let calorieGoal: number | null = null;
+    let error: string | null = null;
+    let fats: Macros | null = null;
+    let proteins: Macros | null = null;
+    let carbs: Macros | { lowCarb: Macros; highCarb: Macros } | null = null;
+
+    try {
+        calorieGoal = calcCalorieGoal(tdee, modifiers.deficit, bmr!);
+        fats = calcFats(calorieGoal);
+        proteins = calcProteins(weight, modifiers.protein, calorieGoal);
+        carbs = calcCarbs(calorieGoal, fats.calories, proteins.calories);
+        if (carbCycle && carbs) {
+            carbs = calcCarbCycleCarbs(carbs.grams, calorieGoal);
+        }
+    } catch (err) {
+        error = err instanceof Error ? err.message : 'An error occurred while calculating your macros.';
     }
     const macros = [
         {
             label: 'Fats',
-            macro: fats,
+            macro: fats!,
             id: 'fats',
         },
         {
             label: 'Proteins',
-            macro: proteins,
+            macro: proteins!,
             id: 'proteins',
         },
         {
             label: 'Carbs',
-            macro: carbs,
+            macro: carbs!,
             id: 'carbs',
         },
-    ];
+    ].filter((macro) => macro.macro !== null);
 
     return (
         <div className='flex flex-wrap gap-3 justify-between items-center'>
             <div className='flex flex-col justify-center items-center text-center'>
-                <p className='font-bold'>Total Calories:</p>
-                <p>{calorieGoal} calories</p>
+                <p className='font-bold'>Total Calories:{' '}
+                {error ? (
+                    <span className='text-red-500'>{error}</span>
+                ) : calorieGoal === null ? (
+                    <span className='text-gray-500'>Calculating...</span>
+                ) : (
+                    <span>{calorieGoal} calories</span>
+                )}
+                </p>
             </div>
-            {macros.map(({ id, label, macro }) => (
-                <MacroDisplay
-                    key={id}
-                    label={label}
-                    macros={macro}
-                    id={id}
-                />
-            ))}
+            {error ? null : macros.length > 0 ? (
+                macros.map(({ id, label, macro }) => (
+                    <MacroDisplay
+                        key={id}
+                        label={label}
+                        macros={macro}
+                        id={id}
+                    />
+                ))
+            ) : (
+                <p className='text-gray-500'>No macros available.</p>
+            )}
         </div>
     );
 }

@@ -7,6 +7,12 @@ Originally developed in MVC Pattern with 7-1 SCSS structure and BEM class names.
 
 # Changelog
 
+## v2.1.0
+
+- Proper error handling when calories dip below BMR
+- Fixed a bug that didn't allow custom protein modifier input
+- Now stores state in local storage for 1 week in case the app crashes
+
 ## v2.0.0
 
 -   Rebuilt with React, Tailwind, shadcn and Vite
