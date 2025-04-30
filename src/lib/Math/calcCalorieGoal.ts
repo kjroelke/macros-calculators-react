@@ -19,7 +19,7 @@ export function calcCalorieGoal(
     if (isCut) {
         calories = Math.round(tdee - tdee * deficit);
         if (calories < bmr) {
-            throw new Error('Too low!');
+            throw new Error('Calories are below BMR!');
         }
     } else if (isMaintenance) {
         calories = tdee;

@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { AppState, reducerAction } from '@/lib/types/types.app';
 import { calcAllMacros } from '@/lib/Math/calcMacros';
+import { saveStateToLocalStorage } from '@/lib/utils/localStorage';
 
 export default function reducer(state: AppState, action: reducerAction) {
     switch (action.type) {
@@ -44,11 +45,15 @@ export default function reducer(state: AppState, action: reducerAction) {
             };
             updatedState.bio.totalInches =
                 updatedState.bio.heightFt * 12 + updatedState.bio.heightIn;
-            return calcAllMacros(updatedState);
+            const newState = calcAllMacros(updatedState);
+            saveStateToLocalStorage(newState);
+            return newState;
         }
 
         case 'carbCycle': {
-            return { ...state, carbCycle: action.payload as boolean };
+            const newState = { ...state, carbCycle: action.payload as boolean };
+            saveStateToLocalStorage(newState);
+            return newState;
         }
         default:
             throw new Error(`Unknown Action! ${action.type}`);

@@ -72,7 +72,7 @@ export default function MacroForm() {
                     id='protein'
                     value={modifier}
                     onChange={(ev: ChangeEvent) => {
-                        dispatch({ type: 'updateModifiers', payload: ev });
+                        dispatch({ type: 'updateModifiers', payload: { name: 'protein', value: ev.target.value} });
                     }}
                     step='0.1'
                     type='number'
