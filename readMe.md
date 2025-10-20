@@ -7,20 +7,25 @@ Originally developed in MVC Pattern with 7-1 SCSS structure and BEM class names.
 
 # Changelog
 
+## v2.1.3 - [October 19, 2025]
+
+-   Refactor: Removed `AppInternals` in favor of simpler loading in `App`
+-   Chore: Update packages
+
 ## v2.1.2
 
-- Fixed vite config bug
+-   Fixed vite config bug
 
 ## v2.1.1
 
-- Now deploys to Github Pages
-- Fixed a build bug
+-   Now deploys to Github Pages
+-   Fixed a build bug
 
 ## v2.1.0
 
-- Proper error handling when calories dip below BMR
-- Fixed a bug that didn't allow custom protein modifier input
-- Now stores state in local storage for 1 week in case the app crashes
+-   Proper error handling when calories dip below BMR
+-   Fixed a bug that didn't allow custom protein modifier input
+-   Now stores state in local storage for 1 week in case the app crashes
 
 ## v2.0.0
 
